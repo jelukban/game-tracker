@@ -16,6 +16,12 @@ class Game(db.Model):
     description = db.Column(db.Text, nullable=True)
     game_image = db.Column(db.String, nullable=False)
 
+    ratings = db.relationship('Rating', back_populates='game')
+    interests = db.relationship('Interest', back_populates='game')
+    games_played = db.relationship('GamePlayed', back_populates='game')
+    game_platforms = db.relationship('GamePlatform', back_populates='game')
+    game_genres = db.relationship('GameGenre', back_populates='game')
+
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.name}>"
 
@@ -31,6 +37,10 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
 
+    ratings = db.relationship('Rating', back_populates='user')
+    interests = db.relationship('Interest', back_populates='user')
+    games_played = db.relationship('GamePlayed', back_populates='user')
+
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.fname} {self.lname}>"
 
@@ -41,9 +51,12 @@ class Rating(db.Model):
     ___tablename__ = 'ratings'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = None
-    user_id = None
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     score = db.Column(db.Integer)
+
+    game = db.relationship('Game', back_populates='ratings')
+    user = db.relationship('User', back_populates='ratings')
 
     def __repr__(self):
         return f"<Id = {self.id} Rating for Game({self.game_id}) by User({self.user_id})>"
@@ -55,8 +68,11 @@ class Interest(db.Model):
     ___tablename__ = 'interests'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = None
-    user_id = None
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    game = db.relationship('Game', back_populates='interests')
+    user = db.relationship('User', back_populates='interests')
 
     def __repr__(self):
         return f"<Id = {self.id} User({self.user_id}) interested in Game({self.game_id})>"
@@ -68,8 +84,11 @@ class GamePlayed(db.Model):
     __tablename__ = 'games_played'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = None
-    user_id = None
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    game = db.relationship('Game', back_populates='games_played')
+    user = db.relationship('User', back_populates='games_played')
 
     def __repr__(self):
         return f"<Id = {self.id} User({self.user_id}) played Game({self.game_id})>"
@@ -83,6 +102,8 @@ class Genre(db.model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
+    game_genres = db.relationship('GameGenre', back_populates='genre')
+
     def __repr__(self):
         return f"<Id = {self.id} Genre Name = {self.name}>"
 
@@ -92,6 +113,8 @@ class Platform(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
+
+    game_platforms = db.relationship('GamePlatform', back_populates='platform')
 
     def __repr__(self):
         return f"<Id = {self.id} Platform Name = {self.name}>"
@@ -103,8 +126,11 @@ class GameGenre(db.Model):
     ___tablename__ = 'game_genres'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = None
-    genre_id = None
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'))
+
+    game = db.relationship('Game', back_populates='game_genres')
+    genre = db.relationship('Genre', back_populates='game_genres')
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.genre_id}"
@@ -116,8 +142,28 @@ class GamePlatform(db.Model):
     __tablename__ = 'game_platforms'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = None
-    platform_id = None
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    platform_id = db.Column(db.Integer, db.ForeignKey('platforms.id'))
+
+    game = db.relationship('Game', back_populates='game_platforms')
+    platform = db.relationship('Platform', back_populates='game_platforms')
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.platform_id}"
+
+
+def connect_to_db(flask_app, db_uri="postgresql:///games", echo=True):
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print("Connected to the db!")
+
+
+if __name__ == "__main__":
+    from server import app
+
+    connect_to_db(app)
