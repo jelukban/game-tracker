@@ -19,8 +19,9 @@ class Game(db.Model):
     ratings = db.relationship('Rating', back_populates='game')
     interests = db.relationship('Interest', back_populates='game')
     games_played = db.relationship('GamePlayed', back_populates='game')
-    game_platforms = db.relationship('GamePlatform', back_populates='game')
-    game_genres = db.relationship('GameGenre', back_populates='game')
+    platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
+    genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
+
 
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.name}>"
@@ -102,7 +103,7 @@ class Genre(db.model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    game_genres = db.relationship('GameGenre', back_populates='genre')
+    games = db.relationship('Game', secondary='game_genres', back_populates='genres')
 
     def __repr__(self):
         return f"<Id = {self.id} Genre Name = {self.name}>"
@@ -114,7 +115,7 @@ class Platform(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    game_platforms = db.relationship('GamePlatform', back_populates='platform')
+    games = db.relationship('Game', secondary='game_platforms', back_populates='platforms')
 
     def __repr__(self):
         return f"<Id = {self.id} Platform Name = {self.name}>"
@@ -129,8 +130,6 @@ class GameGenre(db.Model):
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'))
 
-    game = db.relationship('Game', back_populates='game_genres')
-    genre = db.relationship('Genre', back_populates='game_genres')
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.genre_id}"
@@ -145,8 +144,6 @@ class GamePlatform(db.Model):
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     platform_id = db.Column(db.Integer, db.ForeignKey('platforms.id'))
 
-    game = db.relationship('Game', back_populates='game_platforms')
-    platform = db.relationship('Platform', back_populates='game_platforms')
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.platform_id}"
