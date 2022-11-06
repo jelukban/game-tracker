@@ -30,7 +30,7 @@ class Game(db.Model):
 class User(db.Model):
     """ A user. """
 
-    ___tablename__ = 'users'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     fname = db.Column(db.String, nullable=False)
@@ -49,7 +49,7 @@ class User(db.Model):
 class Rating(db.Model):
     """ A rating for individual video games made by a user. """
 
-    ___tablename__ = 'ratings'
+    __tablename__ = 'ratings'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
@@ -66,7 +66,7 @@ class Rating(db.Model):
 class Interest(db.Model):
     """ A video game classified as interesting by a user. """
 
-    ___tablename__ = 'interests'
+    __tablename__ = 'interests'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
@@ -95,7 +95,7 @@ class GamePlayed(db.Model):
         return f"<Id = {self.id} User({self.user_id}) played Game({self.game_id})>"
 
 
-class Genre(db.model):
+class Genre(db.Model):
     """ Different video game genres. """
 
     __tablename__ = 'genres'
@@ -112,6 +112,8 @@ class Genre(db.model):
 class Platform(db.Model):
     """ Various gaming platforms. """
 
+    __tablename__ = 'platforms'
+
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
@@ -124,7 +126,7 @@ class Platform(db.Model):
 class GameGenre(db.Model):
     """ Video games and their associated genres. """
 
-    ___tablename__ = 'game_genres'
+    __tablename__ = 'game_genres'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
@@ -149,7 +151,7 @@ class GamePlatform(db.Model):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.platform_id}"
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///games", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///game_tracker", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
