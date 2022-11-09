@@ -14,7 +14,8 @@ class Game(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
-    game_image = db.Column(db.String, nullable=False)
+    game_image = db.Column(db.String, nullable=True)
+    release_date = db.Column(db.DateTime, nullable=True)
 
     ratings = db.relationship('Rating', back_populates='game')
     interests = db.relationship('Interest', back_populates='game')
