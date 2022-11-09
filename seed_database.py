@@ -3,9 +3,8 @@ import json
 import requests
 from random import choice, randint
 from datetime import datetime
-
-import crud
 import model
+import crud
 import server
 
 os.system("dropdb game_tracker")
@@ -19,27 +18,32 @@ API_ID = os.environ['CLIENT_ID']
 API_SECRET = os.environ['CLIENT_SECRET']
 
 url = f"https://id.twitch.tv/oauth2/token?client_id={API_ID}&client_secret={API_SECRET}&grant_type=client_credentials"
-res= requests.post(url)
+res = requests.post(url)
 access_token = res.json()
 access_token = access_token['access_token']
 
 payload = {'Client-ID': API_ID,
 'Authorization': f"Bearer {access_token}"}
 
-data = 'fields name, platforms, storyline, genres, cover;'
+#### Seeding into game database
+data = 'fields name, platforms, storyline, genres, cover, first_release_date;'
 
 req = requests.post('https://api.igdb.com/v4/games', data=data, headers=payload)
 search_results = req.json()
 
-all_games = []
 
 for game in search_results:
     name = game.get('name')
     description = game.get('storyline')
     game_image = game.get('cover')
+    release_date = game.get('first_release_date')
 
-    game = crud.create_game(name=name, description=description, game_image=game_image)
-    all_games.append(game)
+    if release_date:
+        release_date = datetime.fromtimestamp(int(release_date)).strftime('%m-%d-%Y')
 
-model.db.session.add_all(all_games)
+    game = crud.create_game(name=name,
+            description=description,
+            game_image=game_image,
+            release_date=release_date)
+    model.db.session.add(game)
 model.db.session.commit()
