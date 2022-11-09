@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db, Rating
 import crud
 from jinja2 import StrictUndefined
@@ -14,6 +14,15 @@ def show_homepage():
 
     return render_template('index.html')
 
+@app.route('/api/games')
+def get_games_json():
+    """ Return a JSON response with all video games. """
+
+    games = crud.get_all_games()
+
+    return jsonify({'games': games})
+
 if __name__ == "__main__":
+
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
