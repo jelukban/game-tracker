@@ -23,6 +23,13 @@ class Game(db.Model):
     platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
     genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
 
+    def to_json(self):
+        """ Returns data of object. """
+
+        return {'name': f"{self.name}",
+                'description': f"{self.description}",
+                'game_image': f"{self.game_image}",
+                'release_date': f"{self.release_date}"}
 
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.name}>"

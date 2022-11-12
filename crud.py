@@ -15,7 +15,14 @@ def create_game(name, description, game_image, release_date):
 def get_all_games():
     """ Returns all video games in the Game db. """
 
-    return db.session.query(Game).all()
+    games = db.session.query(Game).all()
+
+    final_json = []
+
+    for game in games:
+        final_json.append(game.to_json())
+
+    return final_json
 
 if __name__ == '__main__':
 
