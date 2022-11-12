@@ -25,25 +25,31 @@ access_token = access_token['access_token']
 payload = {'Client-ID': API_ID,
 'Authorization': f"Bearer {access_token}"}
 
-#### Seeding into game database
-data = 'fields name, platforms, storyline, genres, cover, first_release_date;'
+#### Seeding into game database of all the video games
+i = 0
+while i < 150000:
 
-req = requests.post('https://api.igdb.com/v4/games', data=data, headers=payload)
-search_results = req.json()
+    data = f'fields name, platforms, storyline, genres, cover, first_release_date; limit 500; offset {i};'
+
+    req = requests.post('https://api.igdb.com/v4/games', data=data, headers=payload)
+    search_results = req.json()
 
 
-for game in search_results:
-    name = game.get('name')
-    description = game.get('storyline')
-    game_image = game.get('cover')
-    release_date = game.get('first_release_date')
+    for game in search_results:
+        name = game.get('name')
+        description = game.get('storyline')
+        game_image = game.get('cover')
+        release_date = game.get('first_release_date')
 
-    if release_date:
-        release_date = datetime.fromtimestamp(int(release_date)).strftime('%m-%d-%Y')
+        if release_date:
+            release_date = datetime.fromtimestamp(int(release_date)).strftime("%m-%d-%Y")
 
-    game = crud.create_game(name=name,
-            description=description,
-            game_image=game_image,
-            release_date=release_date)
-    model.db.session.add(game)
+        if name:
+            game = crud.create_game(name=name,
+                    description=description,
+                    game_image=game_image,
+                    release_date=release_date)
+            model.db.session.add(game)
+    i += 500
+
 model.db.session.commit()
