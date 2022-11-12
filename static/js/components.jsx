@@ -1,9 +1,9 @@
 'use strict';
 
-function VideoGame({name, description, release_date}) {
+function VideoGame({game_image, name, description, release_date}) {
     return (
     <div className="video-game">
-        <p>Video game cover goes here</p>
+        <p> Game Image goes here {game_image}</p>
         <p> {name}</p>
         <p> {description} </p>
         <p> {release_date}</p>
@@ -27,6 +27,7 @@ function VideoGameContainer() {
     for (const currentGame of games) {
         videoGames.push(
             <VideoGame
+            game_image={currentGame.game_image}
             name={currentGame.name}
             decription={currentGame.description}
             release_date={currentGame.release_date}
