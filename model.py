@@ -29,7 +29,7 @@ class Game(db.Model):
 
         return {'name': f"{self.name}",
                 'description': f"{self.description}",
-                'cover_id': f"{self.cover.url}",
+                'cover_url': f"{self.cover.url}",
                 'release_date': f"{self.release_date}"}
 
     def __repr__(self):

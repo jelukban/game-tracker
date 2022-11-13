@@ -48,13 +48,12 @@ while i < 200000:
         if id:
             id = int(id)
 
-        url = cover.get('url')
-        url = url[2:]
+        if url != None and id:
+            url = cover.get('url')
+            url = 'http:' + url
 
-        # video_game_cover_ids = model.db.session.query(model.Game.cover_id).all()
-        # print(video_game_cover_ids)
-        cover = crud.create_cover(id=id, url=url)
-        model.db.session.add(cover)
+            cover = crud.create_cover(id=id, url=url)
+            model.db.session.add(cover)
     i += 500
 
 
