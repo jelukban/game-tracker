@@ -1,12 +1,12 @@
 'use strict';
 
-function VideoGame({game_image, name, description, release_date}) {
+function VideoGame({cover_url, name, description, release_date}) {
     return (
     <div className="video-game">
-        <p> Game Image goes here {game_image}</p>
-        <p> {name}</p>
+        <img src={cover_url}></img>
+        <p className="video-game-title"> {name}</p>
         <p> {description} </p>
-        <p> {release_date}</p>
+        <p> Release Date: {release_date}</p>
     </div>
     );
 };
@@ -15,6 +15,7 @@ function VideoGame({game_image, name, description, release_date}) {
 function VideoGameContainer() {
 
     const [games, setGames] = React.useState([]);
+    const [count, setCount] = React.useState(0)
 
     React.useEffect(() => {
         fetch('/api/games')
@@ -24,19 +25,23 @@ function VideoGameContainer() {
 
     const videoGames = [];
 
-    for (const currentGame of games) {
-        videoGames.push(
-            <VideoGame
-            game_image={currentGame.game_image}
-            name={currentGame.name}
-            decription={currentGame.description}
-            release_date={currentGame.release_date}
-            />
-        );
-    };
+
+    let i = 0
+        for (const currentGame of games) {
+            videoGames.push(
+                <VideoGame
+                cover_url={currentGame.cover_id.url}
+                name={currentGame.name}
+                decription={currentGame.description}
+                release_date={currentGame.release_date}
+                />
+            );
+            i++;
+        };
 
     return (
         <React.Fragment>
+            <button onClick={() => setCount(50)}> Show 50 </button>
             <h2> Video Games </h2>
             <div className="grid">{videoGames}</div>
         </React.Fragment>
