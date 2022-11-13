@@ -11,10 +11,10 @@ class Game(db.Model):
 
     __tablename__ = 'games'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
-    game_image = db.Column(db.String, nullable=True)
+    cover_id = db.Column(db.Integer, db.ForeignKey('covers.id'), nullable=True)
     release_date = db.Column(db.DateTime, nullable=True)
 
     ratings = db.relationship('Rating', back_populates='game')
@@ -22,13 +22,14 @@ class Game(db.Model):
     games_played = db.relationship('GamePlayed', back_populates='game')
     platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
     genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
+    cover = db.relationship('Cover', back_populates='game')
 
     def to_json(self):
         """ Returns data of object. """
 
         return {'name': f"{self.name}",
                 'description': f"{self.description}",
-                'game_image': f"{self.game_image}",
+                'cover_id': f"{self.cover.url}",
                 'release_date': f"{self.release_date}"}
 
     def __repr__(self):
@@ -129,6 +130,19 @@ class Platform(db.Model):
 
     def __repr__(self):
         return f"<Id = {self.id} Platform Name = {self.name}>"
+
+class Cover(db.Model):
+    """ Various game covers. """
+
+    __tablename__ = 'covers'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    url = db.Column(db.String)
+
+    game = db.relationship('Game', back_populates='cover')
+
+    def __repr__(self):
+        return f"<Id {self.id} URL {self.url}>"
 
 
 class GameGenre(db.Model):

@@ -1,16 +1,21 @@
 """ CRUD operations. """
 
-from model import db, User, Game, connect_to_db
+from model import db, User, Game, GameGenre, Cover, connect_to_db
 
 
-def create_game(name, description, game_image, release_date):
+def create_game(id, name, description, cover_id, release_date):
     """ Creates a video game to add to the Game db. """
 
-    return Game(name=name,
+    return Game(id=id,
+        name=name,
         description=description,
-        game_image=game_image,
+        cover_id=cover_id,
         release_date=release_date)
 
+def create_cover(id, url):
+    """ Created cover. """
+
+    return Cover(id=id, url=url)
 
 def get_all_games():
     """ Returns all video games in the Game db. """
@@ -23,6 +28,10 @@ def get_all_games():
         final_json.append(game.to_json())
 
     return final_json
+
+def get_all_covers():
+    """ Returns list of all cover urls. """
+    return db.session.query(Cover).all()
 
 if __name__ == '__main__':
 

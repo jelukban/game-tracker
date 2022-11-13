@@ -25,31 +25,76 @@ access_token = access_token['access_token']
 payload = {'Client-ID': API_ID,
 'Authorization': f"Bearer {access_token}"}
 
-#### Seeding into game database of all the video games
-i = 0
-while i < 150000:
 
-    data = f'fields name, platforms, storyline, genres, cover, first_release_date; limit 500; offset {i};'
+
+#### Convert ids to integer
+
+### Seeding Genre db
+
+
+### Seeding Cover information
+i = 0
+while i < 200000:
+
+    data = f'fields id, url; limit 500; offset {i};'
+
+    req = requests.post('https://api.igdb.com/v4/covers', data=data, headers=payload)
+    search_results = req.json()
+
+
+    for cover in search_results:
+        id = cover.get('id')
+
+        if id:
+            id = int(id)
+
+        url = cover.get('url')
+        url = url[2:]
+
+        # video_game_cover_ids = model.db.session.query(model.Game.cover_id).all()
+        # print(video_game_cover_ids)
+        cover = crud.create_cover(id=id, url=url)
+        model.db.session.add(cover)
+    i += 500
+
+
+### Seeding Platform db
+
+
+### Seeding into game database of all the video games
+i = 0
+while i < 1000:
+
+    data = f'fields id, name, platforms, storyline, genres, cover, first_release_date; limit 500; offset {i};'
 
     req = requests.post('https://api.igdb.com/v4/games', data=data, headers=payload)
     search_results = req.json()
 
 
     for game in search_results:
+        id = game.get('id')
         name = game.get('name')
         description = game.get('storyline')
-        game_image = game.get('cover')
+        cover_id = game.get('cover')
         release_date = game.get('first_release_date')
 
         if release_date:
-            release_date = datetime.fromtimestamp(int(release_date)).strftime("%m-%d-%Y")
+            release_date = datetime.fromtimestamp(int(release_date))
 
-        if name:
-            game = crud.create_game(name=name,
-                    description=description,
-                    game_image=game_image,
-                    release_date=release_date)
-            model.db.session.add(game)
+        if name and id and cover_id and release_date and release_date.year >= 1995:
+            if name and id and cover_id:
+                id = int(id)
+                cover_id = int(cover_id)
+
+                game = crud.create_game(id=id,
+                    name=name,
+                        description=description,
+                        cover_id=cover_id,
+                        release_date=release_date)
+                model.db.session.add(game)
     i += 500
+
+
+
 
 model.db.session.commit()
