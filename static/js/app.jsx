@@ -1,17 +1,22 @@
 'use strict';
 
+const Link = ReactRouterDOM.Link;
+const Route = ReactRouterDOM.Route;
+
 function Homepage () {
     return (
         <div>
-            <div>
-                <VideoGameContainer />
-            </div>
+                <ul>
+                <li><Link to="/login">Login</Link></li>
+            </ul>
+            <VideoGameContainer />
         </div>
     );
 };
 
 function LoginPage () {
     return (
+        <React.Fragment>
         <div> Login Form
                 <h1>Sign into your account</h1>
                 <form id="login" method="POST">
@@ -22,6 +27,7 @@ function LoginPage () {
                     <button type="submit">Sign In</button>
                 </form>
             </div>
+        </React.Fragment>
     );
 };
 
@@ -29,36 +35,19 @@ function Navbar () {
     pass;
 };
 
-function MainContent () {
-    const [currentPage, setCurrentPage] = React.useState('');
-
-    function renderContent () {
-        if (currentPage === 'homepage') {
-            return <Homepage></Homepage>
-        }
-        if (currentPage === 'login') {
-            return <LoginPage></LoginPage>
-        };
-    };
-
-    return (
-        <div>
-            <button onClick={() => setCurrentPage('homepage')}>Homepage</button>
-            <button onClick={() => setCurrentPage('login')}>Login</button>
-            {renderContent()}
-        </div>
-        );
-};
-
-function SideContent () {
-    pass;
-};
 
 function App() {
     return (
-        <div>
-            <MainContent />
-        </div>
+        <ReactRouterDOM.BrowserRouter>
+            <React.Fragment>
+                <ReactRouterDOM.Route exact path ='/'>
+                    <Homepage />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path='/login'>
+                    <LoginPage />
+                </ReactRouterDOM.Route>
+            </React.Fragment>
+        </ReactRouterDOM.BrowserRouter>
     );
 };
 

@@ -45,7 +45,6 @@ function VideoGameContainer() {
     return (
         <React.Fragment>
             <button onClick={() => setCount(50)}> Show 50 </button>
-            <h2> Video Games </h2>
             <div className="grid">{videoGames}</div>
         </React.Fragment>
     );
