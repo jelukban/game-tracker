@@ -14,6 +14,7 @@ def show_homepage():
 
     return render_template('index.html')
 
+
 @app.route('/api/games')
 def get_games_json():
     """ Return a JSON response with all video games. """
@@ -21,6 +22,7 @@ def get_games_json():
     games = crud.get_all_games()
 
     return jsonify({'games': games})
+
 
 if __name__ == "__main__":
 
