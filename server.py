@@ -24,6 +24,17 @@ def get_games_json():
     return jsonify({'games': games})
 
 
+@app.route('/api/login', methods=['POST'])
+def check_user_login():
+    """ Checks user logged in information against db. """
+
+    data = request.get_json()
+
+    email = data.get('email')
+    password = data.get('password')
+
+    return None
+
 if __name__ == "__main__":
 
     connect_to_db(app)
