@@ -33,28 +33,28 @@ payload = {'Client-ID': API_ID,
 
 
 ### Seeding Cover information
-i = 0
-while i < 200000:
+# i = 0
+# while i < 500000:
 
-    data = f'fields id, url; limit 500; offset {i};'
+#     data = f'fields id, url; limit 500; offset {i};'
 
-    req = requests.post('https://api.igdb.com/v4/covers', data=data, headers=payload)
-    search_results = req.json()
+#     req = requests.post('https://api.igdb.com/v4/covers', data=data, headers=payload)
+#     search_results = req.json()
 
 
-    for cover in search_results:
-        id = cover.get('id')
+#     for cover in search_results:
+#         id = cover.get('id')
 
-        if id:
-            id = int(id)
+#         if id:
+#             id = int(id)
 
-        if url != None and id:
-            url = cover.get('url')
-            url = 'http:' + url
+#         if url != None and id:
+#             url = cover.get('url')
+#             url = 'http:' + url
 
-            cover = crud.create_cover(id=id, url=url)
-            model.db.session.add(cover)
-    i += 500
+#             cover = crud.create_cover(id=id, url=url)
+#             model.db.session.add(cover)
+#     i += 500
 
 
 ### Seeding Platform db
@@ -64,36 +64,41 @@ while i < 200000:
 i = 0
 while i < 1000:
 
-    data = f'fields id, name, platforms, storyline, genres, cover, first_release_date; limit 500; offset {i};'
-
-    req = requests.post('https://api.igdb.com/v4/games', data=data, headers=payload)
+    data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; limit 500; offset {i};}};'
+    print(i)
+    req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)
     search_results = req.json()
 
+    print(search_results)
 
-    for game in search_results:
-        id = game.get('id')
-        name = game.get('name')
-        description = game.get('storyline')
-        cover_id = game.get('cover')
-        release_date = game.get('first_release_date')
+    # for game in search_results:
+    #     id = game.get('id')
+    #     name = game.get('name')
+    #     description = game.get('storyline')
+    #     cover_id = game.get('cover')
+    #     release_date = game.get('first_release_date')
 
-        if release_date:
-            release_date = datetime.fromtimestamp(int(release_date))
+    #     if release_date:
+    #         release_date = datetime.fromtimestamp(int(release_date))
 
-        if name and id and cover_id and release_date and release_date.year >= 1995:
-            if name and id and cover_id:
-                id = int(id)
-                cover_id = int(cover_id)
+    #     if name and id and cover_id and release_date and release_date.year >= 1995:
+    #         id = int(id)
+    #         cover_id = int(cover_id)
 
-                game = crud.create_game(id=id,
-                    name=name,
-                        description=description,
-                        cover_id=cover_id,
-                        release_date=release_date)
-                model.db.session.add(game)
+    #         if cover_id != 45017 and cover_id != 32061 and cover_id:
+    #             game = crud.create_game(id=id,
+    #                 name=name,
+    #                     description=description,
+    #                     cover_id=cover_id,
+    #                     release_date=release_date)
+    #             model.db.session.add(game)
     i += 500
 
 
+## Adding in test users
+user = crud.create_user(fname='Jane',lname='Doe', email='test@tst.com',
+                        password='aaa')
 
+model.db.session.add(user)
 
 model.db.session.commit()

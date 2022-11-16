@@ -1,6 +1,6 @@
 """ CRUD operations. """
 
-from model import db, User, Game, GameGenre, Cover, connect_to_db, Interest, GamePlayed
+from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed
 
 
 def create_game(id, name, description, cover_id, release_date):
@@ -22,10 +22,10 @@ def create_user(fname, lname, email, password):
         password=password)
 
 
-def create_cover(id, url):
-    """ Created cover. """
+# def create_cover(id, url):
+#     """ Created cover. """
 
-    return Cover(id=id, url=url)
+#     return Cover(id=id, url=url)
 
 
 def create_interest(game_id, user_id):
@@ -59,6 +59,12 @@ def get_all_users():
     """ Returns all users. """
 
     return db.session.query(User).all()
+
+
+def check_if_user_exists(email, password):
+    """ Checks to see if user exists in the database. """
+
+    return True if db.session.query(User).filter(User.email == email, User.password == password).one() else False
 
 
 if __name__ == '__main__':

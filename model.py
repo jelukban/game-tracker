@@ -14,15 +14,16 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
-    cover_id = db.Column(db.Integer, db.ForeignKey('covers.id'), nullable=True)
+    # cover_id = db.Column(db.Integer, db.ForeignKey('covers.id'), nullable=True)
     release_date = db.Column(db.DateTime, nullable=True)
+    cover_url = db.Column(db.String, nullable=True)
 
     ratings = db.relationship('Rating', back_populates='game')
     interests = db.relationship('Interest', back_populates='game')
     games_played = db.relationship('GamePlayed', back_populates='game')
     platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
     genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
-    cover = db.relationship('Cover', back_populates='game')
+    # cover = db.relationship('Cover', back_populates='game')
 
     def to_json(self):
         """ Returns data of object. """
@@ -50,6 +51,15 @@ class User(db.Model):
     ratings = db.relationship('Rating', back_populates='user')
     interests = db.relationship('Interest', back_populates='user')
     games_played = db.relationship('GamePlayed', back_populates='user')
+
+    def to_json(self):
+        """ Returns data of object. """
+
+        return {'first_name': f"{self.fname}",
+                'last_name': f"{self.lname}",
+                'email': f"{self.email}",
+                'password': f"{self.password}",
+                'interests': f"{self.interests.game.name}"}
 
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.fname} {self.lname}>"
@@ -131,18 +141,18 @@ class Platform(db.Model):
     def __repr__(self):
         return f"<Id = {self.id} Platform Name = {self.name}>"
 
-class Cover(db.Model):
-    """ Various game covers. """
+# class Cover(db.Model):
+#     """ Various game covers. """
 
-    __tablename__ = 'covers'
+#     __tablename__ = 'covers'
 
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    url = db.Column(db.String)
+#     id = db.Column(db.Integer, primary_key=True, nullable=True)
+#     url = db.Column(db.String)
 
-    game = db.relationship('Game', back_populates='cover')
+#     game = db.relationship('Game', back_populates='cover')
 
-    def __repr__(self):
-        return f"<Id {self.id} URL {self.url}>"
+#     def __repr__(self):
+#         return f"<Id {self.id} URL {self.url}>"
 
 
 class GameGenre(db.Model):
