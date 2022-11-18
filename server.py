@@ -33,7 +33,11 @@ def check_user_login():
     email = data.get('email')
     password = data.get('password')
 
-    return None
+    has_account = crud.check_if_user_exists(email=email, password=password)
+
+    return jsonify({'email': email,
+                    'password': password,
+                    'has_account': has_account})
 
 if __name__ == "__main__":
 
