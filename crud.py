@@ -3,13 +3,13 @@
 from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed
 
 
-def create_game(id, name, description, cover_id, release_date):
+def create_game(id, name, description, cover_url, release_date):
     """ Creates a video game to add to the Game db. """
 
     return Game(id=id,
         name=name,
         description=description,
-        cover_id=cover_id,
+        cover_url=cover_url,
         release_date=release_date)
 
 
@@ -20,12 +20,6 @@ def create_user(fname, lname, email, password):
         lname=lname,
         email=email,
         password=password)
-
-
-# def create_cover(id, url):
-#     """ Created cover. """
-
-#     return Cover(id=id, url=url)
 
 
 def create_interest(game_id, user_id):
