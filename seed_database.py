@@ -28,9 +28,9 @@ payload = {'Client-ID': API_ID,
 
 ### Seeding into game database of all the video games
 i = 0
-while i < 400000:
+while i < 271000:
 
-    data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; limit 1; offset {i};}};'
+    data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; limit 500; offset {i};}};'
     # print(i)
     req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)
     search_results = req.json()
