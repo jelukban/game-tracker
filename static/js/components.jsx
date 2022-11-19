@@ -25,6 +25,7 @@ function VideoGameContainer() {
     const videoGames = [];
 
     let i = 0
+
     if (count !== 0) {
         for (const currentGame of games) {
             videoGames.push(
@@ -36,11 +37,13 @@ function VideoGameContainer() {
                 />
             );
             i++;
-            if (i === 50) {
+            if (i === 100) {
                 break;
-                };
+            } else if (i === 50) {
+                break;
             };
         };
+    };
 
     return (
         <React.Fragment>

@@ -33,11 +33,44 @@ def check_user_login():
     email = data.get('email')
     password = data.get('password')
 
-    has_account = crud.check_if_user_exists(email=email, password=password)
+    user_info = crud.find_user_by_email(email, password)
 
-    return jsonify({'email': email,
+    if user_info == "User does not exist":
+        flash('Please create an account.')
+        return redirect('/login')
+    else:
+        user_info['has_account'] = True
+        return jsonify(user_info)
+
+
+@app.route('/api/create', methods=['POST'])
+def create_user_account():
+    """ Creates user account. """
+
+    data = request.get_json()
+
+    first_name = data.get('firstName')
+    last_name = data.get('lastName')
+    email = data.get('email')
+    password = data.get('password')
+
+
+    new_account = crud.create_user(fname=first_name,
+                                lname=last_name,
+                                email=email,
+                                password=password)
+
+    db.session.add(new_account)
+    db.session.commit()
+
+    flash('Successfully logged in!')
+
+    return jsonify({'firstName': first_name,
+                    'lastName': last_name,
+                    'email': email,
                     'password': password,
-                    'has_account': has_account})
+                    'has_account': True})
+
 
 if __name__ == "__main__":
 

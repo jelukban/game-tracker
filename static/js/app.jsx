@@ -44,19 +44,32 @@ function LoginPage () {
 };
 
 function CreateAccount () {
+
+    const [user, setUser] = React.useState({firstName: "",
+                                            lastName: "",
+                                            email: "",
+                                            password: "" });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetch('/api/create', { method: 'POST',
+            body: JSON.stringify(user),
+            headers: { 'Content-Type': 'application/json',
+        }})};
+
     return (
         <React.Fragment>
         <div> Create An Account
                 <h1>Please Fill Out The Form</h1>
-                <form id="create-account" method="POST">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="text" id="email"></input>
+                <form id="create-account" onSubmit={handleSubmit}>
                     <label htmlFor="first-name">First Name</label>
-                    <input type="text" id="first-name"></input>
+                    <input type="text" id="first-name" onChange={(e) => setUser({ ...user, firstName: e.target.value })}></input>
                     <label htmlFor="last-name">Last Name</label>
-                    <input type="text" id="last-name"></input>
+                    <input type="text" id="last-name" onChange={(e) => setUser({ ...user, lastName: e.target.value })}></input>
+                    <label htmlFor="email" >Email Address</label>
+                    <input type="text" id="email" onChange={(e) => setUser({ ...user, email: e.target.value })}></input>
                     <label htmlFor="password"> Password</label>
-                    <input type="password" id='password'></input>
+                    <input type="password" id='password' onChange={(e) => setUser({ ...user, password: e.target.value })}></input>
                     <button type="submit">Create</button>
                 </form>
             </div>

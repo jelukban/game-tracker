@@ -2,7 +2,6 @@
 
 from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed
 
-
 def create_game(id, name, description, cover_url, release_date):
     """ Creates a video game to add to the Game db. """
 
@@ -59,6 +58,20 @@ def check_if_user_exists(email, password):
     """ Checks to see if user exists in the database. """
 
     return True if db.session.query(User).filter(User.email == email, User.password == password).one() else False
+
+
+def find_user_by_email(email, password):
+    """ Finds user by email. """
+
+    if check_if_user_exists(email, password):
+        user = db.session.query(User).filter(User.email == email, User.password == password).one()
+
+        return {'first_name': user.fname,
+                'last_name': user.lname,
+                'email': user.email,
+                'password': user.password}
+    else:
+        return("User does not exist")
 
 
 if __name__ == '__main__':
