@@ -16,6 +16,7 @@ function Homepage () {
     );
 };
 
+
 function LoginPage () {
 
     const [user, setUser] = React.useState({ email: "", password: "" });
@@ -25,7 +26,10 @@ function LoginPage () {
         fetch('/api/login', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
-        }})};
+            }})
+        .then((response) => response.Json())
+        .then((result) => setLoggedIn(result.has_account));
+        };
 
     return (
         <React.Fragment>
@@ -43,6 +47,7 @@ function LoginPage () {
     );
 };
 
+
 function CreateAccount () {
 
     const [user, setUser] = React.useState({firstName: "",
@@ -50,12 +55,17 @@ function CreateAccount () {
                                             email: "",
                                             password: "" });
 
+    const [loggedIn, setLoggedIn] = React.useState(False)
+
     const handleSubmit = (e) => {
         e.preventDefault();
         fetch('/api/create', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
-        }})};
+            }})
+            .then((response) => response.Json())
+            .then((result) => setLoggedIn(result.has_account));
+    };
 
     return (
         <React.Fragment>
