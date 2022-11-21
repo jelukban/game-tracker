@@ -26,7 +26,8 @@ class Game(db.Model):
     def to_json(self):
         """ Returns data of object. """
 
-        return {'name': f"{self.name}",
+        return {'id': f"{self.id}",
+                'name': f"{self.name}",
                 'description': f"{self.description}",
                 'cover_url': f"{self.cover_url}",
                 'release_date': f"{self.release_date}"}
