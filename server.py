@@ -1,5 +1,5 @@
-from crypt import methods
-from flask import Flask, render_template, request, flash, session, redirect, jsonify
+
+from flask import Flask, render_template, request, flash, redirect, jsonify
 from model import connect_to_db, db, Rating
 import crud
 from jinja2 import StrictUndefined
@@ -39,7 +39,7 @@ def check_user_login():
         flash('Please create an account.')
         return redirect('/login')
     else:
-        user_info['has_account'] = True
+        user_info['has_account'] = 'True'
         return jsonify(user_info)
 
 
@@ -69,7 +69,7 @@ def create_user_account():
                     'lastName': last_name,
                     'email': email,
                     'password': password,
-                    'has_account': True})
+                    'has_account': 'True'})
 
 
 if __name__ == "__main__":

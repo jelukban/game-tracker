@@ -26,16 +26,15 @@ payload = {'Client-ID': API_ID,
 'Authorization': f"Bearer {access_token}"}
 
 
-### Seeding into game database of all the video games
+### to fix seeding, query one at a time and then add it, do last
 i = 0
 while i < 271000:
 
-    data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; limit 500; offset {i};}};'
-    # print(i)
+    data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; sort id asc; limit 500; offset {i};}};'
     req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)
     search_results = req.json()
 
-    # print(search_results)
+    print(search_results)
 
     for game in search_results:
         if len(game.get('result')) != 0:
@@ -73,6 +72,7 @@ while i < 271000:
                 model.db.session.add(game)
         else:
             continue
+
     i += 500
 
 
