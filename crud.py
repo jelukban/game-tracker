@@ -74,6 +74,12 @@ def find_user_by_email(email, password):
         return("User does not exist")
 
 
+def get_game_by_id(game_id):
+    """ Returns game information by id. """
+
+    return db.session.query(Game).get(game_id)
+
+
 if __name__ == '__main__':
 
     from server import app

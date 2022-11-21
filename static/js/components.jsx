@@ -1,15 +1,15 @@
 'use strict';
 
-function VideoGame({cover_url, name, description, release_date}) {
+function VideoGame({cover_url, name, release_date}) {
     return (
     <div className="video-game">
         <img src={cover_url} height="128" width="90"></img>
         <p className="video-game-title"> {name}</p>
-        <p> {description} </p>
         <p> Release Date: {release_date}</p>
     </div>
     );
 };
+
 
 function VideoGameContainer() {
 
@@ -22,34 +22,37 @@ function VideoGameContainer() {
         .then((responseJson) => setGames(responseJson.games))
     }, []);
 
-    const videoGames = [];
-
-    let i = 0
-
-    if (count !== 0) {
-        for (const currentGame of games) {
-            videoGames.push(
-                <VideoGame
-                cover_url={currentGame.cover_url}
-                name={currentGame.name}
-                decription={currentGame.description}
-                release_date={currentGame.release_date}
-                />
-            );
-            i++;
-            if (i === 100) {
-                break;
-            } else if (i === 50) {
-                break;
-            };
-        };
-    };
 
     return (
         <React.Fragment>
-            <button onClick={() => setCount(50)}> 50 </button>
-            <button onClick={() => setCount(100)}> 100 </button>
-            <div className="grid">{videoGames}</div>
+            <div className="grid">
+                {games.map(game => <VideoGame cover_url={game.cover_url}
+                                            name={game.name}
+                                            release_date={game.release_date} />)}
+            </div>
         </React.Fragment>
     );
 }
+
+
+function VideoGameDetails({gameId}){
+
+    const [game, setGame] = React.useState('')
+
+    React.useEffect(() => {
+        fetch(`/api/games/${gameId}`)
+        .then((response) => response.json())
+        .then((result) => {
+            setGame(result);
+        });
+    }, []);
+
+    return(
+        <div>
+            <h1 className="video-game-title"> {game.name}</h1>
+            <img src={game.cover_url} height="128" width="90"></img>
+            <p> Release Date: {game.release_date}</p>
+            <p> Description: {game.description}</p>
+        </div>
+    );
+};

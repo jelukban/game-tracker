@@ -73,6 +73,19 @@ def create_user_account():
                     'has_account': 'True'})
 
 
+@app.route('/api/games/<game_id>')
+def show_game_information(game_id):
+    """ Shows details for individual game. """
+
+    game = crud.get_game_by_id(game_id)
+
+    return jsonify({'id': game.id,
+                    'name': game.name,
+                    'description':game.description,
+                    'release_date':game.release_date,
+                    'cover_url':game.cover_url})
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)

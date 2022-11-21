@@ -54,6 +54,7 @@ function CreateAccount ({handleSubmit,setUser}) {
     );
 };
 
+
 function Navbar ({loggedIn}) {
     if (loggedIn) {
     return (
@@ -79,6 +80,7 @@ function Navbar ({loggedIn}) {
     };
 };
 
+
 function UserDashboard ({user}) {
     return (
         <React.Fragment>
@@ -100,7 +102,7 @@ function App() {
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         fetch('/api/login', { method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify(user),–
             headers: { 'Content-Type': 'application/json',
             }})
         .then((response) => response.json())
@@ -151,5 +153,6 @@ function App() {
         </ReactRouterDOM.BrowserRouter>
     );
 };
+
 
 ReactDOM.render(<App />, document.querySelector('#root'));
