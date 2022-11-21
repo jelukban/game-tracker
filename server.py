@@ -33,6 +33,7 @@ def check_user_login():
     email = data.get('email')
     password = data.get('password')
 
+
     user_info = crud.find_user_by_email(email, password)
 
     if user_info == "User does not exist":

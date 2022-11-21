@@ -54,23 +54,35 @@ function CreateAccount ({handleSubmit,setUser}) {
     );
 };
 
-function Navbar () {
-    return (
-    <React.Fragment>
-    <ul>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/create">Create An Account</Link></li>
-        <li><Link to="/profile">User Profile</Link></li>
-    </ul>
-    </React.Fragment>
-    );
-};
-
-function UserDashboard () {
+function Navbar ({loggedIn}) {
+    if (loggedIn) {
     return (
         <React.Fragment>
-            <div>User Profile
-            </div>
+        <ul>
+            <li><Link to="/dashboard">Home</Link></li>
+            <li><Link to="/dashboard/likedgames">Liked Games</Link></li>
+            <li><Link to="/dashboard/interestinggames">Interests</Link></li>
+            <li><Link to="/signout"> Sign Out Here</Link></li>
+        </ul>
+        </React.Fragment>
+    );
+    } else {
+        return(
+            <React.Fragment>
+            <ul>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/create">Create An Account</Link></li>
+                <li><Link to="/profile">User Profile</Link></li>
+            </ul>
+            </React.Fragment>
+        );
+    };
+};
+
+function UserDashboard ({user}) {
+    return (
+        <React.Fragment>
+            <h1>Welcome {user.firstName}!</h1>
         </React.Fragment>
     );
 };
@@ -93,6 +105,10 @@ function App() {
             }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
+            setUser({firstName: result.first_name,
+                    lastName: result.last_name,
+                    email: result.email,
+                    password: result.password});
             setLoggedIn(true);
             };
         });
@@ -114,7 +130,7 @@ function App() {
 
     return (
         <ReactRouterDOM.BrowserRouter>
-            <Navbar />
+            <Navbar loggedIn={loggedIn}/>
             <React.Fragment>
                 <ReactRouterDOM.Route exact path ='/'>
                     <Homepage />
@@ -123,13 +139,13 @@ function App() {
                 {loggedIn ? <ReactRouterDOM.Redirect to='/dashboard' />:
                             <LoginPage handleSubmit={handleLoginSubmit}
                                 setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
-                                setPassword={(e) => {setUser({ ...user, password: e.target.value })}} />};
+                                setPassword={(e) => {setUser({ ...user, password: e.target.value })}} />}
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/create'>
                     <CreateAccount handleSubmit={handleCreateSubmit} />
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/dashboard'>
-                    <UserDashboard />
+                    <UserDashboard user={user}/>
                 </ReactRouterDOM.Route>
             </React.Fragment>
         </ReactRouterDOM.BrowserRouter>
