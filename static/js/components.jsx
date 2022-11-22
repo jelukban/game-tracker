@@ -79,6 +79,8 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
 
 
 function Navbar ({loggedIn}) {
+
+
     if (loggedIn) {
     return (
         <React.Fragment>
@@ -88,6 +90,11 @@ function Navbar ({loggedIn}) {
             <li><Link to="/dashboard/interestinggames">Interests</Link></li>
             <li><Link to="/signout"> Sign Out Here</Link></li>
         </ul>
+        <form id="search-bar">
+                    <input type="text"></input>
+                    <label></label>
+                    <button>Search</button>
+        </form>
         </React.Fragment>
     );
     } else {
@@ -98,6 +105,11 @@ function Navbar ({loggedIn}) {
                 <li><Link to="/create">Create An Account</Link></li>
                 <li><Link to="/profile">User Profile</Link></li>
             </ul>
+            <form id="search-bar">
+                    <input type="text"></input>
+                    <label></label>
+                    <button>Search</button>
+            </form>
             </React.Fragment>
         );
     };
