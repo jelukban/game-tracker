@@ -80,6 +80,17 @@ def get_game_by_id(game_id):
     return db.session.query(Game).get(game_id)
 
 
+def show_games_played_by_user(user_id):
+    """ Returns games played by specific user. """
+
+    return db.session.query(GamePlayed).filter(GamePlayed.user_id == user_id).all()
+
+
+def search_for_game(name):
+    """ Returns game from search bar. """
+
+    return db.session.query(Game).filter(Game.name.like(f'%{name}%'))
+
 if __name__ == '__main__':
 
     from server import app
