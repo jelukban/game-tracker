@@ -12,8 +12,8 @@ function App() {
                                             email: "",
                                             password: "" });
 
-    const [gameId, setGameId] = React.useState(0)
     const [games, setGames] = React.useState([]);
+    const [gameId, setGameId] = React.useState(0);
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -58,7 +58,7 @@ function App() {
             <Navbar loggedIn={loggedIn}/>
             <React.Fragment>
                 <ReactRouterDOM.Route exact path ='/'>
-                    <Homepage games={games}/>
+                    <Homepage games={games} />
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/login'>
                 {loggedIn ? <ReactRouterDOM.Redirect to='/dashboard' />:
@@ -77,9 +77,9 @@ function App() {
                 <ReactRouterDOM.Route exact path='/dashboard'>
                     <UserDashboard user={user}/>
                 </ReactRouterDOM.Route>
-                {/* <ReactRouterDOM.Route exact path={`/games/${gameId}`}>
-                    <VideoGameDetails gameId={gameId}/>
-                </ReactRouterDOM.Route> */}
+                <ReactRouterDOM.Route path={`/games/:game_id`}>
+                    <VideoGameDetails />
+                </ReactRouterDOM.Route>
             </React.Fragment>
         </ReactRouterDOM.BrowserRouter>
     );

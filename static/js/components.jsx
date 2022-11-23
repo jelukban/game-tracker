@@ -3,12 +3,16 @@
 function VideoGame({game_id, cover_url, name, release_date}) {
 
     return (
-    <div className="video-game">>
-        <img src={cover_url} height="128" width="90"></img>
-        <p className="video-game-title"> {name}</p>
-        <p> Release Date: {release_date}</p>
-        <p id='game-id'>Game Id: {game_id}</p>
-    </div>
+        <React.Fragment>
+                <Link to={`/games/${game_id}`} >
+                <div className="video-game" >
+                    <p>{name}</p>
+                    <img src={cover_url} height="128" width="90" ></img>
+                    <p> Release Date: {release_date}</p>
+                    <p id='game-id'>Game Id: {game_id}</p>
+                </div>
+                </Link>
+    </React.Fragment>
     );
 };
 
@@ -20,7 +24,7 @@ function VideoGameContainer({games}) {
                 {games.map(game => <VideoGame game_id={game.id}
                                             cover_url={game.cover_url}
                                             name={game.name}
-                                            release_date={game.release_date} />)}
+                                            release_date={game.release_date}/>)}
             </div>
         </React.Fragment>
     );
@@ -29,7 +33,7 @@ function VideoGameContainer({games}) {
 function Homepage ({games}) {
     return (
         <div>
-            <VideoGameContainer games={games}/>
+            <VideoGameContainer games={games} />
         </div>
     );
 };
@@ -85,7 +89,8 @@ function Navbar ({loggedIn}) {
     return (
         <React.Fragment>
         <ul>
-            <li><Link to="/dashboard">Home</Link></li>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to="/dashboard">User Dashboard</Link></li>
             <li><Link to="/dashboard/likedgames">Liked Games</Link></li>
             <li><Link to="/dashboard/interestinggames">Interests</Link></li>
             <li><Link to="/signout"> Sign Out Here</Link></li>
@@ -101,6 +106,7 @@ function Navbar ({loggedIn}) {
         return(
             <React.Fragment>
             <ul>
+                <li><Link to='/'>Home</Link></li>
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/create">Create An Account</Link></li>
                 <li><Link to="/profile">User Profile</Link></li>
@@ -125,12 +131,14 @@ function UserDashboard ({user}) {
 };
 
 
-function VideoGameDetails({gameId}){
+function VideoGameDetails(){
 
-    const [game, setGame] = React.useState('')
+    const [game, setGame] = React.useState('');
+    const {game_id}  = ReactRouterDOM.useParams();
+
 
     React.useEffect(() => {
-        fetch(`/api/games/${gameId}`)
+        fetch(`/api/games/${game_id}`)
         .then((response) => response.json())
         .then((result) => {
             setGame(result);
