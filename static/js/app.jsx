@@ -15,6 +15,12 @@ function App() {
     const [games, setGames] = React.useState([]);
     const [gameId, setGameId] = React.useState(0);
 
+    React.useEffect(() => {
+        fetch('/api/games')
+        .then((response) => response.json())
+        .then((responseJson) => setGames(responseJson.games))
+    }, []);
+
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         fetch('/api/login', { method: 'POST',
@@ -45,17 +51,16 @@ function App() {
         });
     };
 
-    React.useEffect(() => {
-        fetch('/api/games')
-        .then((response) => response.json())
-        .then((responseJson) => setGames(responseJson.games))
-    }, []);
+    const handleSignOut = (e) => {
+        e.preventDefault()
+        setLoggedIn(false);
+    };
 
 
 
     return (
         <ReactRouterDOM.BrowserRouter>
-            <Navbar loggedIn={loggedIn}/>
+            <Navbar loggedIn={loggedIn} signOut={handleSignOut}/>
             <React.Fragment>
                 <ReactRouterDOM.Route exact path ='/'>
                     <Homepage games={games} />
@@ -75,10 +80,15 @@ function App() {
                                     setPassword={(e) => setUser({ ...user, password: e.target.value })}/>}
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/dashboard'>
-                    <UserDashboard user={user}/>
+                    {loggedIn ? <UserDashboard user={user} />:
+                                <ReactRouterDOM.Redirect to='/' />}
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route path={`/games/:game_id`}>
                     <VideoGameDetails />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path='/signout'>
+                    {loggedIn ? <ReactRouterDOM.Redirect to='/login' />:
+                                <SignOut />}
                 </ReactRouterDOM.Route>
             </React.Fragment>
         </ReactRouterDOM.BrowserRouter>

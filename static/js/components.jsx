@@ -82,7 +82,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
 };
 
 
-function Navbar ({loggedIn}) {
+function Navbar ({loggedIn, signOut}) {
 
 
     if (loggedIn) {
@@ -93,7 +93,7 @@ function Navbar ({loggedIn}) {
             <li><Link to="/dashboard">User Dashboard</Link></li>
             <li><Link to="/dashboard/likedgames">Liked Games</Link></li>
             <li><Link to="/dashboard/interestinggames">Interests</Link></li>
-            <li><Link to="/signout"> Sign Out Here</Link></li>
+            <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
         </ul>
         <form id="search-bar">
                     <input type="text"></input>
@@ -119,6 +119,12 @@ function Navbar ({loggedIn}) {
             </React.Fragment>
         );
     };
+};
+
+function SignOut() {
+    return (
+        <div>You have successfully signed out!</div>
+    );
 };
 
 
