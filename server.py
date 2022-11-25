@@ -73,7 +73,7 @@ def create_user_account():
                     'has_account': 'True'})
 
 
-@app.route('/api/games/<game_id>')
+@app.route('/api/games/details/<game_id>')
 def show_game_information(game_id):
     """ Shows details for individual game. """
 

@@ -52,9 +52,11 @@ function App() {
     };
 
     const handleSignOut = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         setLoggedIn(false);
     };
+
+
 
 
 
@@ -83,8 +85,8 @@ function App() {
                     {loggedIn ? <UserDashboard user={user} />:
                                 <ReactRouterDOM.Redirect to='/' />}
                 </ReactRouterDOM.Route>
-                <ReactRouterDOM.Route path={`/games/:game_id`}>
-                    <VideoGameDetails />
+                <ReactRouterDOM.Route path={`/games/details/:game_id`}>
+                    <VideoGameDetails loggedIn={loggedIn}/>
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/signout'>
                     {loggedIn ? <ReactRouterDOM.Redirect to='/login' />:

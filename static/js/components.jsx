@@ -4,7 +4,7 @@ function VideoGame({game_id, cover_url, name, release_date}) {
 
     return (
         <React.Fragment>
-                <Link to={`/games/${game_id}`} >
+                <Link to={`/games/details/${game_id}`} >
                 <div className="video-game" >
                     <p>{name}</p>
                     <img src={cover_url} height="128" width="90" ></img>
@@ -91,8 +91,8 @@ function Navbar ({loggedIn, signOut}) {
         <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to="/dashboard">User Dashboard</Link></li>
-            <li><Link to="/dashboard/likedgames">Liked Games</Link></li>
-            <li><Link to="/dashboard/interestinggames">Interests</Link></li>
+            <li><Link to="/dashboard/played">Played</Link></li>
+            <li><Link to="/dashboard/interests">Interests</Link></li>
             <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
         </ul>
         <form id="search-bar">
@@ -109,7 +109,6 @@ function Navbar ({loggedIn, signOut}) {
                 <li><Link to='/'>Home</Link></li>
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/create">Create An Account</Link></li>
-                <li><Link to="/profile">User Profile</Link></li>
             </ul>
             <form id="search-bar">
                     <input type="text"></input>
@@ -136,22 +135,8 @@ function UserDashboard ({user}) {
     );
 };
 
-
-function VideoGameDetails(){
-
-    const [game, setGame] = React.useState('');
-    const {game_id}  = ReactRouterDOM.useParams();
-
-
-    React.useEffect(() => {
-        fetch(`/api/games/${game_id}`)
-        .then((response) => response.json())
-        .then((result) => {
-            setGame(result);
-        });
-    }, []);
-
-    return(
+function Details({game}){
+    return (
         <div>
             <h1 className="video-game-title"> {game.name}</h1>
             <img src={game.cover_url} height="128" width="90"></img>
@@ -159,4 +144,48 @@ function VideoGameDetails(){
             <p> Description: {game.description}</p>
         </div>
     );
+};
+
+function VideoGameDetails({loggedIn}){
+
+    const [game, setGame] = React.useState('');
+    const {game_id}  = ReactRouterDOM.useParams();
+
+
+    React.useEffect(() => {
+        fetch(`/api/games/details/${game_id}`)
+        .then((response) => response.json())
+        .then((result) => {
+            setGame(result);
+        });
+    }, []);
+
+    const handleInterests= (game_id) => {
+        setGameId(game_id);
+
+        React.useEffect(() => {
+            fetch();
+        },[]);
+    };
+
+    const handlePlayed = (game_id) => {
+        setGameId(game_id);
+    };
+
+    if (loggedIn) {
+        return(
+            <React.Fragment>
+                <Details game={game} />
+                <div>
+                    <button onClick={(e) => handleInterests(game_id)} id="interested"> Interested</button>
+                    <button onClick={(e) => handlePlayed(game_id)} id="played"> Played</button>
+                </div>
+            </React.Fragment>
+        );
+    } else {
+        return(
+            <Details game={game} />
+        );
+    };
+
 };
