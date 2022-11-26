@@ -101,6 +101,9 @@ function App() {
                 <ReactRouterDOM.Route exact path='/dashboard/interests'>
                     <UserInterests user={user}/>
                 </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path='/dashboard/gamesplayed'>
+                    <UserPlayedGames user={user}/>
+                </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route path={`/games/details/:game_id`}>
                     <VideoGameDetails loggedIn={loggedIn} user={user}/>
                 </ReactRouterDOM.Route>

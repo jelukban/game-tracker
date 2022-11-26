@@ -89,10 +89,12 @@ def get_interesting_games_by_user_id(user_id):
     return [game.game.to_json() for game in games]
 
 
-def show_games_played_by_user(user_id):
+def get_games_played_by_user(user_id):
     """ Returns games played by specific user. """
 
-    return db.session.query(GamePlayed).filter(GamePlayed.user_id == user_id).all()
+    games = db.session.query(GamePlayed).options(db.joinedload('game')).filter(GamePlayed.user_id == user_id).all()
+
+    return [game.game.to_json() for game in games]
 
 
 def search_for_game(name):

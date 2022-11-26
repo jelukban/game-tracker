@@ -89,7 +89,7 @@ function Navbar ({loggedIn, signOut}) {
         <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to="/dashboard">User Dashboard</Link></li>
-            <li><Link to="/dashboard/played">Played</Link></li>
+            <li><Link to="/dashboard/gamesplayed">Played</Link></li>
             <li><Link to="/dashboard/interests">Interests</Link></li>
             <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
         </ul>
@@ -164,7 +164,6 @@ function VideoGameDetails({loggedIn, user}){
 
     const handleInterests= (game_id) => {
 
-        console.log(userGame);
         fetch('/api/createinterest', {method: 'POST',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
@@ -173,8 +172,13 @@ function VideoGameDetails({loggedIn, user}){
     };
 
 
-    // const handlePlayed = (game_id) => {
-    // };
+    const handlePlayed = (game_id) => {
+        fetch('/api/createplayed', {method: 'POST',
+                                    body:JSON.stringify(userGame),
+                                    headers: {'Content-Type': 'application/json',
+                                }})
+        .then(console.log('Your game was added!'));
+    };
 
 
     if (loggedIn) {
@@ -212,6 +216,28 @@ function UserInterests({user}) {
     return(
             <div> These are your liked games!
                 <VideoGameContainer games={interestingGames} />
+            </div>
+    );
+};
+
+
+function UserPlayedGames({user}) {
+    const [gamesPlayed, setGamesPlayed] = React.useState([]);
+
+    React.useEffect(() => {
+        fetch('/api/games/gamesplayed', { method: 'POST',
+            body: JSON.stringify(user),
+            headers: { 'Content-Type': 'application/json',
+            }})
+        .then((response) => response.json())
+        .then((result) => {
+            setGamesPlayed(result.games);
+        });
+    }, []);
+
+    return(
+            <div> These are the games you played!
+                <VideoGameContainer games={gamesPlayed} />
             </div>
     );
 };

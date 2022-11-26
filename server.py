@@ -114,6 +114,35 @@ def get_all_games_of_interest():
     return jsonify({'games': games})
 
 
+@app.route('/api/createplayed', methods=['POST'])
+def create_played_game_by_user():
+
+    data = request.get_json()
+
+    game_id = data.get('game_id')
+    user_id = data.get('user_id')
+
+    played = crud.create_game_played(game_id=int(game_id),
+                                    user_id=int(user_id))
+
+    db.session.add(played)
+    db.session.commit()
+
+    return jsonify({'user_id': user_id,
+                    'game_id': game_id})
+
+
+@app.route('/api/games/gamesplayed', methods=['POST'])
+def get_all_played_games():
+
+    data = request.get_json()
+    user_id = data.get('id')
+
+    games = crud.get_games_played_by_user(user_id)
+
+    return jsonify({'games': games})
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)
