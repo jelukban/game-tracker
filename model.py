@@ -87,8 +87,8 @@ class Interest(db.Model):
     __tablename__ = 'interests'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     game = db.relationship('Game', back_populates='interests')
     user = db.relationship('User', back_populates='interests')

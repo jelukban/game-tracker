@@ -22,6 +22,7 @@ function App() {
         .then((responseJson) => setGames(responseJson.games))
     }, []);
 
+
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         fetch('/api/login', { method: 'POST',
@@ -39,6 +40,7 @@ function App() {
             };
         });
     };
+
 
     const handleCreateSubmit = (e) => {
         e.preventDefault();
@@ -58,6 +60,7 @@ function App() {
         });
     };
 
+
     const handleSignOut = (e) => {
         e.preventDefault();
         setLoggedIn(false);
@@ -67,8 +70,6 @@ function App() {
             email: "",
             password: "" });
     };
-
-
 
 
 
@@ -97,8 +98,11 @@ function App() {
                     {loggedIn ? <UserDashboard user={user} />:
                                 <ReactRouterDOM.Redirect to='/' />}
                 </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path='/dashboard/interests'>
+                    <UserInterests user={user}/>
+                </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route path={`/games/details/:game_id`}>
-                    <VideoGameDetails loggedIn={loggedIn}/>
+                    <VideoGameDetails loggedIn={loggedIn} user={user}/>
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/signout'>
                     {loggedIn ? <ReactRouterDOM.Redirect to='/login' />:

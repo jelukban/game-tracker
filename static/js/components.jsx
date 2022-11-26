@@ -19,14 +19,12 @@ function VideoGame({game_id, cover_url, name, release_date}) {
 
 function VideoGameContainer({games}) {
     return (
-        <React.Fragment>
             <div className="grid">
                 {games.map(game => <VideoGame game_id={game.id}
                                             cover_url={game.cover_url}
                                             name={game.name}
                                             release_date={game.release_date}/>)}
             </div>
-        </React.Fragment>
     );
 };
 
@@ -147,10 +145,12 @@ function Details({game}){
     );
 };
 
-function VideoGameDetails({loggedIn}){
+function VideoGameDetails({loggedIn, user}){
 
     const [game, setGame] = React.useState('');
     const {game_id}  = ReactRouterDOM.useParams();
+
+    const userGame = {'user_id': user.id, 'game_id': game_id}
 
 
     React.useEffect(() => {
@@ -161,17 +161,21 @@ function VideoGameDetails({loggedIn}){
         });
     }, []);
 
+
     const handleInterests= (game_id) => {
-        setGameId(game_id);
 
-        React.useEffect(() => {
-            fetch('/api/createinterest');
-        },[]);
+        console.log(userGame);
+        fetch('/api/createinterest', {method: 'POST',
+                                    body:JSON.stringify(userGame),
+                                    headers: {'Content-Type': 'application/json',
+                                }})
+        .then(console.log('Your game was added!'));
     };
 
-    const handlePlayed = (game_id) => {
-        setGameId(game_id);
-    };
+
+    // const handlePlayed = (game_id) => {
+    // };
+
 
     if (loggedIn) {
         return(
@@ -189,4 +193,25 @@ function VideoGameDetails({loggedIn}){
         );
     };
 
+};
+
+function UserInterests({user}) {
+    const [interestingGames, setInterestingGames] = React.useState([]);
+
+    React.useEffect(() => {
+        fetch('/api/games/interests', { method: 'POST',
+            body: JSON.stringify(user),
+            headers: { 'Content-Type': 'application/json',
+            }})
+        .then((response) => response.json())
+        .then((result) => {
+            setInterestingGames(result.games);
+        });
+    }, []);
+
+    return(
+            <div> These are your liked games!
+                <VideoGameContainer games={interestingGames} />
+            </div>
+    );
 };

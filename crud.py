@@ -81,6 +81,14 @@ def get_game_by_id(game_id):
     return db.session.query(Game).get(game_id)
 
 
+def get_interesting_games_by_user_id(user_id):
+    """ Returns interesting games by user_id. """
+
+    games = db.session.query(Interest).options(db.joinedload('game')).filter(Interest.user_id == user_id).all()
+
+    return [game.game.to_json() for game in games]
+
+
 def show_games_played_by_user(user_id):
     """ Returns games played by specific user. """
 

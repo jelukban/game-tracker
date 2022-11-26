@@ -37,7 +37,7 @@ def check_user_login():
     user_info = crud.find_user_by_email(email, password)
 
     if user_info == "User does not exist":
-        flash('Please create an account.')
+        # flash('Please create an account.')
         return redirect('/login')
     else:
         user_info['has_account'] = 'True'
@@ -64,13 +64,12 @@ def create_user_account():
     db.session.add(new_account)
     db.session.commit()
 
-    flash('Successfully logged in!')
+    user_info = crud.find_user_by_email(email, password)
+    user_info['has_account'] = 'True'
 
-    return jsonify({'firstName': first_name,
-                    'lastName': last_name,
-                    'email': email,
-                    'password': password,
-                    'has_account': 'True'})
+    # flash('Successfully logged in!')
+
+    return jsonify(user_info)
 
 
 @app.route('/api/games/details/<game_id>')
@@ -84,6 +83,35 @@ def show_game_information(game_id):
                     'description':game.description,
                     'release_date':game.release_date,
                     'cover_url':game.cover_url})
+
+
+@app.route('/api/createinterest', methods=['POST'])
+def create_interest_game_by_user():
+
+    data = request.get_json()
+
+    game_id = data.get('game_id')
+    user_id = data.get('user_id')
+
+    interest = crud.create_interest(game_id=int(game_id),
+                                    user_id=int(user_id))
+
+    db.session.add(interest)
+    db.session.commit()
+
+    return jsonify({'user_id': user_id,
+                    'game_id': game_id})
+
+
+@app.route('/api/games/interests', methods=['POST'])
+def get_all_games_of_interest():
+
+    data = request.get_json()
+    user_id = data.get('id')
+
+    games = crud.get_interesting_games_by_user_id(user_id)
+
+    return jsonify({'games': games})
 
 
 if __name__ == "__main__":
