@@ -64,9 +64,10 @@ def find_user_by_email(email, password):
     """ Finds user by email. """
 
     if check_if_user_exists(email, password):
-        user = db.session.query(User).filter(User.email == email, User.password == password).one()
+        user = db.session.query(User).filter(User.email == email).one()
 
-        return {'first_name': user.fname,
+        return {'user_id': user.id,
+                'first_name': user.fname,
                 'last_name': user.lname,
                 'email': user.email,
                 'password': user.password}
@@ -90,6 +91,7 @@ def search_for_game(name):
     """ Returns game from search bar. """
 
     return db.session.query(Game).filter(Game.name.like(f'%{name}%'))
+
 
 if __name__ == '__main__':
 

@@ -7,7 +7,8 @@ function App() {
 
     const [loggedIn, setLoggedIn] = React.useState(false)
 
-    const [user, setUser] = React.useState({firstName: "",
+    const [user, setUser] = React.useState({id: "",
+                                            firstName: "",
                                             lastName: "",
                                             email: "",
                                             password: "" });
@@ -29,7 +30,8 @@ function App() {
             }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
-            setUser({firstName: result.first_name,
+            setUser({id: result.user_id,
+                    firstName: result.first_name,
                     lastName: result.last_name,
                     email: result.email,
                     password: result.password});
@@ -46,6 +48,11 @@ function App() {
         }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
+            setUser({id: result.user_id,
+                firstName: result.first_name,
+                lastName: result.last_name,
+                email: result.email,
+                password: result.password});
             setLoggedIn(true);
             };
         });
@@ -54,6 +61,11 @@ function App() {
     const handleSignOut = (e) => {
         e.preventDefault();
         setLoggedIn(false);
+        setUser({user_id: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "" });
     };
 
 

@@ -5,7 +5,7 @@ function VideoGame({game_id, cover_url, name, release_date}) {
     return (
         <React.Fragment>
                 <Link to={`/games/details/${game_id}`} >
-                <div className="video-game" >
+                <div key={"{game_id}"} >
                     <p>{name}</p>
                     <img src={cover_url} height="128" width="90" ></img>
                     <p> Release Date: {release_date}</p>
@@ -131,6 +131,7 @@ function UserDashboard ({user}) {
     return (
         <React.Fragment>
             <h1>Welcome {user.firstName}!</h1>
+                <p>User Id: {user.id}</p>
         </React.Fragment>
     );
 };
@@ -164,7 +165,7 @@ function VideoGameDetails({loggedIn}){
         setGameId(game_id);
 
         React.useEffect(() => {
-            fetch();
+            fetch('/api/createinterest');
         },[]);
     };
 
