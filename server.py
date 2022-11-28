@@ -143,6 +143,18 @@ def get_all_played_games():
     return jsonify({'games': games})
 
 
+@app.route('/api/search/name', methods=['POST'])
+def get_search_results():
+
+    data = request.get_json()
+
+    search_name = data.get('searchName')
+
+    games = crud.search_for_game(search_name)
+
+    return jsonify({'games':games})
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)

@@ -3,8 +3,8 @@
 const Link = ReactRouterDOM.Link;
 const Route = ReactRouterDOM.Route;
 
-function App() {
 
+function App() {
     const [loggedIn, setLoggedIn] = React.useState(false)
 
     const [user, setUser] = React.useState({id: "",
@@ -15,11 +15,12 @@ function App() {
 
     const [games, setGames] = React.useState([]);
     const [gameId, setGameId] = React.useState(0);
+    const [searchName, setSearchName] = React.useState('');
 
     React.useEffect(() => {
         fetch('/api/games')
         .then((response) => response.json())
-        .then((responseJson) => setGames(responseJson.games))
+        .then((responseJson) => setGames(responseJson.games));
     }, []);
 
 
@@ -71,11 +72,33 @@ function App() {
             password: "" });
     };
 
+    const setDefaultGames =(e) => {
+        fetch('/api/games')
+        .then((response) => response.json())
+        .then((responseJson) => setGames(responseJson.games));
+    };
+
+    const handleSearchResults = (e) => {
+        e.preventDefault();
+
+        fetch('/api/search/name', { method: 'POST',
+        body: JSON.stringify({searchName}),
+        headers: { 'Content-Type': 'application/json',
+        }})
+        .then((response) => response.json())
+        .then((result) => {
+            setGames(result.games);
+        });
+    };
 
 
     return (
         <ReactRouterDOM.BrowserRouter>
-            <Navbar loggedIn={loggedIn} signOut={handleSignOut}/>
+            <Navbar loggedIn={loggedIn}
+                    signOut={handleSignOut}
+                    handleSearchResults={handleSearchResults}
+                    setSearchName={(e) => setSearchName(e.target.value)}
+                    setDefaultGames={setDefaultGames} />
             <React.Fragment>
                 <ReactRouterDOM.Route exact path ='/'>
                     <Homepage games={games} />
@@ -105,7 +128,8 @@ function App() {
                     <UserPlayedGames user={user}/>
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route path={`/games/details/:game_id`}>
-                    <VideoGameDetails loggedIn={loggedIn} user={user}/>
+                    <VideoGameDetails loggedIn={loggedIn}
+                                        user={user}/>
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route exact path='/signout'>
                     {loggedIn ? <ReactRouterDOM.Redirect to='/login' />:

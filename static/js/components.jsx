@@ -80,23 +80,23 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
 };
 
 
-function Navbar ({loggedIn, signOut}) {
-
+function Navbar ({loggedIn, signOut, handleSearchResults, setSearchName, setDefaultGames}) {
+    let history = ReactRouterDOM.useHistory();
 
     if (loggedIn) {
     return (
         <React.Fragment>
         <ul>
-            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/' onClick={setDefaultGames}>Home</Link></li>
             <li><Link to="/dashboard">User Dashboard</Link></li>
             <li><Link to="/dashboard/gamesplayed">Played</Link></li>
             <li><Link to="/dashboard/interests">Interests</Link></li>
             <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
         </ul>
-        <form id="search-bar">
-                    <input type="text"></input>
-                    <label></label>
-                    <button>Search</button>
+        <form id="search-bar" onSubmit={handleSearchResults}>
+            <label> Search Bar</label>
+            <input type="text" onChange={setSearchName}></input>
+            <button onClick={(e) => history.push('/')}>Search</button>
         </form>
         </React.Fragment>
     );
@@ -104,14 +104,14 @@ function Navbar ({loggedIn, signOut}) {
         return(
             <React.Fragment>
             <ul>
-                <li><Link to='/'>Home</Link></li>
+                <li><Link to='/' onClick={setDefaultGames}>Home</Link></li>
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/create">Create An Account</Link></li>
             </ul>
-            <form id="search-bar">
-                    <input type="text"></input>
-                    <label></label>
-                    <button>Search</button>
+            <form id="search-bar" onSubmit={handleSearchResults}>
+                    <label>Search Bar</label>
+                    <input type="text" onChange={setSearchName}></input>
+                    <button onClick={(e) => history.push('/')}>Search</button>
             </form>
             </React.Fragment>
         );
@@ -162,7 +162,7 @@ function VideoGameDetails({loggedIn, user}){
     }, []);
 
 
-    const handleInterests= (game_id) => {
+    const handleInterests = (game_id) => {
 
         fetch('/api/createinterest', {method: 'POST',
                                     body:JSON.stringify(userGame),
@@ -214,7 +214,7 @@ function UserInterests({user}) {
     }, []);
 
     return(
-            <div> These are your liked games!
+            <div> These are your interesting games!
                 <VideoGameContainer games={interestingGames} />
             </div>
     );
