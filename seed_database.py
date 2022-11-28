@@ -61,7 +61,7 @@ while i < 271000:
             if release_date:
                 release_date = datetime.fromtimestamp(int(release_date))
 
-            if name and id:
+            if name and id and cover_url:
                 id = int(id)
 
                 game = crud.create_game(id=id,
