@@ -28,7 +28,7 @@ payload = {'Client-ID': API_ID,
 
 ### to fix seeding, query one at a time and then add it, do last
 i = 0
-while i < 271000:
+while i < 1000:
 
     data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; sort id asc; limit 500; offset {i};}};'
     req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)

@@ -8,12 +8,6 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-@app.route('/')
-def show_homepage():
-    """ Goes to homepage. """
-
-    return render_template('index.html')
-
 
 @app.route('/api/games')
 def get_games_json():
@@ -55,19 +49,23 @@ def create_user_account():
     email = data.get('email')
     password = data.get('password')
 
+    user_info = crud.find_user_by_email(email=email, password=password)
 
-    new_account = crud.create_user(fname=first_name,
+
+    if user_info == "User does not exist":
+        new_account = crud.create_user(fname=first_name,
                                 lname=last_name,
                                 email=email,
                                 password=password)
 
-    db.session.add(new_account)
-    db.session.commit()
+        db.session.add(new_account)
+        db.session.commit()
 
-    user_info = crud.find_user_by_email(email, password)
-    user_info['has_account'] = 'True'
+        user_info = crud.find_user_by_email(email, password)
+        user_info['has_account'] = 'True'
 
-    # flash('Successfully logged in!')
+    else:
+        user_info['has_account'] = 'True'
 
     return jsonify(user_info)
 

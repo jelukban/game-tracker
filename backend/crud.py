@@ -57,7 +57,7 @@ def get_all_users():
 def check_if_user_exists(email, password):
     """ Checks to see if user exists in the database. """
 
-    return True if db.session.query(User).filter(User.email == email, User.password == password).one() else False
+    return True if db.session.query(User).filter(User.email == email, User.password == password).first() else False
 
 
 def find_user_by_email(email, password):

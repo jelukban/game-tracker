@@ -1,5 +1,6 @@
 env
 secrets.sh
-__pycache__/
+backend/__pycache__/
 *.pyc
 .DS_Store
+frontend/node_modules
