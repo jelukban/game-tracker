@@ -3,4 +3,4 @@ secrets.sh
 backend/__pycache__/
 *.pyc
 .DS_Store
-frontend/node_modules
+node_modules
