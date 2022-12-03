@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-server": "cd .. && cd backend && python3 server.py",
+    "start-server": "cd backend && python3 server.py",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
