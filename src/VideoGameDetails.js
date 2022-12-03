@@ -6,8 +6,8 @@ function VideoGameDetails({loggedIn, user}){
 
     const [game, setGame] = useState('');
     const {game_id}  = useParams();
-
     const userGame = {'user_id': user.id, 'game_id': game_id}
+    const [score, setScore] = useState();
 
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function VideoGameDetails({loggedIn, user}){
     }, []);
 
 
-    const handleInterests = (game_id) => {
+    const handleInterests = () => {
         fetch('/api/createinterest', {method: 'POST',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ function VideoGameDetails({loggedIn, user}){
     };
 
 
-    const handlePlayed = (game_id) => {
+    const handlePlayed = () => {
         fetch('/api/createplayed', {method: 'POST',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
@@ -37,13 +37,38 @@ function VideoGameDetails({loggedIn, user}){
     };
 
 
+    const handleRating = (e) => {
+        e.preventDefault();
+
+        userGame['score'] = score;
+
+        fetch(`/api/${game_id}/createrating`, {method: 'POST',
+                                                body:JSON.stringify(userGame),
+                                                headers: {'Content-Type': 'application/json',
+                                            }})
+        .then(console.log('Your game was rated!'));
+    };
+
+
     if (loggedIn) {
         return(
             <div>
                 <Details game={game} />
                 <div>
-                    <button onClick={(e) => handleInterests(game_id)} id="interested"> Interested</button>
-                    <button onClick={(e) => handlePlayed(game_id)} id="played"> Played</button>
+                    <button onClick={(e) => handleInterests()}> Interested</button>
+                    <button onClick={(e) => handlePlayed()}> Played</button>
+                    <form id="rating" onSubmit={handleRating}>
+                        <label htmlFor="rating-choices">Rate this video game:</label>
+                        <select id="rating-choices" onChange={(e) => setScore(e.target.value)}>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button>Submit</button>
+                    </form>
                 </div>
             </div>
         );
