@@ -43,8 +43,13 @@ def get_all_games():
 
     final_json = []
 
+    count = 0
+
     for game in games:
         final_json.append(game.to_json())
+        if count == 100:
+            break
+        count += 1
 
     return final_json
 
