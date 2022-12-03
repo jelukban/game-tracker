@@ -9,8 +9,9 @@ function VideoGame({game_id, cover_url, name, release_date}) {
                 <div key={"{game_id}"} >
                     <p>{name}</p>
                     <img src={cover_url} height="128" width="90" ></img>
+                    <p> Genres: </p>
+                    <p> Platforms: </p>
                     <p> Release Date: {release_date}</p>
-                    <p id='game-id'>Game Id: {game_id}</p>
                 </div>
                 </Link>
     </React.Fragment>

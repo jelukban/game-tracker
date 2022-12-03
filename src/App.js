@@ -82,7 +82,7 @@ function App() {
             password: "" });
     };
 
-    const setDefaultGames =(e) => {
+    const setDefaultGames = () => {
         fetch('/api/games')
         .then((response) => response.json())
         .then((responseJson) => setGames(responseJson.games));
