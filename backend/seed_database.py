@@ -67,9 +67,7 @@ while i < 215000:
 
                     genre = crud.create_genre(id=genre_id, name=genre_name)
 
-                    if genre == 'This genre has already been added':
-                        continue
-                    else:
+                    if genre != 'This genre has already been added':
                         model.db.session.add(genre)
                         model.db.session.commit()
 
@@ -86,9 +84,7 @@ while i < 215000:
 
                     platform = crud.create_platform(id=platform_id, name=platform_name)
 
-                    if platform == 'This genre has already been added':
-                        continue
-                    else:
+                    if platform != 'This genre has already been added':
                         model.db.session.add(platform)
                         model.db.session.commit()
 
