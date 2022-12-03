@@ -17,7 +17,8 @@ function UserPlayedGames({user}) {
 
     return(
             <div> These are the games you played!
-                <VideoGameContainer games={gamesPlayed} />
+                <VideoGameContainer games={gamesPlayed}
+                                    count={100} />
             </div>
     );
 };
