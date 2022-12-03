@@ -25,17 +25,25 @@ class Game(db.Model):
 
     def to_json(self):
         """ Returns data of object. """
+        genres = []
+        platforms = []
+
+        for genre in self.genres:
+            genres.append(genre.name)
+
+        for platform in self.platforms:
+            platforms.append(platform.name)
 
         return {'id': f"{self.id}",
                 'name': f"{self.name}",
                 'description': f"{self.description}",
                 'cover_url': f"{self.cover_url}",
                 'release_date': f"{self.release_date}",
-                'genres': f"{self.genres}",
-                'platforms': f"{self.platforms}"}
+                'genres': f"{genres}",
+                'platforms': f"{platforms}"}
 
     def __repr__(self):
-        return f"<Id = {self.id}, Name = {self.name}>"
+        return f"<Id = {self.id}, Name = {self.name} Genres = {self.genres} Plattforms = {self.platforms}>"
 
 
 class User(db.Model):
