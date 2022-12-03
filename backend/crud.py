@@ -1,6 +1,7 @@
 """ CRUD operations. """
 
-from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed, Rating
+from model import db, User, Game, GameGenre, Genre, Platform, GamePlatform, \
+                connect_to_db, Interest, GamePlayed, Rating
 
 def create_game(id, name, description, cover_url, release_date):
     """ Creates a video game to add to the Game db. """
@@ -111,6 +112,32 @@ def create_rating_for_game(game_id, user_id, score):
     return Rating(game_id=game_id,
                 user_id=user_id,
                 score=score)
+
+
+def create_genre(id, name):
+
+    if db.session.query(Genre).filter(Genre.id == id).first():
+        return 'This genre has already been added'
+    else:
+        return Genre(id=id, name=name)
+
+
+def create_platform(id, name):
+
+    if db.session.query(Platform).filter(Platform.id == id).first():
+        return 'This genre has already been added'
+    else:
+        return Platform(id=id, name=name)
+
+
+def create_game_genre(game_id, genre_id):
+
+    return GameGenre(game_id=game_id, genre_id=genre_id)
+
+
+def create_game_platform(game_id, platform_id):
+
+    return GamePlatform(game_id=game_id, platform_id=platform_id)
 
 
 if __name__ == '__main__':

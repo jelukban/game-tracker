@@ -118,7 +118,7 @@ class Genre(db.Model):
 
     __tablename__ = 'genres'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
     games = db.relationship('Game', secondary='game_genres', back_populates='genres')
@@ -132,7 +132,7 @@ class Platform(db.Model):
 
     __tablename__ = 'platforms'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
     games = db.relationship('Game', secondary='game_platforms', back_populates='platforms')
@@ -147,8 +147,8 @@ class GameGenre(db.Model):
     __tablename__ = 'game_genres'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'))
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'), nullable=False)
 
 
     def __repr__(self):
@@ -161,8 +161,8 @@ class GamePlatform(db.Model):
     __tablename__ = 'game_platforms'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    platform_id = db.Column(db.Integer, db.ForeignKey('platforms.id'))
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+    platform_id = db.Column(db.Integer, db.ForeignKey('platforms.id'), nullable=False)
 
 
     def __repr__(self):
