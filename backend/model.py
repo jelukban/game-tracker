@@ -30,7 +30,9 @@ class Game(db.Model):
                 'name': f"{self.name}",
                 'description': f"{self.description}",
                 'cover_url': f"{self.cover_url}",
-                'release_date': f"{self.release_date}"}
+                'release_date': f"{self.release_date}",
+                'genres': f"{self.genres}",
+                'platforms': f"{self.platforms}"}
 
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.name}>"
