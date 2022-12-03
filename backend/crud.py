@@ -1,6 +1,6 @@
 """ CRUD operations. """
 
-from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed
+from model import db, User, Game, GameGenre, connect_to_db, Interest, GamePlayed, Rating
 
 def create_game(id, name, description, cover_url, release_date):
     """ Creates a video game to add to the Game db. """
@@ -103,6 +103,14 @@ def search_for_game(search_name):
     games = db.session.query(Game).filter(Game.name.ilike(f'%{search_name}%')).all()
 
     return [game.to_json() for game in games]
+
+
+def create_rating_for_game(game_id, user_id, score):
+    """ Makes a game rating for a game. """
+
+    return Rating(game_id=game_id,
+                user_id=user_id,
+                score=score)
 
 
 if __name__ == '__main__':

@@ -153,6 +153,24 @@ def get_search_results():
     return jsonify({'games':games})
 
 
+@app.route('/api/<game_id>/createrating', methods=['POST'])
+def create_video_game_rating(game_id):
+
+    data = request.get_json()
+
+    user_id = data.get('user_id')
+    score = data.get('score')
+
+    rating = crud.create_rating_for_game(game_id=game_id,
+                                            user_id=user_id,
+                                            score=score)
+
+    db.session.add(rating)
+    db.session.commit()
+
+    return('your video game was created!')
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)
