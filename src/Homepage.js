@@ -4,7 +4,7 @@ function Homepage ({games}) {
     return (
         <div>
             <VideoGameContainer games={games}
-                                count={50} />
+                                count={10} />
         </div>
     );
 };

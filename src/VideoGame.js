@@ -7,7 +7,7 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
     return (
         <React.Fragment>
                 <Link to={`/games/details/${game_id}`} >
-                <div key={"{game_id}"} >
+                <div >
                     <p>{name}</p>
                     <img src={cover_url} height="128" width="90" ></img>
                     <div>
@@ -17,6 +17,7 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
                         Platforms: {platforms.map(platform => <GenrePlatform items={platform}/>)}
                     </div>
                     <p> Release Date: {release_date}</p>
+                    <p id='game-id'>Game Id: {game_id}</p>
                 </div>
                 </Link>
     </React.Fragment>
