@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import GenrePlatform from './GenrePlatform.js'
 
-function VideoGame({game_id, cover_url, name, release_date}) {
+function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) {
 
     return (
         <React.Fragment>
@@ -9,8 +10,12 @@ function VideoGame({game_id, cover_url, name, release_date}) {
                 <div key={"{game_id}"} >
                     <p>{name}</p>
                     <img src={cover_url} height="128" width="90" ></img>
-                    <p> Genres: </p>
-                    <p> Platforms: </p>
+                    <div>
+                        Genres: {genres.map(genre => <GenrePlatform items={genre} />)}
+                    </div>
+                    <div>
+                        Platforms: {platforms.map(platform => <GenrePlatform items={platform}/>)}
+                    </div>
                     <p> Release Date: {release_date}</p>
                 </div>
                 </Link>

@@ -29,7 +29,7 @@ function App() {
         fetch('/api/games')
         .then((response) => response.json())
         .then((responseJson) => {
-                setGames(responseJson.games);
+            setGames(responseJson.games);
          });
     }, []);
 
