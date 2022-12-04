@@ -17,7 +17,6 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
                         Platforms: {platforms.map(platform => <GenrePlatform items={platform}/>)}
                     </div>
                     <p> Release Date: {release_date}</p>
-                    <p id='game-id'>Game Id: {game_id}</p>
                 </div>
                 </Link>
     </React.Fragment>
