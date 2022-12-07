@@ -47,7 +47,7 @@ def get_all_games():
 
     for game in games:
         final_json.append(game.to_json())
-        if count == 100:
+        if count == 10:
             break
         count += 1
 
@@ -84,7 +84,9 @@ def find_user_by_email(email, password):
 def get_game_by_id(game_id):
     """ Returns game information by id. """
 
-    return db.session.query(Game).get(game_id)
+    game = db.session.query(Game).get(game_id)
+
+    return game.to_json()
 
 
 def get_interesting_games_by_user_id(user_id):

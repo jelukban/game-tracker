@@ -43,7 +43,7 @@ class Game(db.Model):
                 'platforms': f"{platforms}"}
 
     def __repr__(self):
-        return f"<Id = {self.id}, Name = {self.name} Genres = {self.genres} Plattforms = {self.platforms}>"
+        return f"<Id = {self.id}, Name = {self.name} Genres = {self.genres} Platforms = {self.platforms}>"
 
 
 class User(db.Model):

@@ -4,7 +4,7 @@ import Details from './Details.js';
 
 function VideoGameDetails({loggedIn, user}){
 
-    const [game, setGame] = useState('');
+    const [game, setGame] = useState({});
     const {game_id}  = useParams();
     const userGame = {'user_id': user.id, 'game_id': game_id}
     const [score, setScore] = useState();
@@ -14,6 +14,8 @@ function VideoGameDetails({loggedIn, user}){
         fetch(`/api/games/details/${game_id}`)
         .then((response) => response.json())
         .then((result) => {
+            result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
+            result.platforms = result.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
             setGame(result);
         });
     }, []);
@@ -53,7 +55,9 @@ function VideoGameDetails({loggedIn, user}){
     if (loggedIn) {
         return(
             <div>
-                <Details game={game} />
+                <Details game={game}
+                        genres={game.genres}
+                        platforms={game.platforms} />
                 <div>
                     <button onClick={(e) => handleInterests()}> Interested</button>
                     <button onClick={(e) => handlePlayed()}> Played</button>
@@ -74,7 +78,9 @@ function VideoGameDetails({loggedIn, user}){
         );
     } else {
         return(
-            <Details game={game} />
+            <Details game={game}
+            genres={game.genres}
+            platforms={game.platforms} />
         );
     };
 

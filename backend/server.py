@@ -76,11 +76,7 @@ def show_game_information(game_id):
 
     game = crud.get_game_by_id(game_id)
 
-    return jsonify({'id': game.id,
-                    'name': game.name,
-                    'description':game.description,
-                    'release_date':game.release_date,
-                    'cover_url':game.cover_url})
+    return jsonify(game)
 
 
 @app.route('/api/createinterest', methods=['POST'])
