@@ -56,8 +56,8 @@ function VideoGameDetails({loggedIn, user}){
         return(
             <div>
                 <Details game={game}
-                        genres={game.genres}
-                        platforms={game.platforms} />
+                genres={game.genres}
+                platforms={game.platforms} />
                 <div>
                     <button onClick={(e) => handleInterests()}> Interested</button>
                     <button onClick={(e) => handlePlayed()}> Played</button>
@@ -78,9 +78,11 @@ function VideoGameDetails({loggedIn, user}){
         );
     } else {
         return(
-            <Details game={game}
-            genres={game.genres}
-            platforms={game.platforms} />
+            <div>
+                <Details game={game}
+                genres={game.genres}
+                platforms={game.platforms} />
+            </div>
         );
     };
 
