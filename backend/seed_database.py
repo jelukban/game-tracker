@@ -47,7 +47,7 @@ while i < 215000:
         if release_date:
             release_date = datetime.fromtimestamp(int(release_date))
 
-        if name and id and cover_url:
+        if name and id and cover_url and game.get('genres') and game.get('platforms'):
             id = int(id)
 
 
@@ -59,39 +59,37 @@ while i < 215000:
             model.db.session.add(new_game)
             model.db.session.commit()
 
-            if game.get('genres'):
-                for genre in game.get('genres'):
-                    genre_id = genre.get('id')
-                    genre_id = int(genre_id)
-                    genre_name = genre.get('name')
+            for genre in game.get('genres'):
+                genre_id = genre.get('id')
+                genre_id = int(genre_id)
+                genre_name = genre.get('name')
 
-                    genre = crud.create_genre(id=genre_id, name=genre_name)
+                genre = crud.create_genre(id=genre_id, name=genre_name)
 
-                    if genre != 'This genre has already been added':
-                        model.db.session.add(genre)
-                        model.db.session.commit()
-
-                    game_genre = crud.create_game_genre(game_id=id,
-                                                        genre_id=genre_id)
-                    model.db.session.add(game_genre)
+                if genre != 'This genre has already been added':
+                    model.db.session.add(genre)
                     model.db.session.commit()
 
-            if game.get('platforms'):
-                for platform in game.get('platforms'):
-                    platform_id = platform.get('id')
-                    platform_id = int(platform_id)
-                    platform_name = platform.get('name')
+                game_genre = crud.create_game_genre(game_id=id,
+                                                    genre_id=genre_id)
+                model.db.session.add(game_genre)
+                model.db.session.commit()
 
-                    platform = crud.create_platform(id=platform_id, name=platform_name)
+            for platform in game.get('platforms'):
+                platform_id = platform.get('id')
+                platform_id = int(platform_id)
+                platform_name = platform.get('name')
 
-                    if platform != 'This genre has already been added':
-                        model.db.session.add(platform)
-                        model.db.session.commit()
+                platform = crud.create_platform(id=platform_id, name=platform_name)
 
-                    game_platform = crud.create_game_platform(game_id=id,
-                                                                platform_id=platform_id)
-                    model.db.session.add(game_platform)
+                if platform != 'This genre has already been added':
+                    model.db.session.add(platform)
                     model.db.session.commit()
+
+                game_platform = crud.create_game_platform(game_id=id,
+                                                            platform_id=platform_id)
+                model.db.session.add(game_platform)
+                model.db.session.commit()
 
     i += 500
 
