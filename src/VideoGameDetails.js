@@ -18,7 +18,7 @@ function VideoGameDetails({loggedIn, user}){
             result.platforms = result.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
             setGame(result);
         });
-    }, []);
+    }, [game]);
 
 
     const handleInterests = () => {
@@ -55,9 +55,9 @@ function VideoGameDetails({loggedIn, user}){
     if (loggedIn) {
         return(
             <div>
-                <Details game={game}
+                {/* <Details game={game}
                 genres={game.genres}
-                platforms={game.platforms} />
+                platforms={game.platforms} /> */}
                 <div>
                     <button onClick={(e) => handleInterests()}> Interested</button>
                     <button onClick={(e) => handlePlayed()}> Played</button>
@@ -79,9 +79,7 @@ function VideoGameDetails({loggedIn, user}){
     } else {
         return(
             <div>
-                <Details game={game}
-                genres={game.genres}
-                platforms={game.platforms} />
+                <Details game={game} />
             </div>
         );
     };

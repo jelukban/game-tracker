@@ -3,6 +3,8 @@
 from model import db, User, Game, GameGenre, Genre, Platform, GamePlatform, \
                 connect_to_db, Interest, GamePlayed, Rating
 
+
+
 def create_game(id, name, description, cover_url, release_date):
     """ Creates a video game to add to the Game db. """
 
@@ -145,6 +147,7 @@ def create_game_genre(game_id, genre_id):
 def create_game_platform(game_id, platform_id):
 
     return GamePlatform(game_id=game_id, platform_id=platform_id)
+
 
 
 if __name__ == '__main__':
