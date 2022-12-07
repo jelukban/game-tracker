@@ -2,7 +2,7 @@
 
 from model import db, User, Game, GameGenre, Genre, Platform, GamePlatform, \
                 connect_to_db, Interest, GamePlayed, Rating
-
+from sqlalchemy import func
 
 
 def create_game(id, name, description, cover_url, release_date):
@@ -148,6 +148,14 @@ def create_game_platform(game_id, platform_id):
 
     return GamePlatform(game_id=game_id, platform_id=platform_id)
 
+
+def get_average_rating_by_id(game_id):
+
+    nums = db.session.query(func.round(func.avg(Rating.score).\
+        label('average'), 2)).filter(Rating.game_id == game_id).\
+            group_by(Rating.game_id).first()
+
+    return nums[0] if nums else 'No ratings for this game'
 
 
 if __name__ == '__main__':

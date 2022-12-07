@@ -76,6 +76,11 @@ def show_game_information(game_id):
 
     game = crud.get_game_by_id(game_id)
 
+    ave_score = crud.get_average_rating_by_id(game_id)
+
+    if ave_score != 'No ratings for this game':
+        game['score'] = int(ave_score)
+
     return jsonify(game)
 
 
