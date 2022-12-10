@@ -1,11 +1,28 @@
-import React from 'react';
+import { React, useEffect, useParams, useState } from 'react';
+import VideoGameContainer from './VideoGameContainer.js'
 
 function UserDashboard ({user}) {
+    const [games, setGames] = useState([]);
+    const user_id = user.id;
+
+    useEffect(() => {
+        fetch(`/api/dashboard/${user_id}`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            setGames(responseJson.games);
+            console.log(responseJson);
+        });
+    }, []);
+
     return (
-        <React.Fragment>
+        <div>
             <h1>Welcome {user.firstName}!</h1>
-                <p>User Id: {user.id}</p>
-        </React.Fragment>
+            <div className="user-recommendations">
+                Here are your recommended games!
+                <VideoGameContainer games={games}
+                                    count={20} />
+            </div>
+        </div>
     );
 };
 

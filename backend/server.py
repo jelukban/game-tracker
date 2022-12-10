@@ -172,7 +172,7 @@ def create_video_game_rating(game_id):
     return('your video game was created!')
 
 
-@app.route('/api/userdashboard/<user_id>')
+@app.route('/api/dashboard/<user_id>')
 def get_user_recommendations(user_id):
 
     games = crud.select_user_recommendations(user_id)
