@@ -158,6 +158,43 @@ def get_average_rating_by_id(game_id):
     return nums[0] if nums else 'No ratings for this game'
 
 
+def get_genres_most_played(user_id):
+
+    count = {}
+    total = 0
+
+    user = db.session.query(User).options(db.joinedload('interests', 'game'))\
+                                                .filter(User.id == user_id).first()
+    for game in user.interests:
+        print(game)
+        for genre in game.game.genres:
+            if genre.name in count:
+                count[genre.name] += 1
+            else:
+                count[genre.name] = 1
+
+    for num in count.values():
+        total += num
+
+    for genre in count:
+        count[genre] = round((count[genre]/total),2)
+
+    return(count)
+
+
+def select_user_recommendations(user_id):
+
+    genre_count = get_genres_most_played(user_id)
+    genres = [genre for genre in genre_count]
+
+    games = db.session.query(Game).filter(Game.genres.any(Genre.name.in_(genres))).order_by(func.random()).limit(20).all()
+
+
+    recommendations = [game.to_json() for game in games]
+
+    return recommendations
+
+
 if __name__ == '__main__':
 
     from server import app
