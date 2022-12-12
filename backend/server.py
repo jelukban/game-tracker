@@ -31,8 +31,7 @@ def check_user_login():
     user_info = crud.find_user_by_email(email, password)
 
     if user_info == "User does not exist":
-        # flash('Please create an account.')
-        return redirect('/login')
+        return jsonify({'status':'Account not found'})
     else:
         user_info['has_account'] = 'True'
         return jsonify(user_info)
@@ -49,25 +48,29 @@ def create_user_account():
     email = data.get('email')
     password = data.get('password')
 
-    user_info = crud.find_user_by_email(email=email, password=password)
+
+    if len(email) > 5 and len(password) > 8:
+        user_info = crud.find_user_by_email(email=email, password=password)
 
 
-    if user_info == "User does not exist":
-        new_account = crud.create_user(fname=first_name,
-                                lname=last_name,
-                                email=email,
-                                password=password)
+        if user_info == "User does not exist":
+            new_account = crud.create_user(fname=first_name,
+                                    lname=last_name,
+                                    email=email,
+                                    password=password)
 
-        db.session.add(new_account)
-        db.session.commit()
+            db.session.add(new_account)
+            db.session.commit()
 
-        user_info = crud.find_user_by_email(email, password)
-        user_info['has_account'] = 'True'
+            user_info = crud.find_user_by_email(email, password)
+            user_info['has_account'] = 'True'
 
+        else:
+            user_info['has_account'] = 'True'
+
+        return jsonify(user_info)
     else:
-        user_info['has_account'] = 'True'
-
-    return jsonify(user_info)
+        return jsonify({'status':'Requirements not filled'})
 
 
 @app.route('/api/games/details/<game_id>')

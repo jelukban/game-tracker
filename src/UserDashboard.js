@@ -10,7 +10,6 @@ function UserDashboard ({user}) {
         .then((response) => response.json())
         .then((responseJson) => {
             setGames(responseJson.games);
-            console.log(responseJson);
         });
     }, []);
 

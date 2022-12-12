@@ -4,7 +4,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
 
     return (
         <React.Fragment>
-        <div> Create An Account
+        <div> Create An Account!
                 <h1>Please Fill Out The Form</h1>
                 <form id="create-account" onSubmit={handleSubmit}>
                     <label htmlFor="first-name">First Name</label>
@@ -17,6 +17,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
                     <input type="password" id='password' onChange={setPassword}></input>
                     <button type="submit">Create</button>
                 </form>
+                <div> Password needs to be more than 8 characters! </div>
             </div>
         </React.Fragment>
     );

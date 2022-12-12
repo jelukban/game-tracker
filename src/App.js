@@ -48,6 +48,8 @@ function App() {
                     email: result.email,
                     password: result.password});
             setLoggedIn(true);
+            } else if (result.status === 'Account not found') {
+                alert('Account not found!');
             };
         });
     };
@@ -67,6 +69,8 @@ function App() {
                 email: result.email,
                 password: result.password});
             setLoggedIn(true);
+            } else if (result.status === 'Requirements not filled') {
+                alert('Please enter a valid password!')
             };
         });
     };
