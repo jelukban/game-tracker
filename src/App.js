@@ -9,17 +9,22 @@ import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import VideoGameDetails from './VideoGameDetails.js';
+import secureLocalStorage from 'react-secure-storage';
 
 
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
 
-    const [user, setUser] = useState({id: "",
-                                            firstName: "",
-                                            lastName: "",
-                                            email: "",
-                                            password: "" });
+    const [user, setUser] = useState(() => {
+        const userInput = JSON.parse(secureLocalStorage.getItem('user'));
+        if (userInput !== null) {
+            setLoggedIn(true);
+            return userInput
+        } else {
+            return '';
+        };
+    });
 
     const [games, setGames] = useState([]);
     const [gameId, setGameId] = useState(0);
@@ -33,7 +38,6 @@ function App() {
          });
     }, []);
 
-
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         fetch('/api/login', { method: 'POST',
@@ -42,11 +46,13 @@ function App() {
             }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
-            setUser({id: result.user_id,
-                    firstName: result.first_name,
-                    lastName: result.last_name,
-                    email: result.email,
-                    password: result.password});
+            let tempData = {'id': result.user_id,
+                            'firstName': result.first_name,
+                            'lastName': result.last_name,
+                            'email': result.email,
+                            'password': result.password};
+            setUser(tempData);
+            secureLocalStorage.setItem('user', JSON.stringify(tempData));
             setLoggedIn(true);
             } else if (result.status === 'Account not found') {
                 alert('Account not found!');
@@ -63,11 +69,13 @@ function App() {
         }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
-            setUser({id: result.user_id,
-                firstName: result.first_name,
-                lastName: result.last_name,
-                email: result.email,
-                password: result.password});
+            let tempData = {'id': result.user_id,
+                            'firstName': result.first_name,
+                            'lastName': result.last_name,
+                            'email': result.email,
+                            'password': result.password};
+            setUser(tempData);
+            secureLocalStorage.setItem('user', JSON.stringify(tempData));
             setLoggedIn(true);
             } else if (result.status === 'Requirements not filled') {
                 alert('Please enter a valid password!')
@@ -78,12 +86,9 @@ function App() {
 
     const handleSignOut = (e) => {
         e.preventDefault();
+        setUser({});
+        secureLocalStorage.removeItem('user');
         setLoggedIn(false);
-        setUser({user_id: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "" });
     };
 
     const setDefaultGames = () => {

@@ -23,6 +23,7 @@ class Game(db.Model):
     platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
     genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
 
+
     def to_json(self):
         """ Returns data of object. """
         genres = []

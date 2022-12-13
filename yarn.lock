@@ -4450,6 +4450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"crypto-js@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "crypto-js@npm:4.1.1"
+  checksum: b3747c12ee3a7632fab3b3e171ea50f78b182545f0714f6d3e7e2858385f0f4101a15f2517e033802ce9d12ba50a391575ff4638c9de3dd9b2c4bc47768d5425
+  languageName: node
+  linkType: hard
+
 "crypto-random-string@npm:^2.0.0":
   version: 2.0.0
   resolution: "crypto-random-string@npm:2.0.0"
@@ -6132,6 +6139,7 @@ __metadata:
     react-dom: ^18.2.0
     react-router-dom: 6
     react-scripts: ^5.0.1
+    react-secure-storage: ^1.0.21
     reinstall-node-modules: ^2.0.0
   languageName: unknown
   linkType: soft
@@ -8455,6 +8463,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"murmurhash-js@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "murmurhash-js@npm:1.0.0"
+  checksum: 083cea92a11bc9eb25be1446fc92eded3f49731bc1ad34fa8023afd68c234d1dd59458d70eb20e667b1383bedeeb8dfb1a16c89913b6ffe3584fd22fb598739d
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^3.3.4":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
@@ -10278,6 +10293,16 @@ __metadata:
   bin:
     react-scripts: bin/react-scripts.js
   checksum: 92afa2f245c7092ccc97d5609dc7a2130616262e34da7f15072d9442e2d2e1d4909a91022abd1faac1336eb17c5525a10d9bd43e1ae374c7ec941ca20addca68
+  languageName: node
+  linkType: hard
+
+"react-secure-storage@npm:^1.0.21":
+  version: 1.0.21
+  resolution: "react-secure-storage@npm:1.0.21"
+  dependencies:
+    crypto-js: ^4.1.1
+    murmurhash-js: ^1.0.0
+  checksum: 9b867570a8432d07d6872d4eff0efdd724892f1ea4cd2205a48a93036680a164a5dc6d6483e027b38b2bdd10ded358326517cf3746515c9565c68bba33f19893
   languageName: node
   linkType: hard
 

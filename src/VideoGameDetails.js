@@ -26,7 +26,7 @@ function VideoGameDetails({loggedIn, user}){
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
-        .then(console.log('Your game was added!'));
+        .then(alert('Your game was added!'));
     };
 
 
@@ -35,7 +35,7 @@ function VideoGameDetails({loggedIn, user}){
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
-        .then(console.log('Your game was added!'));
+        .then(alert('Your game was added!'));
     };
 
 
