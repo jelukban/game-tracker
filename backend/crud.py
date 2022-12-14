@@ -1,7 +1,7 @@
 """ CRUD operations. """
 
 from model import db, User, Game, GameGenre, Genre, Platform, GamePlatform, \
-                connect_to_db, Interest, GamePlayed, Rating
+                connect_to_db, Interest, GamePlayed, Rating, Following
 from sqlalchemy import func
 
 
@@ -193,6 +193,17 @@ def select_user_recommendations(user_id):
     recommendations = [game.to_json() for game in games]
 
     return recommendations
+
+
+
+def follow_another_user(follower_user_id, following_user_id):
+
+    if db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
+                                            Following.following_user_id == following_user_id).first():
+        return Following(follower_user_id = follower_user_id,
+                            following_user_id = following_user_id)
+    else:
+        return 'User is already following this user'
 
 
 if __name__ == '__main__':

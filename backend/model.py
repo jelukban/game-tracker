@@ -62,6 +62,7 @@ class User(db.Model):
     interests = db.relationship('Interest', back_populates='user')
     games_played = db.relationship('GamePlayed', back_populates='user')
 
+
     def to_json(self):
         """ Returns data of object. """
 
@@ -178,6 +179,22 @@ class GamePlatform(db.Model):
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.platform_id}"
+
+
+class Following(db.Model):
+    """ Users and who they follow """
+
+    __tablename__ = 'followings'
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    follower_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    following_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    follower_users = db.relationship('User', foreign_keys = [follower_user_id], backref='followers')
+    following_users = db.relationship('User', foreign_keys = [following_user_id], backref='followings')
+
+    def __repr__(self):
+        return f"<Id = {self.id} User Id = {self.user_id} Following User = {self.following_user_id}"
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///game_tracker", echo=True):
