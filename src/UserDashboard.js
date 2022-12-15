@@ -3,7 +3,7 @@ import VideoGameContainer from './VideoGameContainer.js'
 
 function UserDashboard ({user}) {
     const [games, setGames] = useState([]);
-    const {user_id} = useParams();
+    const user_id = user.id;
 
     useEffect(() => {
         fetch(`/api/dashboard/${user_id}`)

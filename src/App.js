@@ -132,11 +132,9 @@ function App() {
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
                                                                             setPassword={(e) => setUser({ ...user, password: e.target.value })}/>} />
-                <Route path={`/dashboard/:user.id`} element={loggedIn ? <UserDashboard user={user} />:
-                                                    <Navigate to='/' />} />
-
-                <Route path={`/dashboard/:user.id/interests`} element={<UserInterests user={user}/>} />
-                <Route path={`/dashboard/:user.id/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
+                <Route path={`/dashboard/${user.id}`} element={<UserDashboard user={user} />} />
+                <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
+                <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
                                                                                     user={user}/>}/>
                 <Route path='/signout' element={loggedIn ? <Navigate to='/login' />:
