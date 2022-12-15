@@ -72,7 +72,7 @@ def find_user_by_email(email, password):
     """ Finds user by email. """
 
     if check_if_user_exists(email, password):
-        user = db.session.query(User).filter(User.email == email).one()
+        user = db.session.query(User).filter(User.email == email).first()
 
         return {'user_id': user.id,
                 'first_name': user.fname,
@@ -195,8 +195,7 @@ def select_user_recommendations(user_id):
     return recommendations
 
 
-
-def follow_another_user(follower_user_id, following_user_id):
+def create_user_follow(follower_user_id, following_user_id):
 
     if db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
                                             Following.following_user_id == following_user_id).first():
@@ -204,6 +203,19 @@ def follow_another_user(follower_user_id, following_user_id):
                             following_user_id = following_user_id)
     else:
         return 'User is already following this user'
+
+
+def retrieve_user_search_results(email):
+    user = db.session.query(User).filter(User.email == email).first()
+
+    if user:
+        return {'user_id': user.id,
+                'first_name': user.fname,
+                'last_name': user.lname,
+                'email': user.email,
+                'password': user.password}
+    else:
+        return 'This user does not exist!'
 
 
 if __name__ == '__main__':

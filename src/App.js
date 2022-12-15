@@ -10,6 +10,7 @@ import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import VideoGameDetails from './VideoGameDetails.js';
 import secureLocalStorage from 'react-secure-storage';
+import SearchUsers from './SearchUsers.js';
 
 
 
@@ -117,7 +118,8 @@ function App() {
                     signOut={handleSignOut}
                     handleSearchResults={handleSearchResults}
                     setSearchName={(e) => setSearchName(e.target.value)}
-                    setDefaultGames={setDefaultGames} />
+                    setDefaultGames={setDefaultGames}
+                    user={user} />
             <Routes>
                 <Route path ='/' element = {<Homepage games={games}/>} />
                 <Route path='/login' element={loggedIn ? <Navigate to='/dashboard' />:
@@ -130,15 +132,16 @@ function App() {
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
                                                                             setPassword={(e) => setUser({ ...user, password: e.target.value })}/>} />
-                <Route path='/dashboard' element={loggedIn ? <UserDashboard user={user} />:
+                <Route path={`/dashboard/:user.id`} element={loggedIn ? <UserDashboard user={user} />:
                                                     <Navigate to='/' />} />
 
-                <Route path='/dashboard/interests' element={<UserInterests user={user}/>} />
-                <Route path='/dashboard/gamesplayed' element={<UserPlayedGames user={user}/>}/>
+                <Route path={`/dashboard/:user.id/interests`} element={<UserInterests user={user}/>} />
+                <Route path={`/dashboard/:user.id/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
                                                                                     user={user}/>}/>
                 <Route path='/signout' element={loggedIn ? <Navigate to='/login' />:
                                                             <SignOut />} />
+                <Route path='/find' element={<SearchUsers />} />
             </Routes>
         </BrowserRouter>
     );

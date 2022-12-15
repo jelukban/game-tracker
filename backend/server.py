@@ -183,6 +183,38 @@ def get_user_recommendations(user_id):
     return jsonify({'games': games})
 
 
+@app.route('/api/followuser', methods=['POST'])
+def follow_another_user():
+
+    data = request.get_json()
+
+    follower_id = data.get('followerId')
+    following_id = data.get('followingId')
+
+    follow = crud.create_user_follow(follower_user_id= follower_id,
+                                        following_user_id=following_id)
+
+    if follow != 'User is already following this user':
+        db.session.add(follow)
+        db.session.commit()
+    else:
+        return 'User is already following this person!'
+
+
+@app.route('/api/search/user', methods=['POST'])
+def retrieve_user_data_by_email():
+    data = request.get_json()
+
+    email = data.get('email')
+
+    user_info = crud.retrieve_user_search_results(email=email)
+    if user_info != 'This user does not exist!':
+        user_info['status'] = 'Account found!'
+        return jsonify(user_info)
+    else:
+        return jsonify({'status':'Account not found'})
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)
