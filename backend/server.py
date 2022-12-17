@@ -214,6 +214,16 @@ def retrieve_user_data_by_email():
     else:
         return jsonify({'status':'Account not found'})
 
+@app.route('/api/dashboard/<user_id>/follows')
+def retrieve_user_follows(user_id):
+
+    followings = crud.retrieve_all_followings_for_user(follower_user_id=user_id)
+
+    if len(followings) != 0:
+        return jsonify(followings)
+    else:
+        return jsonify({'status':'User has no follows'})
+
 
 if __name__ == "__main__":
 

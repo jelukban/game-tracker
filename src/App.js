@@ -11,6 +11,7 @@ import UserPlayedGames from './UserPlayedGames.js';
 import VideoGameDetails from './VideoGameDetails.js';
 import secureLocalStorage from 'react-secure-storage';
 import SearchUsers from './SearchUsers.js';
+import Follows from './Follows.js';
 
 
 
@@ -140,6 +141,7 @@ function App() {
                 <Route path='/signout' element={loggedIn ? <Navigate to='/login' />:
                                                             <SignOut />} />
                 <Route path='/find' element={<SearchUsers />} />
+                <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
             </Routes>
         </BrowserRouter>
     );

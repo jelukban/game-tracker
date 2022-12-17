@@ -13,6 +13,7 @@ function Navbar ({loggedIn, signOut, handleSearchResults, setSearchName, setDefa
             <li><Link to={`/dashboard/${user.id}`}>User Dashboard</Link></li>
             <li><Link to={`/dashboard/${user.id}/gamesplayed`}>Played</Link></li>
             <li><Link to={`/dashboard/${user.id}/interests`}>Interests</Link></li>
+            <li><Link to={`/dashboard/${user.id}/follows`}>My Follows</Link></li>
             <li><Link to="/find" >Find People</Link></li>
             <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
         </ul>

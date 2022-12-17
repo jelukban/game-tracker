@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserDashboard from './UserDashboard.js';
+import UserInterests from './UserInterests.js';
+import UserPlayedGames from './UserPlayedGames.js';
 
 function SearchUsers(){
 
@@ -36,6 +38,8 @@ function SearchUsers(){
                 <button>Search</button>
             </form>
             <UserDashboard user={user} />
+            <UserInterests user={user} />
+            <UserPlayedGames user={user} />
         </div>
         );
     };

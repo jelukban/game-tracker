@@ -190,11 +190,11 @@ class Following(db.Model):
     follower_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     following_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    follower_users = db.relationship('User', foreign_keys = [follower_user_id], backref='followers')
-    following_users = db.relationship('User', foreign_keys = [following_user_id], backref='followings')
+    following_users = db.relationship('User', foreign_keys = [follower_user_id], backref='followings')
+    followers_users = db.relationship('User', foreign_keys = [following_user_id], backref='followers')
 
     def __repr__(self):
-        return f"<Id = {self.id} User Id = {self.user_id} Following User = {self.following_user_id}"
+        return f"<Id = {self.id} Follower Id = {self.follower_user_id} Following User = {self.following_user_id}>"
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///game_tracker", echo=True):

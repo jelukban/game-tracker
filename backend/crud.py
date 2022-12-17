@@ -197,7 +197,7 @@ def select_user_recommendations(user_id):
 
 def create_user_follow(follower_user_id, following_user_id):
 
-    if db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
+    if not db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
                                             Following.following_user_id == following_user_id).first():
         return Following(follower_user_id = follower_user_id,
                             following_user_id = following_user_id)
@@ -216,6 +216,25 @@ def retrieve_user_search_results(email):
                 'password': user.password}
     else:
         return 'This user does not exist!'
+
+
+def retrieve_all_followings_for_user(follower_user_id):
+
+    follows = []
+
+    follow_query = db.session.query(Following,User)\
+            .join(User, Following.following_user_id == User.id)\
+            .filter(Following.follower_user_id == follower_user_id).all()
+
+    if len(follow_query) != 0:
+        for _, info in follow_query:
+
+            follows.append({'id': info.id,
+                            'firstName': info.fname,
+                            'lastName':info.lname,
+                            'email':info.email})
+
+    return follows
 
 
 if __name__ == '__main__':
