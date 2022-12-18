@@ -27,15 +27,26 @@ def create_user(fname, lname, email, password):
 def create_interest(game_id, user_id):
     """ Created a game that the user is interested in. """
 
-    return Interest(game_id=game_id,
-                    user_id=user_id)
+    interest = db.session.query(Interest).filter(Interest.game_id == game_id, Interest.user_id == user_id).first()
+
+
+    if not interest:
+        return Interest(game_id=game_id,
+                        user_id=user_id)
+    else:
+        return 'User has already interested this game'
 
 
 def create_game_played(game_id, user_id):
     """ Created a game that the user is interested in. """
 
-    return GamePlayed(game_id=game_id,
+    gameplayed = db.session.query(GamePlayed).filter(GamePlayed.game_id == game_id, GamePlayed.user_id == user_id).first()
+
+    if not gameplayed:
+        return GamePlayed(game_id=game_id,
                     user_id=user_id)
+    else:
+        return 'User has already played this game'
 
 
 def get_all_games():

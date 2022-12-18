@@ -98,11 +98,15 @@ def create_interest_game_by_user():
     interest = crud.create_interest(game_id=int(game_id),
                                     user_id=int(user_id))
 
-    db.session.add(interest)
-    db.session.commit()
+    if interest != 'User has already interested this game':
+        db.session.add(interest)
+        db.session.commit()
 
-    return jsonify({'user_id': user_id,
-                    'game_id': game_id})
+        return jsonify({'user_id': user_id,
+                        'game_id': game_id,
+                        'status': 'Interest made'})
+    else:
+        return jsonify({'status': 'Interest exists'})
 
 
 @app.route('/api/games/interests', methods=['POST'])
@@ -127,11 +131,15 @@ def create_played_game_by_user():
     played = crud.create_game_played(game_id=int(game_id),
                                     user_id=int(user_id))
 
-    db.session.add(played)
-    db.session.commit()
+    if played != 'User has already played this game':
+        db.session.add(played)
+        db.session.commit()
 
-    return jsonify({'user_id': user_id,
-                    'game_id': game_id})
+        return jsonify({'user_id': user_id,
+                        'game_id': game_id,
+                        'status':'GamePlayed was made'})
+    else:
+        return jsonify({'status': 'GamePlayed exists'})
 
 
 @app.route('/api/games/gamesplayed', methods=['POST'])

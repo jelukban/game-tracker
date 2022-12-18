@@ -26,7 +26,15 @@ function VideoGameDetails({loggedIn, user}){
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
-        .then(alert('Your game was added!'));
+        .then((response) => response.json())
+        .then((result) => {
+        console.log(result);
+            if (result.status === 'Interest made') {
+            alert('Interest made');
+        } else {
+            alert('Interest already exists');
+        };
+        });
     };
 
 
@@ -35,7 +43,13 @@ function VideoGameDetails({loggedIn, user}){
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
-        .then(alert('Your game was added!'));
+        .then((response) => response.json())
+        .then((result) => { if (result.status === 'GamePlayed was made') {
+            alert('GamePlayed was made');
+        } else {
+            alert('GamePlayed already exists!')
+        };
+        });
     };
 
 
@@ -48,7 +62,7 @@ function VideoGameDetails({loggedIn, user}){
                                                 body:JSON.stringify(userGame),
                                                 headers: {'Content-Type': 'application/json',
                                             }})
-        .then(console.log('Your game was rated!'));
+        .then(alert('Rating was made'));
     };
 
 

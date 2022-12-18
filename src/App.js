@@ -123,11 +123,11 @@ function App() {
                     user={user} />
             <Routes>
                 <Route path ='/' element = {<Homepage games={games}/>} />
-                <Route path='/login' element={loggedIn ? <Navigate to='/dashboard' />:
+                <Route path='/login' element={loggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
                                                                     setPassword={(e) => {setUser({ ...user, password: e.target.value })}} />} />
-                <Route path='/create' element ={loggedIn ? <Navigate to='/dashboard' /> :
+                <Route path='/create' element ={loggedIn ? <Navigate to={`/dashboard/${user.id}`} /> :
                                                                 <CreateAccount handleSubmit={handleCreateSubmit}
                                                                             setFirstName={(e) => setUser({ ...user, firstName: e.target.value })}
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
