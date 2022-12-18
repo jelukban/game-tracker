@@ -4,6 +4,7 @@ import {React, useState, useEffect} from 'react';
 function UserPlayedGames({user}) {
     const [gamesPlayed, setGamesPlayed] = useState([]);
 
+
     useEffect(() => {
         fetch('/api/games/gamesplayed', { method: 'POST',
             body: JSON.stringify(user),

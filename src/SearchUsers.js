@@ -13,13 +13,13 @@ function SearchUsers(){
     const handleSearchUser = (e) => {
         e.preventDefault();
 
-        fetch('/api/search/user', { method: 'POST',
+        fetch('/api/search/user/email', { method: 'POST',
         body: JSON.stringify({'email':userEmail}),
         headers: { 'Content-Type': 'application/json',
         }})
         .then((response) => response.json())
         .then((result) => {if (result.state !== 'Account not found') {
-                setUser({'id':result.user_id,
+                setUser({'id':result.id,
                         'firstName': result.first_name,
                         'lastName': result.last_name,
                         'email': result.email});

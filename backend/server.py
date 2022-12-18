@@ -201,13 +201,13 @@ def follow_another_user():
         return 'User is already following this person!'
 
 
-@app.route('/api/search/user', methods=['POST'])
+@app.route('/api/search/user/email', methods=['POST'])
 def retrieve_user_data_by_email():
     data = request.get_json()
 
     email = data.get('email')
 
-    user_info = crud.retrieve_user_search_results(email=email)
+    user_info = crud.get_user_search_results(email=email)
     if user_info != 'This user does not exist!':
         user_info['status'] = 'Account found!'
         return jsonify(user_info)
@@ -223,6 +223,19 @@ def retrieve_user_follows(user_id):
         return jsonify(followings)
     else:
         return jsonify({'status':'User has no follows'})
+
+@app.route('/api/search/user/id', methods=['POST'])
+def retrieve_user_data_by_id():
+    data = request.get_json()
+
+
+    id = data.get('id')
+    user_info = crud.get_user_search_results_by_id(user_id=id)
+    if user_info != 'This user does not exist!':
+        user_info['status'] = 'Account found!'
+        return jsonify(user_info)
+    else:
+        return jsonify({'status':'Account not found'})
 
 
 if __name__ == "__main__":

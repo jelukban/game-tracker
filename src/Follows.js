@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import FollowPage from './FollowPage.js'
+import { Link } from 'react-router-dom'
 
-function Follows({user}){
+function Follows({user}) {
     const [follows, setFollows] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -19,10 +19,11 @@ function Follows({user}){
     }, [follows]);
 
     if (isLoaded) {
-        return(<div> Is loaded
-                <FollowPage users={follows} />
-            </div>);
-    }
+        return(<div>
+            {follows.map(follow => <Link to={`/dashboard/${user.id}/follows/${follow.id}`}> {follow.firstName} {follow.lastName}</Link>)}
+        </div>
+        );
+        }
 };
 
 export default Follows;

@@ -12,7 +12,7 @@ import VideoGameDetails from './VideoGameDetails.js';
 import secureLocalStorage from 'react-secure-storage';
 import SearchUsers from './SearchUsers.js';
 import Follows from './Follows.js';
-
+import FollowGames from './FollowGames.js';
 
 
 function App() {
@@ -87,12 +87,9 @@ function App() {
 
 
     const handleSignOut = (e) => {
-        e.preventDefault();
         setUser({});
         secureLocalStorage.removeItem('user');
         setLoggedIn(false);
-        return redirect('/');
-
     };
 
     const setDefaultGames = () => {
@@ -113,6 +110,7 @@ function App() {
             setGames(result.games);
         });
     };
+
 
 
     return (
@@ -143,6 +141,7 @@ function App() {
                 <Route path='/signout' element={<Navigate to='/' />} />
                 <Route path='/find' element={<SearchUsers />} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
+                <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
             </Routes>
         </BrowserRouter>
     );
