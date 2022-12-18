@@ -237,6 +237,23 @@ def retrieve_user_data_by_id():
     else:
         return jsonify({'status':'Account not found'})
 
+@app.route('/api/search/user/add', methods=['POST'])
+def create_user_follow():
+
+    data = request.get_json()
+
+    follower_user_id = data.get('followUserId')
+    following_user_id = data.get('followingUserId')
+
+    follow = crud.create_user_follow(follower_user_id=follower_user_id,
+                                        following_user_id=following_user_id)
+
+    if follow != 'User is already following this user':
+        db.session.add(follow)
+        db.session.commit()
+        return jsonify({'status': 'Follow was made!'})
+    else:
+        return jsonify({'status': 'User is already following this user'})
 
 if __name__ == "__main__":
 

@@ -4,8 +4,7 @@ import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 
-function SearchUsers(){
-
+function SearchUsers({followerUserInfo}){
     const [userEmail, setUserEmail] = useState('');
     const [user, setUser] = useState({});
     const [userFound, setUserFound] = useState(false);
@@ -18,10 +17,10 @@ function SearchUsers(){
         headers: { 'Content-Type': 'application/json',
         }})
         .then((response) => response.json())
-        .then((result) => {if (result.state !== 'Account not found') {
+        .then((result) => {if (result.status !== 'Account not found') {
                 setUser({'id':result.id,
-                        'firstName': result.first_name,
-                        'lastName': result.last_name,
+                        'firstName': result.firstName,
+                        'lastName': result.lastName,
                         'email': result.email});
                 setUserFound(true);
             } else {
@@ -30,6 +29,25 @@ function SearchUsers(){
         });
     };
 
+
+    const handleFollow = (e) => {
+        e.preventDefault();
+
+        fetch('/api/search/user/add', { method: 'POST',
+        body: JSON.stringify({'followUserId':followerUserInfo.id,
+                        'followingUserId':user.id}),
+        headers: { 'Content-Type': 'application/json',
+        }})
+        .then((response) => response.json())
+        .then((result) => {if (result.status === 'Follow was made!') {
+                alert('Follow was made!')
+            } else {
+                alert('Already following this user.')
+            };
+        });
+    };
+
+
     if (userFound) {
         return(
         <div> Search for a new user by email!
@@ -37,6 +55,7 @@ function SearchUsers(){
                 <input type="text"onChange={(e)=>setUserEmail(e.target.value)}/> Email
                 <button>Search</button>
             </form>
+            <button onClick={handleFollow}>Follow</button>
             <UserDashboard user={user} />
             <UserInterests user={user} />
             <UserPlayedGames user={user} />

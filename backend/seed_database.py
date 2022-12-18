@@ -26,8 +26,7 @@ payload = {'Client-ID': API_ID,
 
 ### to fix seeding, query one at a time and then add it, do last
 i = 0
-# while i < 215000:
-while i < 10000:
+while i < 215000:
 
     data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; sort id asc; limit 500; offset {i};}};'
     req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)
@@ -93,12 +92,3 @@ while i < 10000:
                 model.db.session.commit()
 
     i += 500
-
-
-## Adding in test users
-user = crud.create_user(fname='Jane',lname='Doe', email='test@tst.com',
-                        password='aaa')
-
-model.db.session.add(user)
-
-model.db.session.commit()

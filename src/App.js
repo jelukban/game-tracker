@@ -139,7 +139,7 @@ function App() {
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
                                                                                     user={user}/>}/>
                 <Route path='/signout' element={<Navigate to='/' />} />
-                <Route path='/find' element={<SearchUsers />} />
+                <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
             </Routes>
