@@ -23,8 +23,6 @@ access_token = access_token['access_token']
 payload = {'Client-ID': API_ID,
 'Authorization': f"Bearer {access_token}"}
 
-
-### to fix seeding, query one at a time and then add it, do last
 i = 0
 while i < 215000:
 
@@ -42,7 +40,7 @@ while i < 215000:
         release_date = game.get('first_release_date')
 
         if cover_url:
-            cover_url = cover_url.get('url')
+            cover_url = cover_url.get('url').replace('t_thumb','t_cover_big')
 
         if release_date:
             release_date = datetime.fromtimestamp(int(release_date))
