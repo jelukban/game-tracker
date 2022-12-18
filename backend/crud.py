@@ -29,7 +29,6 @@ def create_interest(game_id, user_id):
 
     interest = db.session.query(Interest).filter(Interest.game_id == game_id, Interest.user_id == user_id).first()
 
-
     if not interest:
         return Interest(game_id=game_id,
                         user_id=user_id)
