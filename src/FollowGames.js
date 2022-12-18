@@ -1,19 +1,16 @@
 import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import React from 'react';
 
-function FollowGames ({users}) {
-    const navigate = useNavigate();
+function FollowGames ({user}) {
 
-    return (<div> stuff
-                {users.map(user => <React.Fragment>
-                                        <UserDashboard user={user}/>
-                                        <UserInterests user={user} />
-                                        <UserPlayedGames user={user} />
-                                    </React.Fragment>)}
-            </div>);
+    return (<React.Fragment>
+                <UserDashboard user={user}/>
+                <UserInterests user={user} />
+                <UserPlayedGames user={user} />
+            </React.Fragment>
+            );
 };
 
 export default FollowGames;

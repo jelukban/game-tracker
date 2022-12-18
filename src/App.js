@@ -1,5 +1,5 @@
 import { React, useState, useEffect, Fragment} from 'react';
-import { Link, BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import { Link, BrowserRouter, Route, Navigate, Routes, redirect } from 'react-router-dom';
 import CreateAccount from './CreateAccount.js';
 import Homepage from './Homepage.js';
 import LoginPage from './LoginPage.js';
@@ -91,6 +91,8 @@ function App() {
         setUser({});
         secureLocalStorage.removeItem('user');
         setLoggedIn(false);
+        return redirect('/');
+
     };
 
     const setDefaultGames = () => {
@@ -133,13 +135,12 @@ function App() {
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
                                                                             setPassword={(e) => setUser({ ...user, password: e.target.value })}/>} />
-                <Route path={`/dashboard/${user.id}`} element={<UserDashboard user={user} />} />
+                <Route path={`/dashboard/${user.id}`} element={ <UserDashboard user={user}/> } />
                 <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
                                                                                     user={user}/>}/>
-                <Route path='/signout' element={loggedIn ? <Navigate to='/login' />:
-                                                            <SignOut />} />
+                <Route path='/signout' element={<Navigate to='/' />} />
                 <Route path='/find' element={<SearchUsers />} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
             </Routes>

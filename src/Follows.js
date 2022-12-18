@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import FollowGames from './FollowGames.js'
+import FollowPage from './FollowPage.js'
 
 function Follows({user}){
     const [follows, setFollows] = useState([]);
@@ -20,11 +20,9 @@ function Follows({user}){
 
     if (isLoaded) {
         return(<div> Is loaded
-                <FollowGames users={follows} />
+                <FollowPage users={follows} />
             </div>);
-    } else if (!isLoaded) {
-        return <div> Not loaded </div>
-    };
+    }
 };
 
 export default Follows;
