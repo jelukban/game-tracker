@@ -2,11 +2,9 @@
 from flask import Flask, render_template, request, flash, redirect, jsonify
 from model import connect_to_db, db, Rating
 import crud
-from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 app.secret_key = "dev"
-app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/api/games')
@@ -91,6 +89,7 @@ def show_game_information(game_id):
 
 @app.route('/api/games/<game_id>/create/interest', methods=['POST'])
 def create_interest_game_by_user(game_id):
+    """ Creates an interested game for a user. """
 
     data = request.get_json()
 
@@ -112,6 +111,7 @@ def create_interest_game_by_user(game_id):
 
 @app.route('/api/dashboard/interests', methods=['POST'])
 def get_all_games_of_interest():
+    """ Returns all games interested by a user. """
 
     data = request.get_json()
     user_id = data.get('id')
@@ -123,6 +123,7 @@ def get_all_games_of_interest():
 
 @app.route('/api/games/<game_id>/create/played', methods=['POST'])
 def create_played_game_by_user(game_id):
+    """ Created a played game for a user. """
 
     data = request.get_json()
 
@@ -144,6 +145,7 @@ def create_played_game_by_user(game_id):
 
 @app.route('/api/dashboard/played', methods=['POST'])
 def get_all_played_games():
+    """ Returns all games played by a user. """
 
     data = request.get_json()
     user_id = data.get('id')
@@ -155,6 +157,7 @@ def get_all_played_games():
 
 @app.route('/api/search/name', methods=['POST'])
 def get_search_results():
+    """ Returns games matching search input. """
 
     data = request.get_json()
 
@@ -167,6 +170,7 @@ def get_search_results():
 
 @app.route('/api/games/<game_id>/create/rating', methods=['POST'])
 def create_video_game_rating(game_id):
+    """ Creates a rating for a video game by user. """
 
     data = request.get_json()
 
@@ -185,6 +189,7 @@ def create_video_game_rating(game_id):
 
 @app.route('/api/dashboard/<user_id>')
 def get_user_recommendations(user_id):
+    """ Returns user recommended games based on interested genres. """
 
     games = crud.select_user_recommendations(user_id)
 
@@ -193,6 +198,8 @@ def get_user_recommendations(user_id):
 
 @app.route('/api/search/user/email', methods=['POST'])
 def retrieve_user_data_by_email():
+    """ Finds user by email and returns user information. """
+
     data = request.get_json()
 
     email = data.get('email')
@@ -204,8 +211,10 @@ def retrieve_user_data_by_email():
     else:
         return jsonify({'status':'Account not found'})
 
+
 @app.route('/api/dashboard/<user_id>/follows')
 def retrieve_user_follows(user_id):
+    """ Returns all users followed by a user. """
 
     followings = crud.retrieve_all_followings_for_user(follower_user_id=user_id)
 
@@ -214,8 +223,11 @@ def retrieve_user_follows(user_id):
     else:
         return jsonify({'status':'User has no follows'})
 
+
 @app.route('/api/search/user/id', methods=['POST'])
 def retrieve_user_data_by_id():
+    """ Returns user information by user id. """
+
     data = request.get_json()
 
 
@@ -227,8 +239,10 @@ def retrieve_user_data_by_id():
     else:
         return jsonify({'status':'Account not found'})
 
+
 @app.route('/api/search/user/follow', methods=['POST'])
 def follow_another_user():
+    """ Creates a follow by a user. """
 
     data = request.get_json()
 
@@ -244,6 +258,7 @@ def follow_another_user():
         return jsonify({'status': 'Follow was made!'})
     else:
         return jsonify({'status': 'User is already following this user'})
+
 
 if __name__ == "__main__":
 

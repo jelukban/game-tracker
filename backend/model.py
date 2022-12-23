@@ -182,7 +182,7 @@ class GamePlatform(db.Model):
 
 
 class Following(db.Model):
-    """ Users and who they follow """
+    """ Users and who they follow. """
 
     __tablename__ = 'followings'
 
