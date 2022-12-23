@@ -162,7 +162,7 @@ def get_search_results():
 
     search_name = data.get('searchName')
 
-    games = crud.search_for_game(search_name)
+    games = crud.search_for_game_by_name(search_name)
 
     return jsonify({'games':games})
 

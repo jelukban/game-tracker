@@ -119,7 +119,7 @@ def get_games_played_by_user(user_id):
     return [game.game.to_json() for game in games]
 
 
-def search_for_game(search_name):
+def search_for_game_by_name(search_name):
     """ Returns game from search bar. """
 
     games = db.session.query(Game).filter(Game.name.ilike(f'%{search_name}%')).all()
