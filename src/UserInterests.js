@@ -17,8 +17,7 @@ function UserInterests({user}) {
 
     return(
             <div> These are your interesting games!
-                <VideoGameContainer games={interestingGames}
-                                    count={100} />
+                <VideoGameContainer games={interestingGames} />
             </div>
     );
 };

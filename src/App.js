@@ -12,6 +12,7 @@ import VideoGameDetails from './VideoGameDetails.js';
 import SearchUsers from './SearchUsers.js';
 import Follows from './Follows.js';
 import FollowGames from './FollowGames.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {

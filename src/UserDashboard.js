@@ -17,8 +17,7 @@ function UserDashboard ({user}) {
             <h1>{user.firstName}'s Video Game Library!</h1>
             <div className="user-recommendations">
                 Here are your recommended games!
-                <VideoGameContainer games={games}
-                                    count={20} />
+                <VideoGameContainer games={games} />
             </div>
         </div>
     );
