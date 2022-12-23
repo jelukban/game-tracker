@@ -160,7 +160,7 @@ def create_game_genre(game_id, genre_id):
 
 
 def create_game_platform(game_id, platform_id):
-    """ Creates an associated game and platform."""
+    """ Creates an associated game and platform. """
 
     return GamePlatform(game_id=game_id, platform_id=platform_id)
 
@@ -176,7 +176,7 @@ def get_average_rating_by_id(game_id):
 
 
 def get_most_interested_genres(user_id):
-    """ Tracks the genres playe"""
+    """ Tracks the genres played by a user. """
 
     count = {}
     total = 0
