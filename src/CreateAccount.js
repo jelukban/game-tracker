@@ -17,7 +17,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
                     <input type="password" id='password' onChange={setPassword}></input>
                     <button type="submit">Create</button>
                 </form>
-                <div> Password needs to be more than 8 characters! </div>
+                <div> Password needs to be 6 or more characters! </div>
             </div>
         </React.Fragment>
     );

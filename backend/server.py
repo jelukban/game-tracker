@@ -28,7 +28,7 @@ def check_user_login():
     password = data.get('password')
 
 
-    user_info = crud.find_user_by_email(email, password)
+    user_info = crud.find_account(email, password)
 
     if user_info == "User does not exist":
         return jsonify({'status':'Account not found'})
@@ -49,9 +49,8 @@ def create_user_account():
     password = data.get('password')
 
 
-    if len(email) > 5 and len(password) > 8:
-        user_info = crud.find_user_by_email(email=email, password=password)
-
+    if len(email) > 5 and len(password) >= 6:
+        user_info = crud.find_account(email=email, password=password)
 
         if user_info == "User does not exist":
             new_account = crud.create_user(fname=first_name,
@@ -62,13 +61,16 @@ def create_user_account():
             db.session.add(new_account)
             db.session.commit()
 
-            user_info = crud.find_user_by_email(email, password)
+            user_info = crud.find_account(email, password)
             user_info['has_account'] = 'True'
 
+        elif user_info == "Email already exists":
+            return jsonify({'status':'Account with this email already exists'})
         else:
             user_info['has_account'] = 'True'
 
         return jsonify(user_info)
+
     else:
         return jsonify({'status':'Requirements not filled'})
 

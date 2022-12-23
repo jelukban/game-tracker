@@ -81,6 +81,8 @@ function App() {
             setLoggedIn(true);
             } else if (result.status === 'Requirements not filled') {
                 alert('Please enter a valid password!')
+            } else if (result.status === 'Account with this email already exists') {
+                alert('Account with this email already exists!')
             };
         });
     };

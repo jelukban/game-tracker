@@ -72,25 +72,27 @@ def get_all_users():
     return db.session.query(User).all()
 
 
-def check_if_user_exists(email, password):
-    """ Checks to see if user exists in the database. """
+def verify_user_login(email, password):
+    """ Checks to see if user login matches. """
 
     return True if db.session.query(User).filter(User.email == email, User.password == password).first() else False
 
 
-def find_user_by_email(email, password):
+def find_account(email, password):
     """ Finds user by email. """
+    user = db.session.query(User).filter(User.email == email).first()
 
-    if check_if_user_exists(email, password):
-        user = db.session.query(User).filter(User.email == email).first()
+    if verify_user_login(email, password):
 
         return {'user_id': user.id,
                 'first_name': user.fname,
                 'last_name': user.lname,
                 'email': user.email,
                 'password': user.password}
+    elif user:
+        return "Email already exists"
     else:
-        return("User does not exist")
+        return "User does not exist"
 
 
 def get_game_by_id(game_id):
@@ -134,6 +136,7 @@ def create_rating_for_game(game_id, user_id, score):
 
 
 def create_genre(id, name):
+    """ Creates a Genre. """
 
     if db.session.query(Genre).filter(Genre.id == id).first():
         return 'This genre has already been added'
@@ -142,6 +145,7 @@ def create_genre(id, name):
 
 
 def create_platform(id, name):
+    """ Created a Platform. """
 
     if db.session.query(Platform).filter(Platform.id == id).first():
         return 'This genre has already been added'
@@ -150,16 +154,19 @@ def create_platform(id, name):
 
 
 def create_game_genre(game_id, genre_id):
+    """ Creates an associated game and genre. """
 
     return GameGenre(game_id=game_id, genre_id=genre_id)
 
 
 def create_game_platform(game_id, platform_id):
+    """ Creates an associated game and platform."""
 
     return GamePlatform(game_id=game_id, platform_id=platform_id)
 
 
 def get_average_rating_by_id(game_id):
+    """ Calculates the average rating given per game. """
 
     nums = db.session.query(func.round(func.avg(Rating.score).\
         label('average'), 2)).filter(Rating.game_id == game_id).\
@@ -168,7 +175,8 @@ def get_average_rating_by_id(game_id):
     return nums[0] if nums else 'No ratings for this game'
 
 
-def get_genres_most_played(user_id):
+def get_most_interested_genres(user_id):
+    """ Tracks the genres playe"""
 
     count = {}
     total = 0
@@ -193,8 +201,9 @@ def get_genres_most_played(user_id):
 
 
 def select_user_recommendations(user_id):
+    """ Randomly selects 20 games based on user interested genres. """
 
-    genre_count = get_genres_most_played(user_id)
+    genre_count = get_most_interested_genres(user_id)
     genres = [genre for genre in genre_count]
 
     games = db.session.query(Game).filter(Game.genres.any(Genre.name.in_(genres))).order_by(func.random()).limit(20).all()
@@ -206,6 +215,7 @@ def select_user_recommendations(user_id):
 
 
 def create_user_follow(follower_user_id, following_user_id):
+    """ Creates a follow for a user. """
 
     if not db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
                                             Following.following_user_id == following_user_id).first():
@@ -216,6 +226,8 @@ def create_user_follow(follower_user_id, following_user_id):
 
 
 def get_user_search_results(email):
+    """ Finds user by email. """
+
     user = db.session.query(User).filter(User.email == email).first()
 
     if user:
@@ -229,6 +241,7 @@ def get_user_search_results(email):
 
 
 def retrieve_all_followings_for_user(follower_user_id):
+    """ Returns list of all users a user is following. """
 
     follows = []
 
@@ -248,6 +261,8 @@ def retrieve_all_followings_for_user(follower_user_id):
 
 
 def get_user_search_results_by_id(user_id):
+    """ Finds user by user id. """
+
     user = db.session.query(User).filter(User.id == user_id).first()
 
     if user:
