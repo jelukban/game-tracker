@@ -75,7 +75,7 @@ def create_user_account():
         return jsonify({'status':'Requirements not filled'})
 
 
-@app.route('/api/games/details/<game_id>')
+@app.route('/api/games/<game_id>/details')
 def show_game_information(game_id):
     """ Shows details for individual game. """
 
@@ -89,12 +89,11 @@ def show_game_information(game_id):
     return jsonify(game)
 
 
-@app.route('/api/createinterest', methods=['POST'])
-def create_interest_game_by_user():
+@app.route('/api/games/<game_id>/create/interest', methods=['POST'])
+def create_interest_game_by_user(game_id):
 
     data = request.get_json()
 
-    game_id = data.get('game_id')
     user_id = data.get('user_id')
 
     interest = crud.create_interest(game_id=int(game_id),
@@ -122,12 +121,11 @@ def get_all_games_of_interest():
     return jsonify({'games': games})
 
 
-@app.route('/api/createplayed', methods=['POST'])
-def create_played_game_by_user():
+@app.route('/api/games/<game_id>/create/played', methods=['POST'])
+def create_played_game_by_user(game_id):
 
     data = request.get_json()
 
-    game_id = data.get('game_id')
     user_id = data.get('user_id')
 
     played = crud.create_game_played(game_id=int(game_id),
@@ -144,7 +142,7 @@ def create_played_game_by_user():
         return jsonify({'status': 'GamePlayed exists'})
 
 
-@app.route('/api/games/gamesplayed', methods=['POST'])
+@app.route('/api/games/played', methods=['POST'])
 def get_all_played_games():
 
     data = request.get_json()
@@ -167,7 +165,7 @@ def get_search_results():
     return jsonify({'games':games})
 
 
-@app.route('/api/<game_id>/createrating', methods=['POST'])
+@app.route('/api/games/<game_id>/create/rating', methods=['POST'])
 def create_video_game_rating(game_id):
 
     data = request.get_json()

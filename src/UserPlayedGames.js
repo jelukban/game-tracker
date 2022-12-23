@@ -6,7 +6,7 @@ function UserPlayedGames({user}) {
 
 
     useEffect(() => {
-        fetch('/api/games/gamesplayed', { method: 'POST',
+        fetch('/api/games/played', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
             }})

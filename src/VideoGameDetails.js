@@ -11,7 +11,7 @@ function VideoGameDetails({loggedIn, user}){
 
 
     useEffect(() => {
-        fetch(`/api/games/details/${game_id}`)
+        fetch(`/api/games/${game_id}/details`)
         .then((response) => response.json())
         .then((result) => {
             result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
@@ -22,7 +22,7 @@ function VideoGameDetails({loggedIn, user}){
 
 
     const handleInterests = () => {
-        fetch('/api/createinterest', {method: 'POST',
+        fetch(`/api/games/${game_id}/create/interest`, {method: 'POST',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
@@ -39,7 +39,7 @@ function VideoGameDetails({loggedIn, user}){
 
 
     const handlePlayed = () => {
-        fetch('/api/createplayed', {method: 'POST',
+        fetch(`/api/games/${game_id}/create/played`, {method: 'POST',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
@@ -58,7 +58,7 @@ function VideoGameDetails({loggedIn, user}){
 
         userGame['score'] = score;
 
-        fetch(`/api/${game_id}/createrating`, {method: 'POST',
+        fetch(`/api/games/${game_id}/create/rating`, {method: 'POST',
                                                 body:JSON.stringify(userGame),
                                                 headers: {'Content-Type': 'application/json',
                                             }})
