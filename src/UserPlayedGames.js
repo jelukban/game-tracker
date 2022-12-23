@@ -1,5 +1,5 @@
 import VideoGameContainer from './VideoGameContainer.js';
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 
 function UserPlayedGames({user}) {
     const [gamesPlayed, setGamesPlayed] = useState([]);

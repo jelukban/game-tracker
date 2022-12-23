@@ -1,7 +1,7 @@
 import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
-import UserPlayedGames from './UserPlayedGames';
-import {React, useState, useEffect } from 'react';
+import UserPlayedGames from './UserPlayedGames.js';
+import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function FollowGames () {

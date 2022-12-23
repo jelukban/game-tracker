@@ -1,15 +1,14 @@
-import { React, useState, useEffect, Fragment} from 'react';
+import { React, useState, useEffect, Fragment } from 'react';
 import { Link, BrowserRouter, Route, Navigate, Routes, redirect } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 import CreateAccount from './CreateAccount.js';
 import Homepage from './Homepage.js';
 import LoginPage from './LoginPage.js';
 import Navbar from './Navbar.js';
-import SignOut from './SignOut.js';
 import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import VideoGameDetails from './VideoGameDetails.js';
-import secureLocalStorage from 'react-secure-storage';
 import SearchUsers from './SearchUsers.js';
 import Follows from './Follows.js';
 import FollowGames from './FollowGames.js';
