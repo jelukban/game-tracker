@@ -5,7 +5,7 @@ function UserInterests({user}) {
     const [interestingGames, setInterestingGames] = useState([]);
 
     useEffect(() => {
-        fetch('/api/games/interests', { method: 'POST',
+        fetch('/api/dashboard/interests', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
             }})

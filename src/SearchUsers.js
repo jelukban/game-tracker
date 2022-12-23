@@ -33,7 +33,7 @@ function SearchUsers({followerUserInfo}){
     const handleFollow = (e) => {
         e.preventDefault();
 
-        fetch('/api/search/user/add', { method: 'POST',
+        fetch('/api/search/user/follow', { method: 'POST',
         body: JSON.stringify({'followUserId':followerUserInfo.id,
                         'followingUserId':user.id}),
         headers: { 'Content-Type': 'application/json',

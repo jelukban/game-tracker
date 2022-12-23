@@ -37,7 +37,7 @@ def check_user_login():
         return jsonify(user_info)
 
 
-@app.route('/api/create', methods=['POST'])
+@app.route('/api/create/account', methods=['POST'])
 def create_user_account():
     """ Creates user account. """
 
@@ -110,7 +110,7 @@ def create_interest_game_by_user(game_id):
         return jsonify({'status': 'Interest exists'})
 
 
-@app.route('/api/games/interests', methods=['POST'])
+@app.route('/api/dashboard/interests', methods=['POST'])
 def get_all_games_of_interest():
 
     data = request.get_json()
@@ -142,7 +142,7 @@ def create_played_game_by_user(game_id):
         return jsonify({'status': 'GamePlayed exists'})
 
 
-@app.route('/api/games/played', methods=['POST'])
+@app.route('/api/dashboard/played', methods=['POST'])
 def get_all_played_games():
 
     data = request.get_json()
@@ -245,7 +245,7 @@ def retrieve_user_data_by_id():
     else:
         return jsonify({'status':'Account not found'})
 
-@app.route('/api/search/user/add', methods=['POST'])
+@app.route('/api/search/user/follow', methods=['POST'])
 def create_user_follow():
 
     data = request.get_json()

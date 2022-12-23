@@ -65,7 +65,7 @@ function App() {
 
     const handleCreateSubmit = (e) => {
         e.preventDefault();
-        fetch('/api/create', { method: 'POST',
+        fetch('/api/create/account', { method: 'POST',
         body: JSON.stringify(user),
         headers: { 'Content-Type': 'application/json',
         }})
