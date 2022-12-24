@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import { Controller } from 'react-bootstrap-icons';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, user}) {
@@ -15,29 +16,18 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
         <Navbar bg="light" expand="lg">
             <Navbar.Brand><Controller size={30}/></Navbar.Brand>
             <Nav>
-            <Nav.Item>
                 <Nav.Link href="/">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={`/dashboard/${user.id}`}>Dashboard</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={`/dashboard/${user.id}/gamesplayed`}>Played Games</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={`/dashboard/${user.id}/interests`}>Interests</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={`/dashboard/${user.id}/follows`}>Follows</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
+                <NavDropdown title="Dashboard" id="dashboard-dropdown">
+                    <NavDropdown.Item href={`/dashboard/${user.id}`}>Recommendations</NavDropdown.Item>
+                    <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>Played Games</NavDropdown.Item>
+                    <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>Interests</NavDropdown.Item>
+                    <NavDropdown.Item href={`/dashboard/${user.id}/follows`}>Follows</NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link href="/find">Find Gamers</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
                 <Form className="d-flex" onSubmit={handleSearchResults}  onKeyPress={(e) => {
-                                        if (e.key === "Enter") {
-                                            navigate('/search/results')
-                                        }}}>
+                                                                                        if (e.key === "Enter") {
+                                                                                            navigate('/search/results')
+                                                                                        }}}>
                     <Form.Control
                     type="search"
                     placeholder="Search Video Games"
@@ -47,10 +37,7 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                     />
                     <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
-            </Nav.Item>
-            <Nav.Item>
                 <Nav.Link href="/signout" onClick={signOut}>Sign Out</Nav.Link>
-            </Nav.Item>
         </Nav>
         </Navbar>
         );
