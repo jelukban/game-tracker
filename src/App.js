@@ -13,6 +13,8 @@ import SearchUsers from './SearchUsers.js';
 import Follows from './Follows.js';
 import FollowGames from './FollowGames.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SearchResults from './SearchResults.js';
+import Home from './Home.js';
 
 
 function App() {
@@ -118,7 +120,7 @@ function App() {
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
-                <Route path ='/' element = {<GamePage games={games}/>} />
+                <Route path ='/' element = {<Home games={games}/>} />
                 <Route path='/login' element={loggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
@@ -138,7 +140,7 @@ function App() {
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
-                <Route path='/search/results' element={<GamePage games={searchGames} />} />
+                <Route path='/search/results' element={<SearchResults games={searchGames} />} />
             </Routes>
         </BrowserRouter>
     );
