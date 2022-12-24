@@ -2,9 +2,9 @@ import { React, useState, useEffect, Fragment } from 'react';
 import { Link, BrowserRouter, Route, Navigate, Routes, redirect } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
 import CreateAccount from './CreateAccount.js';
-import Homepage from './Homepage.js';
+import GamePage from './GamePage.js';
 import LoginPage from './LoginPage.js';
-import Navbar from './Navbar.js';
+import Navigationbar from './Navbar.js';
 import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
@@ -31,6 +31,7 @@ function App() {
     const [games, setGames] = useState([]);
     const [gameId, setGameId] = useState(0);
     const [searchName, setSearchName] = useState('');
+    const [searchGames, setSearchGames] = useState([]);
 
     useEffect(() => {
         fetch('/api/games')
@@ -94,12 +95,6 @@ function App() {
         setLoggedIn(false);
     };
 
-    const setDefaultGames = () => {
-        fetch('/api/games')
-        .then((response) => response.json())
-        .then((responseJson) => setGames(responseJson.games));
-    };
-
     const handleSearchResults = (e) => {
         e.preventDefault();
 
@@ -109,7 +104,7 @@ function App() {
         }})
         .then((response) => response.json())
         .then((result) => {
-            setGames(result.games);
+            setSearchGames(result.games);
         });
     };
 
@@ -117,14 +112,13 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Navbar loggedIn={loggedIn}
+            <Navigationbar loggedIn={loggedIn}
                     signOut={handleSignOut}
                     handleSearchResults={handleSearchResults}
                     setSearchName={(e) => setSearchName(e.target.value)}
-                    setDefaultGames={setDefaultGames}
                     user={user} />
             <Routes>
-                <Route path ='/' element = {<Homepage games={games}/>} />
+                <Route path ='/' element = {<GamePage games={games}/>} />
                 <Route path='/login' element={loggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
@@ -144,6 +138,7 @@ function App() {
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
+                <Route path='/search/results' element={<GamePage games={searchGames} />} />
             </Routes>
         </BrowserRouter>
     );

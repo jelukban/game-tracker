@@ -1,6 +1,6 @@
 import VideoGameContainer from './VideoGameContainer.js'
 
-function Homepage ({games}) {
+function GamePage ({games}) {
     return (
         <div>
             <VideoGameContainer games={games} />
@@ -8,4 +8,4 @@ function Homepage ({games}) {
     );
 };
 
-export default Homepage;
+export default GamePage;

@@ -1,45 +1,91 @@
 import { React, useEffect, useState, Fragment } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import { Controller } from 'react-bootstrap-icons';
 
 
-function Navbar ({loggedIn, signOut, handleSearchResults, setSearchName, setDefaultGames, user}) {
+function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, user}) {
     let navigate = useNavigate();
 
     if (loggedIn) {
     return (
-        <Fragment>
-        <ul>
-            <li><Link to='/' onClick={setDefaultGames}>Home</Link></li>
-            <li><Link to={`/dashboard/${user.id}`}>User Dashboard</Link></li>
-            <li><Link to={`/dashboard/${user.id}/gamesplayed`}>Played</Link></li>
-            <li><Link to={`/dashboard/${user.id}/interests`}>Interests</Link></li>
-            <li><Link to={`/dashboard/${user.id}/follows`}>My Follows</Link></li>
-            <li><Link to="/find" >Find People</Link></li>
-            <li><Link to="/signout" onClick={signOut}>Sign Out</Link></li>
-        </ul>
-        <form id="search-bar" onSubmit={handleSearchResults}>
-            <label> Search Bar</label>
-            <input type="text" onChange={setSearchName}></input>
-            <button onClick={(e) => navigate('/')}>Search</button>
-        </form>
-        </Fragment>
-    );
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand><Controller size={30}/></Navbar.Brand>
+            <Nav>
+            <Nav.Item>
+                <Nav.Link href="/">Home</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={`/dashboard/${user.id}`}>Dashboard</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={`/dashboard/${user.id}/gamesplayed`}>Played Games</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={`/dashboard/${user.id}/interests`}>Interests</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={`/dashboard/${user.id}/follows`}>Follows</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/find">Find Gamers</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Form className="d-flex" onSubmit={handleSearchResults}  onKeyPress={(e) => {
+                                        if (e.key === "Enter") {
+                                            navigate('/search/results')
+                                        }}}>
+                    <Form.Control
+                    type="search"
+                    placeholder="Search Video Games"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={setSearchName}
+                    />
+                    <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
+                </Form>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/signout" onClick={signOut}>Sign Out</Nav.Link>
+            </Nav.Item>
+        </Nav>
+        </Navbar>
+        );
     } else {
         return(
-            <Fragment>
-            <ul>
-                <li><Link to='/' onClick={setDefaultGames}>Home</Link></li>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/create">Create An Account</Link></li>
-            </ul>
-            <form id="search-bar" onSubmit={handleSearchResults}>
-                    <label>Search Bar</label>
-                    <input type="text" onChange={setSearchName}></input>
-                    <button onClick={(e) => navigate('/')}>Search</button>
-            </form>
-            </Fragment>
+            <Navbar>
+                <Nav>
+                <Nav.Item>
+                    <Nav.Link href="/">Home</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Form className="d-flex" onSubmit={handleSearchResults}  onKeyPress={(e) => {
+                                        if (e.key === "Enter") {
+                                            navigate('/search/results')
+                                        }}}>
+                    <Form.Control
+                    type="search"
+                    placeholder="Search Video Games"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={setSearchName}
+                    />
+                    <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
+                </Form>
+            </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/create">Create An Account</Nav.Link>
+                </Nav.Item>
+                </Nav>
+            </Navbar>
         );
     };
 };
 
-export default Navbar;
+export default Navigationbar;
