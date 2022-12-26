@@ -1,0 +1,56 @@
+.game {
+    margin: 0em 1em 3em 1em;
+}
+
+.general-game-description {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.small-cover {
+    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.game-genre {
+    display: inline;
+    font-size: 0.6rem;
+    color: black;
+}
+
+.game-platform {
+    display: inline;
+    font-size: 0.6rem;
+    color: black;
+}
+
+.description-titles {
+    font-weight: bold;
+    font-size: 1rem;
+    color: black;
+}
+
+.release-date {
+    font-size: 0.75rem;
+    color: black;
+}
+
+.genres {
+    display: block;
+    height: 25px;
+    width: 400px;
+}
+
+.platforms {
+    display: block;
+    height: 50px;
+    width: 400px;
+}

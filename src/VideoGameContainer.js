@@ -1,16 +1,32 @@
 import VideoGame from './VideoGame.js';
 import { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 function VideoGameContainer({games}) {
+    const halfOfGames = Math.ceil(games.length/2);
+
     return (
-            <div className="grid">
-            {games.map(game => <div key={game.id} className="game"><VideoGame game_id={game.id}
+            <Container fluid className="grid">
+                <Row >
+                    <Col>{games.slice(0, halfOfGames).map(game => <div key={game.id} className="game"><VideoGame game_id={game.id}
                                     cover_url={game.cover_url}
                                     name={game.name}
                                     release_date={game.release_date}
                                     genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
                                     platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}/></div>)}
-            </div>
+                    </Col>
+                    <Col>{games.slice(halfOfGames, games.length).map(game => <div key={game.id} className="game"><VideoGame game_id={game.id}
+                                        cover_url={game.cover_url}
+                                        name={game.name}
+                                        release_date={game.release_date}
+                                        genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
+                                        platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}/></div>)}
+                    </Col>
+                </Row>
+            </Container>
     );
 };
 

@@ -1,14 +1,18 @@
 import { Link, BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) {
 
     return (
         <Link to={`/games/details/${game_id}`} >
-            <p>{name}</p>
-            <img src={cover_url} height="128" width="90" ></img>
-                Genres: {genres?.map(genre => <div className="game-genre">{genre}</div>)}
-                Platforms: {platforms?.map(platform => <div className="game-platform">{platform}</div>)}
-            <p> Release Date: {release_date}</p>
+            <img src={cover_url} height="200" width="150" className="small-cover"></img>
+            <div className="general-game-description">
+                <div className="title">{name}</div>
+                <div className="description-titles">Genres: </div> <div className="genres">{genres?.map(genre => <Button variant="light" size="sm" className="game-genre">{genre}</Button>)}</div>
+                <div className="description-titles">Platforms: </div> <div className="platforms">{platforms?.map(platform => <Button variant="light" size="sm" className="game-platform">{platform}</Button>)}</div>
+                <div className="description-titles">Release Date: </div><div className="release-date">{release_date.slice(0, -9)}</div>
+            </div>
+
         </Link>
     );
 };

@@ -15,6 +15,7 @@ import FollowGames from './FollowGames.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './SearchResults.js';
 import Home from './Home.js';
+import './App.css';
 
 
 function App() {
