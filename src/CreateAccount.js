@@ -1,25 +1,40 @@
 import React from "react";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPassword}) {
 
     return (
-        <React.Fragment>
-        <div> Create An Account!
-                <h1>Please Fill Out The Form</h1>
-                <form id="create-account" onSubmit={handleSubmit}>
-                    <label htmlFor="first-name">First Name</label>
-                    <input type="text" id="first-name" onChange={setFirstName}></input>
-                    <label htmlFor="last-name">Last Name</label>
-                    <input type="text" id="last-name" onChange={setLastName}></input>
-                    <label htmlFor="email" >Email Address</label>
-                    <input type="text" id="email" onChange={setEmail}></input>
-                    <label htmlFor="password"> Password</label>
-                    <input type="password" id='password' onChange={setPassword}></input>
-                    <button type="submit">Create</button>
-                </form>
-                <div> Password needs to be 6 or more characters! </div>
-            </div>
-        </React.Fragment>
+        <Form onSubmit={handleSubmit}> Create an Account
+            <Form.Group className="w-25" controlId="formFirstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter first name" onChange={setFirstName} />
+                <Form.Text className="text-muted"> Something
+                </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="w-25" controlId="formLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter last name" onChange={setLastName} />
+                <Form.Text className="text-muted"> Something
+                </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="w-25" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={setEmail} />
+                <Form.Text className="text-muted"> Something
+                </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="w-25" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={setPassword} mb={8}/>
+            </Form.Group>
+        <Button variant="primary" type="submit">
+        Submit
+        </Button>
+    </Form>
     );
 };
 

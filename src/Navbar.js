@@ -8,7 +8,7 @@ import { Controller } from 'react-bootstrap-icons';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
-function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, user}) {
+function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, user }) {
     let navigate = useNavigate();
 
     if (loggedIn) {
@@ -30,10 +30,11 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                                                                         }}}>
                     <Form.Control
                     type="search"
-                    placeholder="Search Video Games"
+                    placeholder="Search video games"
                     className="me-2"
                     aria-label="Search"
                     onChange={setSearchName}
+                    size="sm"
                     />
                     <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
@@ -55,10 +56,11 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                         }}}>
                     <Form.Control
                     type="search"
-                    placeholder="Search Video Games"
+                    placeholder="Search video games"
                     className="me-2"
                     aria-label="Search"
                     onChange={setSearchName}
+                    size="sm"
                     />
                     <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
