@@ -78,7 +78,7 @@ def verify_user_login(email, password):
     return True if db.session.query(User).filter(User.email == email, User.password == password).first() else False
 
 
-def find_account(email, password):
+def create_account(email, password):
     """ Finds user by email. """
     user = db.session.query(User).filter(User.email == email).first()
 
@@ -91,6 +91,21 @@ def find_account(email, password):
                 'password': user.password}
     elif user:
         return "Email already exists"
+    else:
+        return "User does not exist"
+
+
+def find_account(email, password):
+    """ Finds user by email. """
+    user = db.session.query(User).filter(User.email == email).first()
+
+    if verify_user_login(email, password):
+
+        return {'user_id': user.id,
+                'first_name': user.fname,
+                'last_name': user.lname,
+                'email': user.email,
+                'password': user.password}
     else:
         return "User does not exist"
 

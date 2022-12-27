@@ -48,7 +48,7 @@ def create_user_account():
 
 
     if len(email) > 5 and len(password) >= 6:
-        user_info = crud.find_account(email=email, password=password)
+        user_info = crud.create_account(email=email, password=password)
 
         if user_info == "User does not exist":
             new_account = crud.create_user(fname=first_name,
