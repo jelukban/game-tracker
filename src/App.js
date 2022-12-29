@@ -63,7 +63,7 @@ function App() {
             secureLocalStorage.setItem('user', JSON.stringify(tempData));
             setLoggedIn(true);
             } else if (result.status === 'Account not found') {
-                setShowError({'show':true, 'message':'Account not found'});
+                setShowError({'show':true, 'message':'Account not found or password incorrect'});
             };
         });
     };
