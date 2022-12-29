@@ -15,22 +15,18 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
     if (loggedIn) {
     return (
         <Navbar bg="light" >
-            <Container fluid
-                        className="col-12">
                 <Navbar.Brand>
                     <Controller size={30}/>
                 </Navbar.Brand>
                 <Nav className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}>
                     <Nav.Item>
-                    <Nav.Link href="/"
-                                className="col-2 me-auto">Home</Nav.Link>
+                    <Nav.Link href="/">Home</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                     <NavDropdown title="Dashboard"
-                                    id="dashboard-dropdown"
-                                    className="col-2">
+                                    id="dashboard-dropdown">
                         <NavDropdown.Item href={`/dashboard/${user.id}`}>Recommendations</NavDropdown.Item>
                         <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>Played Games</NavDropdown.Item>
                         <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>Interests</NavDropdown.Item>
@@ -61,7 +57,6 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                             id="sign-out">
                                 Sign Out
                 </Nav.Link>
-            </Container>
         </Navbar>
         );
     } else {
