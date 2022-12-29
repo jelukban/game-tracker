@@ -14,11 +14,11 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
 
     if (loggedIn) {
     return (
-        <Navbar bg="light" >
+        <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>
                     <Controller size={30}/>
                 </Navbar.Brand>
-                <Nav className="me-auto my-2 my-lg-0"
+                <Nav className="me-auto"
                         style={{ maxHeight: '100px' }}>
                     <Nav.Item>
                     <Nav.Link href="/">Home</Nav.Link>
@@ -38,7 +38,7 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                 className="col-2 d-flex">Find</Nav.Link>
                     </Nav.Item>
                 </Nav>
-                <Form className="d-flex col-6"
+                <Form className="d-flex col-5 me-auto"
                     onSubmit={handleSearchResults}
                     onKeyPress={(e) => {if (e.key === "Enter") {
                                     navigate('/search/results')
@@ -51,30 +51,32 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                     />
                     <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
-                <Nav.Link href="/signout"
-                            onClick={signOut}
-                            className="ms-auto"
-                            id="sign-out">
-                                Sign Out
-                </Nav.Link>
+                <Nav>
+                    <Nav.Link href="/signout"
+                                onClick={signOut}
+                                className="ms-auto"
+                                id="sign-out">
+                                    Sign Out
+                    </Nav.Link>
+                </Nav>
         </Navbar>
         );
     } else {
         return(
-            <Navbar bg="light" >
+            <Navbar bg="dark" variant="dark" >
             <Container fluid
                         className="col-12">
                 <Navbar.Brand>
                     <Controller size={30}/>
                 </Navbar.Brand>
-                <Nav className="me-auto my-2 my-lg-0"
+                <Nav className="me-auto"
                         style={{ maxHeight: '100px' }}>
                     <Nav.Item>
                     <Nav.Link href="/"
-                                className="col-2 me-auto">Home</Nav.Link>
+                                className="me-auto">Home</Nav.Link>
                     </Nav.Item>
                 </Nav>
-                <Form className="d-flex col-6"
+                <Form className="d-flex col-5 me-auto"
                     onSubmit={handleSearchResults}
                     onKeyPress={(e) => {if (e.key === "Enter") {
                                     navigate('/search/results')
@@ -87,10 +89,12 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                     />
                     <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
+                <Nav>
                 <Nav.Link href="/login"
-                            className="col-1 ms-auto">Login</Nav.Link>
+                            className="col-1 me-auto">Login</Nav.Link>
                 <Nav.Link href="/create"
-                            className="col-1 ms-auto">Create</Nav.Link>
+                            className="col-1 me-auto">Create</Nav.Link>
+                </Nav>
             </Container>
         </Navbar>
         );
