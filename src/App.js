@@ -35,6 +35,8 @@ function App() {
     const [gameId, setGameId] = useState(0);
     const [searchName, setSearchName] = useState('');
     const [searchGames, setSearchGames] = useState([]);
+    const [showError, setShowError] = useState({'show':false,
+                                                'message': ''});
 
     useEffect(() => {
         fetch('/api/games')
@@ -61,7 +63,7 @@ function App() {
             secureLocalStorage.setItem('user', JSON.stringify(tempData));
             setLoggedIn(true);
             } else if (result.status === 'Account not found') {
-                alert('Account not found!');
+                setShowError({'show':true, 'message':'Account not found'});
             };
         });
     };
@@ -84,9 +86,9 @@ function App() {
             secureLocalStorage.setItem('user', JSON.stringify(tempData));
             setLoggedIn(true);
             } else if (result.status === 'Requirements not filled') {
-                alert('Please enter a valid password!')
+                setShowError({'show':true, 'message':'Requirements not filled'});
             } else if (result.status === 'Account with this email already exists') {
-                alert('Account with this email already exists!')
+                setShowError({'show':true, 'message':'Account with this email already exists'});
             };
         });
     };
@@ -125,13 +127,15 @@ function App() {
                 <Route path='/login' element={loggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
-                                                                    setPassword={(e) => {setUser({ ...user, password: e.target.value })}} />} />
+                                                                    setPassword={(e) => {setUser({ ...user, password: e.target.value })}}
+                                                                    showError={showError}/>} />
                 <Route path='/create' element ={loggedIn ? <Navigate to={`/dashboard/${user.id}`} /> :
                                                                 <CreateAccount handleSubmit={handleCreateSubmit}
                                                                             setFirstName={(e) => setUser({ ...user, firstName: e.target.value })}
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
-                                                                            setPassword={(e) => setUser({ ...user, password: e.target.value })}/>} />
+                                                                            setPassword={(e) => setUser({ ...user, password: e.target.value })}
+                                                                            showError={showError} />} />
                 <Route path={`/dashboard/${user.id}`} element={ <UserDashboard user={user}/> } />
                 <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
