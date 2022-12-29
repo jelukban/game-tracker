@@ -1,6 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import Details from './Details.js';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function VideoGameDetails({loggedIn, user}){
 
@@ -14,8 +17,12 @@ function VideoGameDetails({loggedIn, user}){
         fetch(`/api/games/${game_id}/details`)
         .then((response) => response.json())
         .then((result) => {
-            result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
-            result.platforms = result.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')
+            result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',');
+            result.platforms = result.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',');
+            result.release_date = result.release_date.slice(0,-9);
+            if (result.description === 'None') {
+                result.description = '';
+            };
             setGame(result);
         });
     }, []);
@@ -28,7 +35,6 @@ function VideoGameDetails({loggedIn, user}){
                                 }})
         .then((response) => response.json())
         .then((result) => {
-        console.log(result);
             if (result.status === 'Interest made') {
             alert('Interest made');
         } else {
@@ -68,29 +74,33 @@ function VideoGameDetails({loggedIn, user}){
 
     if (loggedIn) {
         return(
-            <div>
-                <Details game={game} />
-                <div>
-                    <button onClick={(e) => handleInterests()}> Interested</button>
-                    <button onClick={(e) => handlePlayed()}> Played</button>
-                    <form id="rating" onSubmit={handleRating}>
-                        <label htmlFor="rating-choices">Rate this video game:</label>
-                        <select id="rating-choices" onChange={(e) => setScore(e.target.value)}>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <button>Submit</button>
-                    </form>
-                </div>
-            </div>
+            <Container className="game-detail">
+                <Row>
+                    <Details game={game} />
+                    <Col>
+                        <div className="game-selection" >
+                            <button onClick={(e) => handleInterests()}> Interested</button>
+                            <button onClick={(e) => handlePlayed()}> Played</button>
+                            <form id="rating" onSubmit={handleRating}>
+                                <label htmlFor="rating-choices">Rate this video game:</label>
+                                <select id="rating-choices" onChange={(e) => setScore(e.target.value)}>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <button>Submit</button>
+                            </form>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         );
     } else {
         return(
-            <div>
+            <div className="game-detail">
                 <Details game={game} />
             </div>
         );

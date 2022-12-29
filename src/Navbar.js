@@ -58,8 +58,9 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                 <Nav.Link href="/signout"
                             onClick={signOut}
                             className="ms-auto"
-                            id="sign-out"
-                            >Sign Out</Nav.Link>
+                            id="sign-out">
+                                Sign Out
+                </Nav.Link>
             </Container>
         </Navbar>
         );

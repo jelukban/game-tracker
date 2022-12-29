@@ -1,5 +1,5 @@
 import { React, useState, useEffect, Fragment } from 'react';
-import { Link, BrowserRouter, Route, Navigate, Routes, redirect } from 'react-router-dom';
+import { Link, BrowserRouter, Route, Navigate, Routes, redirect, useNavigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
 import CreateAccount from './CreateAccount.js';
 import GamePage from './GamePage.js';
@@ -141,11 +141,11 @@ function App() {
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
                                                                                     user={user}/>}/>
-                <Route path='/signout' element={<Navigate to='/' />} />
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
                 <Route path='/search/results' element={<SearchResults games={searchGames} />} />
+                <Route path='/signout' element={<Navigate to='/' />} />
             </Routes>
         </BrowserRouter>
     );
