@@ -26,7 +26,7 @@ function LoginPage ({handleSubmit, setEmail, setPassword, showError }) {
                     </Button>
                 </Form>
                 <Alert variant="danger" >
-                <Alert.Heading>{showError.message}</Alert.Heading>
+                    {showError.message}
                 </Alert>
             </React.Fragment>
         );

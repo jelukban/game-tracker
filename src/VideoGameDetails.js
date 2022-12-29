@@ -100,9 +100,11 @@ function VideoGameDetails({loggedIn, user}){
         );
     } else {
         return(
-            <div className="game-detail">
-                <Details game={game} />
-            </div>
+            <Container className="game-detail ">
+                <Row>
+                    <Details game={game} />
+                </Row>
+            </Container>
         );
     };
 

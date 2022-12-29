@@ -40,7 +40,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
                 </Button>
             </Form>
             <Alert variant="danger" >
-                <Alert.Heading>{showError.message}</Alert.Heading>
+                {showError.message}
             </Alert>
             </React.Fragment>
         );
