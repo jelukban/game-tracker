@@ -1,4 +1,4 @@
-import UserDashboard from './UserDashboard.js';
+import UserReccomendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import { React, useState, useEffect } from 'react';
@@ -25,7 +25,7 @@ function FollowGames () {
 
     if (followUserLoaded){
         return (<div className="user-profile">
-            <div> Welcome to {followUser.firstName}'s library!</div>
+            <h1> Welcome to {followUser.firstName}'s library!</h1>
             <UserInterests user={followUser} />
             <UserPlayedGames user={followUser} />
         </div>)

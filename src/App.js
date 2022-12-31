@@ -5,7 +5,7 @@ import CreateAccount from './CreateAccount.js';
 import GamePage from './GamePage.js';
 import LoginPage from './LoginPage.js';
 import Navigationbar from './Navbar.js';
-import UserDashboard from './UserDashboard.js';
+import UserRecommendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import VideoGameDetails from './VideoGameDetails.js';
@@ -136,7 +136,7 @@ function App() {
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
                                                                             setPassword={(e) => setUser({ ...user, password: e.target.value })}
                                                                             showError={showError} />} />
-                <Route path={`/dashboard/${user.id}`} element={ <UserDashboard user={user}/> } />
+                <Route path={`/dashboard/${user.id}`} element={ <UserRecommendations user={user}/> } />
                 <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
                 <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}

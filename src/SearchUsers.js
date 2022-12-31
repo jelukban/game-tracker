@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserDashboard from './UserDashboard.js';
+import UserRecommendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
 import Button from 'react-bootstrap/Button';
@@ -78,7 +78,9 @@ function SearchUsers({followerUserInfo}){
             <Button variant="light" onClick={handleFollow}>
                     Follow
             </Button>
-            <UserDashboard user={user} />
+            <h1>
+                Welcome to {user.firstName}'s library!
+            </h1>
             <UserInterests user={user} />
             <UserPlayedGames user={user} />
         </div>
