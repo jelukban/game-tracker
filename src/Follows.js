@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 function Follows({user}) {
     const [follows, setFollows] = useState([]);
@@ -19,11 +21,17 @@ function Follows({user}) {
     }, [follows]);
 
     if (isLoaded) {
-        return(<div>
-            {follows.map(follow => <Link to={`/dashboard/${user.id}/follows/${follow.id}`}> {follow.firstName} {follow.lastName}</Link>)}
-        </div>
+        return (
+            <div>
+                <h1>
+                    Your follows!
+                </h1>
+                <ListGroup>
+                    {follows.map(follow => <ListGroup.Item action href={`/dashboard/${user.id}/follows/${follow.id}`}> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
+                </ListGroup>
+            </div>
         );
-        }
+    }
 };
 
 export default Follows;

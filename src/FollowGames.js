@@ -18,15 +18,14 @@ function FollowGames () {
         .then((result) => {if (result.state !== 'Account not found') {
             setFollowUser(result);
             setFollowUserLoaded(true);
-            } else {
-                alert('ID was not found');
             }
         });
     }, []);
 
 
     if (followUserLoaded){
-        return (<div>
+        return (<div className="user-profile">
+            <div> Welcome to {followUser.firstName}'s library!</div>
             <UserInterests user={followUser} />
             <UserPlayedGames user={followUser} />
         </div>)
