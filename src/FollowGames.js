@@ -27,7 +27,6 @@ function FollowGames () {
 
     if (followUserLoaded){
         return (<div>
-            <UserDashboard user={followUser} />
             <UserInterests user={followUser} />
             <UserPlayedGames user={followUser} />
         </div>)

@@ -3,11 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import UserDashboard from './UserDashboard.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
+
 
 function SearchUsers({followerUserInfo}){
     const [userEmail, setUserEmail] = useState('');
     const [user, setUser] = useState({});
     const [userFound, setUserFound] = useState(false);
+    const [showMessage, setShowMessage] = useState({'show': false,
+                                                    'message': '',
+                                                    'type': ''});
 
     const handleSearchUser = (e) => {
         e.preventDefault();
@@ -24,7 +31,9 @@ function SearchUsers({followerUserInfo}){
                         'email': result.email});
                 setUserFound(true);
             } else {
-                alert('Email was not found');
+                setShowMessage({'show': true,
+                                'message': 'Email was not found',
+                                'type': 'danger'});
             }
         });
     };
@@ -40,9 +49,13 @@ function SearchUsers({followerUserInfo}){
         }})
         .then((response) => response.json())
         .then((result) => {if (result.status === 'Follow was made!') {
-                alert('Follow was made!')
+                setShowMessage({'show': true,
+                                'message': 'Follow was made!',
+                                'type':'success'});
             } else {
-                alert('Already following this user.')
+                setShowMessage({'show': true,
+                                'message': 'Already following this user',
+                                'type': 'secondary'});
             };
         });
     };
@@ -51,26 +64,39 @@ function SearchUsers({followerUserInfo}){
     if (userFound) {
         return(
         <div> Search for a new user by email!
-            <form onSubmit={handleSearchUser}>
-                <input type="text"onChange={(e)=>setUserEmail(e.target.value)}/> Email
-                <button>Search</button>
-            </form>
-            <button onClick={handleFollow}>Follow</button>
+             <Form onSubmit={handleSearchUser} >
+                    <Form.Group className="w-25" controlId="formFirstName">
+                        <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
+                        <Form.Text className="text-muted">
+                        </Form.Text>
+                    </Form.Group>
+                <Button variant="primary" type="submit">
+                Search
+                </Button>
+            </Form>
+            {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
+            <Button variant="light" onClick={handleFollow}>
+                    Follow
+            </Button>
             <UserDashboard user={user} />
             <UserInterests user={user} />
             <UserPlayedGames user={user} />
         </div>
         );
-    };
-
-
-    if (!userFound) {
+    } else if (!userFound) {
         return(
             <div> Search for a new user by email!
-                <form onSubmit={handleSearchUser}>
-                    <input type="text"onChange={(e)=>setUserEmail(e.target.value)}/> Email
-                    <button>Search</button>
-                </form>
+                <Form onSubmit={handleSearchUser} >
+                        <Form.Group className="w-25" controlId="formFirstName">
+                            <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
+                            <Form.Text className="text-muted">
+                            </Form.Text>
+                        </Form.Group>
+                    <Button variant="primary" type="submit">
+                    Search
+                    </Button>
+                </Form>
+                {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
             </div>
         )
     };
