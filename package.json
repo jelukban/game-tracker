@@ -2,7 +2,7 @@
   "name": "game-tracker",
   "packageManager": "yarn@3.3.0",
   "dependencies": {
-    "bootstrap": "^5.2.3",
+    "bootstrap": "5.3.0-alpha1",
     "classnames": "^2.3.2",
     "create-react-app": "^1.2.1",
     "react": "^18.2.0",

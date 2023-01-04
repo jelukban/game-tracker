@@ -3923,12 +3923,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.2.3":
-  version: 5.2.3
-  resolution: "bootstrap@npm:5.2.3"
+"bootstrap@npm:5.3.0-alpha1":
+  version: 5.3.0-alpha1
+  resolution: "bootstrap@npm:5.3.0-alpha1"
   peerDependencies:
     "@popperjs/core": ^2.11.6
-  checksum: 0211805dec6a190c0911d142966df30fdb4b4139a04cc6c23dd83c6045ea3cb0a966b360ab2e701e7b3ad96ff01e05fdc0914be97b41bd876b11e457a8bdc6a3
+  checksum: 600d69d570124c29fec32b5ae1478fa38c97b7e6cbb155d4d89495164968e40090c70fbbf83ff42cb2765b4273784c397e8e561fb3aacf8b36941a9c5648c8d4
   languageName: node
   linkType: hard
 
@@ -6282,7 +6282,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "game-tracker@workspace:."
   dependencies:
-    bootstrap: ^5.2.3
+    bootstrap: 5.3.0-alpha1
     classnames: ^2.3.2
     create-react-app: ^1.2.1
     react: ^18.2.0

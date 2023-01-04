@@ -1,3 +1,7 @@
+body {
+    background-color: #edede9;
+}
+
 .game {
     margin: 0em 1em 3em 1em;
 }
@@ -18,7 +22,7 @@
     font-weight: bold;
     font-size: 1rem;
     color: black;
-    height: 30px;
+    height: 40px;
 }
 
 .game-genre {
@@ -63,3 +67,16 @@
 .game-options {
     margin-bottom: 6em;
 }
+
+.recommended-games {
+    display: block;
+    height: 1200px;
+    width: 600px;
+    margin: auto;
+    text-align: center;
+    padding: 50px;
+}
+
+.carousel-indicators {
+    bottom:-50px;
+  }
