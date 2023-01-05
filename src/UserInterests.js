@@ -16,7 +16,8 @@ function UserInterests({user}) {
     }, []);
 
     return(
-            <div> These are your interesting games!
+            <div>
+                <h1>Interests</h1>
                 <VideoGameContainer games={interestingGames} />
             </div>
     );

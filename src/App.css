@@ -1,5 +1,11 @@
 body {
     background-color: #edede9;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-weight: 550;
+    font-size: 2rem;
 }
 
 .game {

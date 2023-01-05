@@ -49,7 +49,7 @@ function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, 
                                     size="sm"
                                     id="search-bar"
                                     />
-                    <Button variant="outline-success" onClick={(e) => navigate('/search/results')}>Search</Button>
+                    <Button variant="outline-light" onClick={(e) => navigate('/search/results')}>Search</Button>
                 </Form>
                 <Nav>
                     <Nav.Link href="/signout"

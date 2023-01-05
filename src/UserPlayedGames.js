@@ -17,7 +17,8 @@ function UserPlayedGames({user}) {
     }, []);
 
     return(
-            <div> These are the games you played!
+            <div>
+                <h1>Played Games</h1>
                 <VideoGameContainer games={gamesPlayed} />
             </div>
     );
