@@ -86,3 +86,8 @@ h1 {
 .carousel-indicators {
     bottom:-50px;
   }
+
+.rating-title{
+    font-weight: 600;
+    font-size: 1.2rem;
+}

@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import React from 'react';
+import ReactStars from 'react-stars';
 
 function Details({game}){
 
@@ -18,7 +19,15 @@ function Details({game}){
                 <p className="game-description"> {game.description}</p>
             </Col>
             <Col className="align-self-start">
-                <p>Rating: {game.score ? game.score : 'NA'}</p>
+                <div> <div className="rating-title"> Member Rating</div>{game.score ? <ReactStars count={5}
+                                                        value={game.score}
+                                                        size={24}
+                                                        edit={false}
+                                                        color2={'#ffd700'} /> : <ReactStars count={5}
+                                                                                            value={0}
+                                                                                            size={24}
+                                                                                            edit={false}
+                                                                                            color2={'#ffd700'} /> }</div>
             </Col>
         </React.Fragment>
     );

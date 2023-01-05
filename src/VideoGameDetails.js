@@ -83,47 +83,16 @@ function VideoGameDetails({loggedIn, user}){
     };
 
 
-    if (loggedIn && showMessage.show) {
+    if (loggedIn) {
         return(
             <Container className="game-detail">
                 <Row>
                     <Details game={game} />
                     <Col className="align-self-start">
                         <div className="game-selection" >
-                            <Alert variant="secondary" size="sm" >
+                            {showMessage.show ? <Alert variant="secondary" size="sm" >
                                 {showMessage.message}
-                            </Alert>
-                            <div className="game-options">
-                            <Button variant="secondary" size="sm" onClick={(e) => handleInterests()}>Interested</Button> {' '}
-                            <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()}>Played</Button>
-                            </div>
-                            <div>
-                            <Form onSubmit={handleRating}> Rate this video game:
-                                <Form.Select className="w-1" size="sm" onChange={(e) => setScore(e.target.value)}>
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                </Form.Select>
-                                <Button variant="light" size="sm"type="submit">
-                                    Submit
-                                </Button>
-                            </Form>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    } else if (loggedIn) {
-        return(
-            <Container className="game-detail">
-                <Row>
-                    <Details game={game} />
-                    <Col className="align-self-start">
-                        <div className="game-selection" >
+                            </Alert> : ''}
                             <div className="game-options">
                             <Button variant="secondary" size="sm" onClick={(e) => handleInterests()}>Interested</Button> {' '}
                             <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()}>Played</Button>
