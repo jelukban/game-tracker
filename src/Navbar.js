@@ -16,92 +16,95 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
 
     if (isLoggedIn) {
     return (
-        <Navbar className="navbar" variant="dark" >
-            <Container fluid
-                        className="col-12">
-                <Container className="col-1">
-                <Navbar.Brand>
-                    <Controller size={30}/>
-                </Navbar.Brand>
-                </Container>
-                <Nav style={{ maxHeight: '100px' }}>
-                    <Nav.Item>
-                            <Nav.Link href="/" className="nav-titles">Home</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <NavDropdown title="Dashboard"
-                                        id="dashboard-dropdown"
-                                        className="nav-titles">
-                            <NavDropdown.Item href={`/dashboard/${user.id}`}>Recommendations</NavDropdown.Item>
-                            <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>Played Games</NavDropdown.Item>
-                            <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>Interests</NavDropdown.Item>
-                            <NavDropdown.Item href={`/dashboard/${user.id}/follows`}>Follows</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/find"
-                                    className="nav-titles">Find</Nav.Link>
-                    </Nav.Item>
-                    <Form className="d-flex col-6 search-field"
+            <Container fluid>
+                <Navbar className="navbar row" variant="dark" >
+                    <Nav className="nav">
+                        <Navbar.Brand>
+                            <Controller size={30}/>
+                        </Navbar.Brand>
+                        <Nav.Item className="col-1">
+                            <Nav.Link href="/"
+                                    className="nav-titles">Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="col-1">
+                            <NavDropdown title="Dashboard"
+                                            id="dashboard-dropdown"
+                                            className="nav-titles">
+                                <NavDropdown.Item href={`/dashboard/${user.id}`}>Recommendations</NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>Played Games</NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>Interests</NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/follows`}>Follows</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav.Item>
+                        <Nav.Item className="col-1">
+                            <Nav.Link href="/find"
+                                            className="nav-titles">Find</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="col-4">
+                            <Form className="search-bar-form d-flex"
                             onSubmit={handleSearchResults}
                             onKeyPress={(e) => {if (e.key === "Enter") {
-                                    navigate('/search/results')
-                                    }}}>
-                        <Form.Control type="text"
-                                    placeholder="Search video games"
-                                    onChange={setSearchName}
-                                    size="sm"
-                                    id="search-bar"
-                                    />
-                        <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles me-auto">Search</Button>
-                    </Form>
-                    <Nav.Link href="/signout"
-                                onClick={signOut}
-                                className="signout col-1"
-                                id="sign-out">
-                                    Sign Out
-                    </Nav.Link>
-            </Nav>
+                                            navigate('/search/results')
+                                            }}}>
+                                <Form.Control type="text"
+                                                placeholder="Search video games"
+                                                onChange={setSearchName}
+                                                size="sm"
+                                                id="search-bar"
+                                                />
+                                <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
+                            </Form>
+                        </Nav.Item>
+                        <Nav.Item className="col-4">
+                            <Nav.Link href="/signout"
+                                        onClick={signOut}
+                                        id="sign-out"
+                                        className="nav-titles">
+                                            Sign Out
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Navbar>
             </Container>
-        </Navbar>
         );
     } else {
         return(
-            <Navbar className="navbar" variant="dark" >
-            <Container fluid
-                        className="col-12">
-                <Container className="col-1">
-                    <Navbar.Brand>
-                        <Controller size={30}/>
-                    </Navbar.Brand>
-                </Container>
-                <Nav style={{ maxHeight: '100px' }}>
-                    <Nav.Item>
-                    <Nav.Link href="/"
-                                className="nav-titles">Home</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-                <Form className="d-flex col-6 me-auto"
-                    onSubmit={handleSearchResults}
-                    onKeyPress={(e) => {if (e.key === "Enter") {
-                                    navigate('/search/results')
-                                    }}}>
-                    <Form.Control type="text"
-                                    placeholder="Search video games"
-                                    onChange={setSearchName}
-                                    size="sm"
-                                    id="search-bar"
-                                    />
-                    <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
-                </Form>
-                <Nav>
-                <Nav.Link href="/login"
-                            className="col-1 me-auto nav-titles">Login</Nav.Link>
-                <Nav.Link href="/create"
-                            className="col-1 me-auto nav-titles">Create</Nav.Link>
-                </Nav>
+            <Container fluid>
+                <Navbar className="navbar row" variant="dark" >
+                    <Nav className="nav">
+                        <Navbar.Brand>
+                            <Controller size={30}/>
+                        </Navbar.Brand>
+                        <Nav.Item className="col-3">
+                            <Nav.Link href="/"
+                                    className="nav-titles">Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="col-4">
+                            <Form className="search-bar-form d-flex"
+                            onSubmit={handleSearchResults}
+                            onKeyPress={(e) => {if (e.key === "Enter") {
+                                            navigate('/search/results')
+                                            }}}>
+                                <Form.Control type="text"
+                                                placeholder="Search video games"
+                                                onChange={setSearchName}
+                                                size="sm"
+                                                id="search-bar"
+                                                />
+                                <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
+                            </Form>
+                        </Nav.Item>
+                        <Nav.Item className="col-2">
+                            <Nav.Link href="/login"
+                                        className="nav-titles">Login</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item className="col-2">
+                            <Nav.Link href="/create"
+                                    className="nav-titles">Create</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Navbar>
             </Container>
-        </Navbar>
         );
     };
 };
