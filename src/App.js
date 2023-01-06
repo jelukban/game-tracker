@@ -19,12 +19,12 @@ import './App.css';
 
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [user, setUser] = useState(() => {
         const userInput = JSON.parse(secureLocalStorage.getItem('user'));
         if (userInput !== null) {
-            setLoggedIn(true);
+            setIsLoggedIn(true);
             return userInput
         } else {
             return '';
@@ -61,7 +61,7 @@ function App() {
                             'password': result.password};
             setUser(tempData);
             secureLocalStorage.setItem('user', JSON.stringify(tempData));
-            setLoggedIn(true);
+            setIsLoggedIn(true);
             } else if (result.status === 'Account not found') {
                 setShowError({'show':true, 'message':'Account not found or password incorrect'});
             };
@@ -84,7 +84,7 @@ function App() {
                             'password': result.password};
             setUser(tempData);
             secureLocalStorage.setItem('user', JSON.stringify(tempData));
-            setLoggedIn(true);
+            setIsLoggedIn(true);
             } else if (result.status === 'Requirements not filled') {
                 setShowError({'show':true, 'message':'Requirements not filled'});
             } else if (result.status === 'Account with this email already exists') {
@@ -97,7 +97,7 @@ function App() {
     const handleSignOut = (e) => {
         setUser({});
         secureLocalStorage.removeItem('user');
-        setLoggedIn(false);
+        setIsLoggedIn(false);
     };
 
     const handleSearchResults = (e) => {
@@ -117,19 +117,19 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Navigationbar loggedIn={loggedIn}
+            <Navigationbar isLoggedIn={isLoggedIn}
                     signOut={handleSignOut}
                     handleSearchResults={handleSearchResults}
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
                 <Route path ='/' element = {<Home games={games}/>} />
-                <Route path='/login' element={loggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
+                <Route path='/login' element={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
                                                                     setPassword={(e) => {setUser({ ...user, password: e.target.value })}}
                                                                     showError={showError}/>} />
-                <Route path='/create' element ={loggedIn ? <Navigate to={`/dashboard/${user.id}`} /> :
+                <Route path='/create' element ={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} /> :
                                                                 <CreateAccount handleSubmit={handleCreateSubmit}
                                                                             setFirstName={(e) => setUser({ ...user, firstName: e.target.value })}
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
@@ -139,7 +139,7 @@ function App() {
                 <Route path={`/dashboard/${user.id}`} element={ <UserRecommendations user={user}/> } />
                 <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
-                <Route path={`/games/details/:game_id`} element ={<VideoGameDetails loggedIn={loggedIn}
+                <Route path={`/games/details/:game_id`} element ={<VideoGameDetails isLoggedIn={isLoggedIn}
                                                                                     user={user}/>}/>
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />

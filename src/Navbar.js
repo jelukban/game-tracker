@@ -11,10 +11,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-function Navigationbar ({loggedIn, signOut, handleSearchResults, setSearchName, user }) {
+function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName, user }) {
     let navigate = useNavigate();
 
-    if (loggedIn) {
+    if (isLoggedIn) {
     return (
         <Navbar className="navbar" variant="dark" >
             <Container fluid

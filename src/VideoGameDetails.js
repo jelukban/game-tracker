@@ -10,7 +10,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Alert from 'react-bootstrap/Alert';
 
 
-function VideoGameDetails({loggedIn, user}){
+function VideoGameDetails({isLoggedIn, user}){
 
     const [game, setGame] = useState({});
     const {game_id}  = useParams();
@@ -81,7 +81,7 @@ function VideoGameDetails({loggedIn, user}){
     };
 
 
-    if (loggedIn) {
+    if (isLoggedIn) {
         return(
             <Container className="game-detail">
                 <Row>
