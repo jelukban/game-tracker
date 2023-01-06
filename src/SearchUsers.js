@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserRecommendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
@@ -6,7 +6,7 @@ import UserPlayedGames from './UserPlayedGames.js';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-
+import Modal from 'react-bootstrap/Modal';
 
 function SearchUsers({followerUserInfo}){
     const [userEmail, setUserEmail] = useState('');
@@ -15,6 +15,9 @@ function SearchUsers({followerUserInfo}){
     const [showMessage, setShowMessage] = useState({'show': false,
                                                     'message': '',
                                                     'type': ''});
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     const handleSearchUser = (e) => {
         e.preventDefault();
@@ -30,6 +33,7 @@ function SearchUsers({followerUserInfo}){
                         'lastName': result.lastName,
                         'email': result.email});
                 setUserFound(true);
+                setShow(true);
             } else {
                 setShowMessage({'show': true,
                                 'message': 'Email was not found',
@@ -63,7 +67,8 @@ function SearchUsers({followerUserInfo}){
 
     if (userFound) {
         return(
-        <div> Search for a new user by email!
+        <div>
+            <h1>Search for another by email!</h1>
              <Form onSubmit={handleSearchUser} >
                     <Form.Group className="w-25" controlId="formFirstName">
                         <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
@@ -75,19 +80,36 @@ function SearchUsers({followerUserInfo}){
                 </Button>
             </Form>
             {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
-            <Button variant="light" onClick={handleFollow}>
-                    Follow
-            </Button>
-            <h1>
-                Welcome to {user.firstName}'s library!
-            </h1>
-            <UserInterests user={user} />
-            <UserPlayedGames user={user} />
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Welcome to {user.firstName}'s library!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="primary" onClick={handleFollow}>
+                        Follow
+                    </Button>
+                    <UserInterests user={user} />
+                    <UserPlayedGames user={user} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
         );
     } else if (!userFound) {
         return(
-            <div> Search for a new user by email!
+            <div>
+                <h1>Search for another by email!</h1>
                 <Form onSubmit={handleSearchUser} >
                         <Form.Group className="w-25" controlId="formFirstName">
                             <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />

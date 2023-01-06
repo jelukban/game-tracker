@@ -7,8 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Controller } from 'react-bootstrap-icons';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 
 function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName, user }) {
