@@ -9,8 +9,8 @@ function Details({game}){
     return (
         <React.Fragment>
             <h1 className="video-game-title"> {game.name}</h1>
-            <Col className="align-self-center">
-                <img src={game.cover_url} height="355" width="265"></img>
+            <Col className="align-self-start">
+                <img src={game.cover_url} height="375" width="280"></img>
             </Col>
             <Col className="align-self-start">
                 <div className="description-titles">Genres: </div> <div className="genres">{game.genres?.map(genre => <Button variant="light" size="sm" className="game-genre">{genre}</Button>)}</div>
@@ -19,15 +19,17 @@ function Details({game}){
                 <p className="game-description"> {game.description}</p>
             </Col>
             <Col className="align-self-start">
-                <div> <div className="rating-title"> Member Rating</div>{game.score ? <ReactStars count={5}
+                <div> <div className="rating-title"> Rating</div>{game.score ? <ReactStars count={5}
                                                         value={game.score}
                                                         size={24}
                                                         edit={false}
-                                                        color2={'#ffd700'} /> : <ReactStars count={5}
+                                                        color2={'#ffd700'}
+                                                        className="rating-star"/> : <ReactStars count={5}
                                                                                             value={0}
                                                                                             size={24}
                                                                                             edit={false}
-                                                                                            color2={'#ffd700'} /> }</div>
+                                                                                            color2={'#ffd700'}
+                                                                                            className="rating-star" /> }</div>
             </Col>
         </React.Fragment>
     );

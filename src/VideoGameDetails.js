@@ -78,8 +78,6 @@ function VideoGameDetails({loggedIn, user}){
                                                 body:JSON.stringify(userGame),
                                                 headers: {'Content-Type': 'application/json',
                                             }})
-        .then(setShowMessage({'show': true,
-                    'message': 'Rating was made'}));
     };
 
 
@@ -90,15 +88,18 @@ function VideoGameDetails({loggedIn, user}){
                     <Details game={game} />
                     <Col className="align-self-start">
                         <div className="game-selection" >
-                            {showMessage.show ? <Alert variant="secondary" size="sm" >
+                            {showMessage.show ? <Alert variant="dark" size="sm" >
                                 {showMessage.message}
                             </Alert> : ''}
-                            <div className="game-options">
-                            <Button variant="secondary" size="sm" onClick={(e) => handleInterests()}>Interested</Button> {' '}
-                            <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()}>Played</Button>
+                            <div className="detail-title">
+                                Track this game!
+                            </div>
+                            <div className="interest-played-button">
+                                <Button variant="secondary" size="sm" onClick={(e) => handleInterests()}>Interested</Button> {' '}
+                                <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()}>Played</Button>
                             </div>
                             <div>
-                            <Form onSubmit={handleRating}> Rate this video game:
+                            <Form onSubmit={handleRating}> <div className="detail-title">Rate this video game:</div>
                                 <Form.Select className="w-1" size="sm" onChange={(e) => setScore(e.target.value)}>
                                         <option value="0">0</option>
                                         <option value="1">1</option>

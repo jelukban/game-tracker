@@ -1,10 +1,9 @@
 body {
-    background-color: #edede9;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: #efeeee;
+    font-family: 'Raleway', sans-serif;
 }
 
 h1 {
-    font-weight: 550;
     font-size: 2rem;
 }
 
@@ -26,7 +25,7 @@ h1 {
 
 .title {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: black;
     height: 40px;
 }
@@ -34,24 +33,24 @@ h1 {
 .game-genre {
     display: inline;
     font-size: 0.6rem;
-    color: black;
+    color: #0000008b;
 }
 
 .game-platform {
     display: inline;
     font-size: 0.6rem;
-    color: black;
+    color: #0000008b;
 }
 
 .description-titles {
     font-weight: bold;
     font-size: 0.8rem;
-    color: black;
+    color: #000000bd;
 }
 
 .release-date {
     font-size: 0.75rem;
-    color: black;
+    color: #000000bd;
 }
 
 .genres {
@@ -87,7 +86,43 @@ h1 {
     bottom:-50px;
   }
 
-.rating-title{
+.detail-title{
     font-weight: 600;
     font-size: 1.2rem;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.rating-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.field-labels {
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.interest-played-button {
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.navbar {
+    background-color: #3A7F73;
+}
+
+.video-game-title {
+    padding: 15px;
+}
+
+.nav-titles {
+    font-weight: 1000;
+    color: white;
+}
+
+#dashboard-dropdown {
+    color: white;
 }
