@@ -5,6 +5,7 @@ import CreateAccount from './CreateAccount.js';
 import GamePage from './GamePage.js';
 import LoginPage from './LoginPage.js';
 import Navigationbar from './Navbar.js';
+import LoadScreen from './LoadScreen.js';
 import UserRecommendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
@@ -38,6 +39,8 @@ function App() {
     const [showError, setShowError] = useState({'show':false,
                                                 'message': ''});
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         fetch('/api/games')
         .then((response) => response.json())
@@ -45,6 +48,10 @@ function App() {
             setGames(responseJson.games);
          });
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 6000)
+    }, [games]);
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -123,7 +130,7 @@ function App() {
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
-                <Route path ='/' element = {<Home games={games}/>} />
+                <Route path ='/' element = {isLoading ? <LoadScreen/> : <Home games={games}/>}/>
                 <Route path='/login' element={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
