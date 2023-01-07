@@ -30,7 +30,7 @@ function CreateAccount ({handleSubmit,setFirstName, setLastName, setEmail, setPa
                     <Form.Text className="text-muted"> Password must be at least 8 characters
                     </Form.Text>
                 </Form.Group>
-            <Button variant="primary" type="submit" className="form-button">
+            <Button variant="secondary" type="submit" className="form-button">
             Submit
             </Button>
         </Form>
