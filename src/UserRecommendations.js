@@ -22,19 +22,21 @@ function UserRecommendations ({user}) {
     }, []);
 
     return (
-        <div className="recommended-games">
+        <div>
             <h1> Your recommendations </h1>
-            <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
-                {games.map(game =>  <Carousel.Item>
-                                        <VideoGame game_id={game.id}
-                                            cover_url={game.cover_url}
-                                            name={game.name}
-                                            release_date={game.release_date}
-                                            genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
-                                            platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}/>
-                                    </Carousel.Item>
-                                    )}
-            </Carousel>
+            <div className="recommended-games">
+                <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
+                    {games.map(game =>  <Carousel.Item>
+                                            <VideoGame game_id={game.id}
+                                                cover_url={game.cover_url}
+                                                name={game.name}
+                                                release_date={game.release_date}
+                                                genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
+                                                platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}/>
+                                        </Carousel.Item>
+                                        )}
+                </Carousel>
+            </div>
         </div>
     );
 };

@@ -4,7 +4,7 @@ body {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.4rem;
     padding: 20px;
     margin: auto;
     text-align:center;
@@ -13,7 +13,9 @@ h1 {
 }
 
 .game {
-    margin: 0em 1em 3em 1em;
+    margin: auto;
+    width: 725px;
+    height: 350px;
 }
 
 .general-game-description {
@@ -34,7 +36,7 @@ h1 {
     color: black;
     height: 75px;
     padding-left: 30px;
-    width: 700px;
+    width: 500px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -94,8 +96,8 @@ h1 {
 
 .recommended-games {
     display: block;
-    height: 1200px;
-    width: 900px;
+    height: 600px;
+    width: 1200px;
     margin: auto;
     text-align: center;
     padding: 50px;
@@ -178,8 +180,13 @@ h1 {
     text-align: center;
 }
 
+.field-labels {
+    padding: 10px;
+}
+
 .form-button {
     background-color: #3A7F73;
+    margin: 10px;
 }
 
 .search-users-input {
@@ -214,8 +221,9 @@ h1 {
 }
 
 .small-cover {
-    padding-bottom: 20px;
+    padding: 5px;
     border-radius: 8px;
     width: 200px;
     height: 275px;
+    border: 1px solid rgb(177, 173, 173);
 }
