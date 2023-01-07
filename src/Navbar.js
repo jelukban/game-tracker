@@ -38,7 +38,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                             <Nav.Link href="/find"
                                             className="nav-titles">Find</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item className="col-4">
+                        <Nav.Item className="col-5">
                             <Form className="search-bar-form d-flex"
                             onSubmit={handleSearchResults}
                             onKeyPress={(e) => {if (e.key === "Enter") {
@@ -53,7 +53,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                                 <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
                             </Form>
                         </Nav.Item>
-                        <Nav.Item className="col-4">
+                        <Nav.Item className="col-2">
                             <Nav.Link href="/signout"
                                         onClick={signOut}
                                         id="sign-out"
@@ -77,7 +77,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                             <Nav.Link href="/"
                                     className="nav-titles">Home</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item className="col-4">
+                        <Nav.Item className="col-5">
                             <Form className="search-bar-form d-flex"
                             onSubmit={handleSearchResults}
                             onKeyPress={(e) => {if (e.key === "Enter") {
@@ -92,11 +92,11 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                                 <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
                             </Form>
                         </Nav.Item>
-                        <Nav.Item className="col-2">
+                        <Nav.Item className="col-1">
                             <Nav.Link href="/login"
                                         className="nav-titles">Login</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item className="col-2">
+                        <Nav.Item className="col-1">
                             <Nav.Link href="/create"
                                     className="nav-titles">Create</Nav.Link>
                         </Nav.Item>
