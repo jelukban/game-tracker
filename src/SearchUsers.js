@@ -19,7 +19,15 @@ function SearchUsers({followerUserInfo}){
                                                     'type': ''});
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const [showModalMessage, setShowModalMessage] = useState({'show': false,
+                                                    'message': '',
+                                                    'type': ''});
+
+    const handleClose = () => {
+        setShowModalMessage({'show': false,
+                            'message': '',
+                            'type': ''});
+        setShow(false)};
 
     const handleSearchUser = (e) => {
         e.preventDefault();
@@ -55,11 +63,11 @@ function SearchUsers({followerUserInfo}){
         }})
         .then((response) => response.json())
         .then((result) => {if (result.status === 'Follow was made!') {
-                setShowMessage({'show': true,
+                setShowModalMessage({'show': true,
                                 'message': 'Follow was made!',
                                 'type':'success'});
             } else {
-                setShowMessage({'show': true,
+                setShowModalMessage({'show': true,
                                 'message': 'Already following this user',
                                 'type': 'secondary'});
             };
@@ -78,7 +86,7 @@ function SearchUsers({followerUserInfo}){
                             <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
                             <Form.Text className="text-muted">
                             </Form.Text>
-                            <Button variant="primary" type="submit" className="form-button">
+                            <Button variant="secondary" type="submit" className="form-button">
                                 Search
                             </Button>
                     </Form>
@@ -97,9 +105,10 @@ function SearchUsers({followerUserInfo}){
                     <Modal.Title>Welcome to {user.firstName}'s library!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button variant="primary" onClick={handleFollow} className="form-button">
+                    <Button variant="secondary" onClick={handleFollow} className="form-button">
                         Follow
                     </Button>
+                    {showModalMessage.show ? <Alert variant={showModalMessage.type} > {showModalMessage.message}</Alert> : ''}
                     <UserInterests user={user} />
                     <UserPlayedGames user={user} />
                 </Modal.Body>
@@ -121,12 +130,13 @@ function SearchUsers({followerUserInfo}){
                             <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
                             <Form.Text className="text-muted">
                             </Form.Text>
-                            <Button variant="primary" type="submit" className="form-button">
+                            <Button variant="secondary" type="submit" className="form-button">
                                 Search
                             </Button>
                     </Form>
                     </Row>
                 </Container>
+                {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
             </div>
         )
     };
