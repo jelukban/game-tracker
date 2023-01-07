@@ -227,3 +227,7 @@ h1 {
     height: 275px;
     border: 1px solid rgb(177, 173, 173);
 }
+
+#search-results-count {
+    padding: 15px;
+}
