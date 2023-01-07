@@ -98,6 +98,9 @@ h1 {
 .rating-title {
     font-weight: 600;
     font-size: 1.2rem;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
 }
 
 .field-labels {

@@ -18,7 +18,7 @@ function Details({game}){
                 <div className="description-titles">Release Date: </div><div className="release-date">{game.release_date}</div>
                 <p className="game-description"> {game.description}</p>
             </Col>
-            <Col className="align-self-start">
+            <Col className="align-self-start d-flex justify-content-center">
                 <div> <div className="rating-title"> Rating</div>{game.score ? <ReactStars count={5}
                                                         value={game.score}
                                                         size={24}
