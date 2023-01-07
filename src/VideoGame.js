@@ -5,7 +5,7 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
 
     return (
         <Link to={`/games/details/${game_id}`} >
-            <img src={cover_url} height="275" width="200" className="small-cover"></img>
+            <img src={cover_url}  className="small-cover"></img>
             <div className="general-game-description">
                 <div className="title">{name}</div>
                 <div className="description-titles">Genres: </div> <div className="genres">{genres?.map(genre => <Button variant="light" size="sm" className="game-genre">{genre}</Button>)}</div>

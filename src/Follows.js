@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
 
 
 function Follows({user}) {
@@ -22,14 +23,14 @@ function Follows({user}) {
 
     if (isLoaded) {
         return (
-            <div>
-                <h1>
-                    Your follows!
-                </h1>
+            <Card style={{ width: '18rem' }} className="follows-card">
+            <Card.Header className="follows-list-title">Your Follows</Card.Header>
                 <ListGroup>
-                    {follows.map(follow => <ListGroup.Item action href={`/dashboard/${user.id}/follows/${follow.id}`}> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
+                    {follows.map(follow => <ListGroup.Item
+                                                action href={`/dashboard/${user.id}/follows/${follow.id}`}
+                                                className="follows-list"> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
                 </ListGroup>
-            </div>
+            </Card>
         );
     }
 };
