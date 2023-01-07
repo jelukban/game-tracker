@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 function SearchUsers({followerUserInfo}){
     const [userEmail, setUserEmail] = useState('');
@@ -67,18 +69,21 @@ function SearchUsers({followerUserInfo}){
 
     if (userFound) {
         return(
-        <div>
-            <h1>Search for another by email!</h1>
-             <Form onSubmit={handleSearchUser} >
-                    <Form.Group className="w-25" controlId="formFirstName">
-                        <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
-                        <Form.Text className="text-muted">
-                        </Form.Text>
-                    </Form.Group>
-                <Button variant="primary" type="submit">
-                Search
-                </Button>
-            </Form>
+
+        <div className="search-users-input">
+            <Container>
+                <Row>
+                    <h1>Search for another by email!</h1>
+                    <Form onSubmit={handleSearchUser} className="d-flex">
+                            <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
+                            <Form.Text className="text-muted">
+                            </Form.Text>
+                            <Button variant="primary" type="submit" className="form-button">
+                                Search
+                            </Button>
+                    </Form>
+                </Row>
+            </Container>
             {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
             <Modal
                 show={show}
@@ -92,7 +97,7 @@ function SearchUsers({followerUserInfo}){
                     <Modal.Title>Welcome to {user.firstName}'s library!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button variant="primary" onClick={handleFollow}>
+                    <Button variant="primary" onClick={handleFollow} className="form-button">
                         Follow
                     </Button>
                     <UserInterests user={user} />
@@ -108,19 +113,20 @@ function SearchUsers({followerUserInfo}){
         );
     } else if (!userFound) {
         return(
-            <div>
-                <h1>Search for another by email!</h1>
-                <Form onSubmit={handleSearchUser} >
-                        <Form.Group className="w-25" controlId="formFirstName">
+            <div className="search-users-input">
+                <Container>
+                    <Row>
+                    <h1>Search for another by email!</h1>
+                    <Form onSubmit={handleSearchUser} className="d-flex">
                             <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
                             <Form.Text className="text-muted">
                             </Form.Text>
-                        </Form.Group>
-                    <Button variant="primary" type="submit">
-                    Search
-                    </Button>
-                </Form>
-                {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
+                            <Button variant="primary" type="submit" className="form-button">
+                                Search
+                            </Button>
+                    </Form>
+                    </Row>
+                </Container>
             </div>
         )
     };

@@ -17,7 +17,7 @@ function LoginPage ({handleSubmit, setEmail, setPassword, showError }) {
                 <Form.Label className="field-labels">Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" onChange={setPassword} mb={8}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" className="form-button" type="submit">
                 Submit
                 </Button>
             </Form>

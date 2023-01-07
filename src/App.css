@@ -155,3 +155,15 @@ h1 {
     margin: auto;
     text-align: center;
 }
+
+.form-button {
+    background-color: #3A7F73;
+}
+
+.search-users-input {
+    display: block;
+    height: 1200px;
+    width: 600px;
+    margin: auto;
+    text-align: center;
+}
