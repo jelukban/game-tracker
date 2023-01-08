@@ -21,7 +21,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                             <Controller size={30}/>
                         </Navbar.Brand>
                         <Nav.Item className="col-1">
-                            <Nav.Link href="/"
+                            <Nav.Link href="/explore"
                                     className="nav-titles">Explore</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-1">
@@ -74,7 +74,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                             <Controller size={30}/>
                         </Navbar.Brand>
                         <Nav.Item className="col-1">
-                            <Nav.Link href="/"
+                            <Nav.Link href="/explore"
                                     className="nav-titles">Explore</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-5 offset-2">

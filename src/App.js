@@ -130,7 +130,7 @@ function App() {
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
-                <Route path ='/' element = {isLoading ? <LoadScreen/> : <Explore games={games}/>}/>
+                <Route path ='/explore' element = {isLoading ? <LoadScreen/> : <Explore games={games}/>}/>
                 <Route path='/login' element={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
@@ -152,7 +152,7 @@ function App() {
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
                 <Route path='/search/results' element={<SearchResults games={searchGames} />} />
-                <Route path='/signout' element={<Navigate to='/' />} />
+                <Route path='/signout' element={<Navigate to='/explore' />} />
             </Routes>
         </BrowserRouter>
     );
