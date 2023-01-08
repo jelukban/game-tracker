@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './SearchResults.js';
 import Explore from './Explore.js';
 import './App.css';
+import Home from './Home.js';
 
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
+                <Route path ='/' element = {<Home />}/>
                 <Route path ='/explore' element = {isLoading ? <LoadScreen/> : <Explore games={games}/>}/>
                 <Route path='/login' element={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
