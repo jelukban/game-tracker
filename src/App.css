@@ -3,6 +3,7 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+
 h1 {
     font-size: 2.4rem;
     padding: 20px;
@@ -12,11 +13,13 @@ h1 {
     justify-content: center;
 }
 
+
 .game {
     margin: auto;
     width: 725px;
     height: 350px;
 }
+
 
 .general-game-description {
     display: inline-block;
@@ -24,11 +27,13 @@ h1 {
     vertical-align: middle;
 }
 
+
 .small-cover {
     display: inline-block;
     margin-top: auto;
     margin-bottom: auto;
 }
+
 
 .title {
     font-weight: bold;
@@ -42,17 +47,20 @@ h1 {
     word-break: break-word;
 }
 
+
 .game-genre {
     display: inline;
     font-size: 0.8rem;
     color: #000000b7;
 }
 
+
 .game-platform {
     display: inline;
     font-size: 0.8rem;
     color: #000000b7;
 }
+
 
 .description-titles {
     font-weight: bold;
@@ -62,11 +70,13 @@ h1 {
     height: 25px;
 }
 
+
 .release-date {
     font-size: 1rem;
     color: #000000bd;
     padding-left: 30px;
 }
+
 
 .genres {
     display: block;
@@ -77,6 +87,7 @@ h1 {
     padding-bottom: 4px;
 }
 
+
 .platforms {
     display: block;
     height: 65px;
@@ -86,13 +97,16 @@ h1 {
     padding-bottom: 4px;
 }
 
+
 .game-description {
     font-size: 0.9rem;
 }
 
+
 .game-options {
     margin-bottom: 6em;
 }
+
 
 .recommended-games {
     display: block;
@@ -102,6 +116,7 @@ h1 {
     text-align: center;
     padding: 50px;
 }
+
 
 .carousel-indicators {
     bottom:-50px;
@@ -116,6 +131,7 @@ h1 {
     padding: 10px;
 }
 
+
 .rating-title {
     font-weight: 600;
     font-size: 1.2rem;
@@ -124,10 +140,12 @@ h1 {
     padding: 10px;
 }
 
+
 .field-labels {
     font-weight: 500;
     font-size: 1.3rem;
 }
+
 
 .interest-played-button {
     margin: auto;
@@ -135,22 +153,27 @@ h1 {
     padding: 10px;
 }
 
+
 .navbar {
     background-color: #3A7F73;
 }
 
+
 .video-game-title {
     padding: 15px;
 }
+
 
 .nav-titles {
     font-weight: 1000;
     color: white;
 }
 
+
 #dashboard-dropdown {
     color: white;
 }
+
 
 .navbar {
     padding: 5px;
@@ -160,17 +183,20 @@ h1 {
     padding: 0px;
 }
 
+
 .nav-titles {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+
 #loading-spinner {
     position: fixed;
     bottom: 0;
     left: 0;
 }
+
 
 .forms {
     display: block;
@@ -180,14 +206,17 @@ h1 {
     text-align: center;
 }
 
+
 .field-labels {
     padding: 10px;
 }
+
 
 .form-button {
     background-color: #3A7F73;
     margin: 10px;
 }
+
 
 .search-users-input {
     display: block;
@@ -230,4 +259,8 @@ h1 {
 
 #search-results-count {
     padding: 15px;
+}
+
+.navbar-brand {
+    text-align:center;
 }

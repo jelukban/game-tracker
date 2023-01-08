@@ -17,12 +17,12 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
             <Container fluid>
                 <Navbar className="navbar row" variant="dark" >
                     <Nav className="nav">
-                        <Navbar.Brand>
+                        <Navbar.Brand className="col-1 navbar-brand">
                             <Controller size={30}/>
                         </Navbar.Brand>
                         <Nav.Item className="col-1">
                             <Nav.Link href="/"
-                                    className="nav-titles">Home</Nav.Link>
+                                    className="nav-titles">Explore</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-1">
                             <NavDropdown title="Dashboard"
@@ -70,14 +70,14 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
             <Container fluid>
                 <Navbar className="navbar row" variant="dark" >
                     <Nav className="nav">
-                        <Navbar.Brand>
+                        <Navbar.Brand className="col-1 navbar-brand">
                             <Controller size={30}/>
                         </Navbar.Brand>
-                        <Nav.Item className="col-3">
+                        <Nav.Item className="col-1">
                             <Nav.Link href="/"
-                                    className="nav-titles">Home</Nav.Link>
+                                    className="nav-titles">Explore</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item className="col-5">
+                        <Nav.Item className="col-5 offset-2">
                             <Form className="search-bar-form d-flex"
                             onSubmit={handleSearchResults}
                             onKeyPress={(e) => {if (e.key === "Enter") {
