@@ -15,7 +15,7 @@ import Follows from './Follows.js';
 import FollowGames from './FollowGames.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './SearchResults.js';
-import Home from './Home.js';
+import Explore from './Explore.js';
 import './App.css';
 
 
@@ -130,7 +130,7 @@ function App() {
                     setSearchName={(e) => setSearchName(e.target.value)}
                     user={user} />
             <Routes>
-                <Route path ='/' element = {isLoading ? <LoadScreen/> : <Home games={games}/>}/>
+                <Route path ='/' element = {isLoading ? <LoadScreen/> : <Explore games={games}/>}/>
                 <Route path='/login' element={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} />:
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
