@@ -27,6 +27,11 @@ h1 {
     vertical-align: middle;
 }
 
+.game-description {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
 
 .small-cover {
     display: inline-block;
