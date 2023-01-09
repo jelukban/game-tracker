@@ -9,7 +9,7 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
             <div className="general-game-description">
                 <div className="title">{name}</div>
                 <div className="description-titles">Genres: </div> <div className="genres">{genres?.map(genre => <Button variant="light" size="sm" className="game-genre">{genre}</Button>)}</div>
-                <div className="description-titles">Platforms: </div> <div className="platforms">{platforms?.map(platform => <Button variant="light" size="sm" className="game-platform">{platform}</Button>)}</div>
+                <div className="description-titles">Platforms: </div> <div className="platforms">{platforms?.slice(0, 6).map(platform => <Button variant="light" size="sm" className="game-platform">{platform}</Button>)}</div>
                 <div className="description-titles">Release Date: </div><div className="release-date">{release_date !== 'None' ? release_date.slice(0, -9) : 'Not available'}</div>
             </div>
 

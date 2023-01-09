@@ -38,7 +38,7 @@ h1 {
 .title {
     font-weight: bold;
     font-size: 1.3rem;
-    color: black;
+    color: #0f5448;
     height: 75px;
     padding-left: 30px;
     width: 500px;
@@ -51,21 +51,21 @@ h1 {
 .game-genre {
     display: inline;
     font-size: 0.8rem;
-    color: #000000b7;
+    color: #000000d1;
 }
 
 
 .game-platform {
     display: inline;
     font-size: 0.8rem;
-    color: #000000b7;
+    color: #000000d1;
 }
 
 
 .description-titles {
     font-weight: bold;
     font-size: 1.1rem;
-    color: #000000bd;
+    color: black;
     padding-left: 30px;
     height: 25px;
 }
@@ -312,8 +312,7 @@ h1 {
 .recommend-title {
     background-color: #efeeee;
     width: 1200px;
-    font-weight: bold;
     margin: auto;
-    color: #0f5448;
+    color: black;
     border: 1px solid #efeeee;
 }
