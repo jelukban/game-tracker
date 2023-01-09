@@ -233,14 +233,18 @@ h1 {
 }
 
 .follows-list-title {
+    display: flex;
     font-size: 2rem;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .follows-card {
+    display: block;
     margin: auto;
     margin-top: 20px;
     text-align: center;
+    justify-content: center;
 }
 
 .game-container {
