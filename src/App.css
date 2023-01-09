@@ -108,16 +108,6 @@ h1 {
 }
 
 
-.recommended-games {
-    display: block;
-    height: 600px;
-    width: 1200px;
-    margin: auto;
-    text-align: center;
-    padding: 50px;
-}
-
-
 .carousel-indicators {
     bottom:-50px;
   }
@@ -292,9 +282,38 @@ h1 {
     text-align: center;
 }
 
+
 .home-button {
     background-color: #efeeee;
     font-weight: 900;
     color: #0f5448;
     font-size: 1.1rem;
+}
+
+
+.recommends-background {
+    background-image: url(https://www.usnews.com/object/image/00000181-2b3d-d686-ab89-2b3d160a0000/gettyimages-1170073824.jpg?update-time=1654287935755&size=responsive970);
+    height: 75vh;
+    opacity: 0.75;
+    padding-top: 2%;
+}
+
+.recommended-games {
+    display: block;
+    height: 450px;
+    width: 1200px;
+    margin: auto;
+    text-align: center;
+    padding: 1%;
+    border: 1px solid #efeeee;
+    background-color: #efeeee;
+}
+
+.recommend-title {
+    background-color: #efeeee;
+    width: 1200px;
+    font-weight: bold;
+    margin: auto;
+    color: #0f5448;
+    border: 1px solid #efeeee;
 }

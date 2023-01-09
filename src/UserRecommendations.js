@@ -22,8 +22,8 @@ function UserRecommendations ({user}) {
     }, []);
 
     return (
-        <div>
-            <h1> Your recommendations </h1>
+        <div className="recommends-background">
+            <h1 className="recommend-title"> Your recommendations </h1>
             <div className="recommended-games">
                 <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
                     {games.map(game =>  <Carousel.Item>
