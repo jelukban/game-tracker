@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -8,7 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 
 function Follows({user}) {
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [follows, setFollows] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
