@@ -99,7 +99,10 @@ function VideoGameDetails({isLoggedIn, user}){
                                 <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()} className="form-button" >Played</Button>
                             </div>
                             <Form onSubmit={handleRating} className="rating-form"> <div className="detail-title">Rate this video game:</div>
-                                <Form.Select className="w-20" size="sm" onChange={(e) => setScore(e.target.value)}>
+                                <Form.Select className="rating-dropdown"
+                                                size="sm"
+                                                onChange={(e) => setScore(e.target.value)}
+                                                autosize={false}>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -107,7 +110,7 @@ function VideoGameDetails({isLoggedIn, user}){
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                 </Form.Select>
-                                <Button variant="secondary" size="sm" type="submit" className="form-button" >
+                                <Button variant="secondary" size="sm" type="submit" className="rating-button" >
                                     Submit
                                 </Button>
                             </Form>

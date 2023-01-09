@@ -328,3 +328,15 @@ h1 {
     margin: auto;
     text-align: center;
 }
+
+.rating-dropdown {
+    display: inline-block;
+    width: 40%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.rating-button {
+    display: inline;
+    background-color: #3A7F73;
+}
