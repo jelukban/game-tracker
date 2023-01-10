@@ -34,29 +34,29 @@ function Follows({user}) {
 
     if (isLoaded) {
         return (
-            <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-                className="follows-card"
-            >
+            <Modal show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                    className="follows-card">
                 <Modal.Header closeButton>
                     <Modal.Title className="follows-list-title w-100">Your Follows</Modal.Title>
                 </Modal.Header>
-            <Modal.Body>
-                <ListGroup>
-                    {follows.map(follow => <ListGroup.Item
-                                                action href={`/dashboard/${user.id}/follows/${follow.id}`}
-                                                className="follows-list"> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
-                </ListGroup>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose} className="form-button" >
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
+                <Modal.Body>
+                    <ListGroup>
+                        {follows.map(follow => <ListGroup.Item
+                                                    action href={`/dashboard/${user.id}/follows/${follow.id}`}
+                                                    className="follows-list"> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
+                    </ListGroup>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary"
+                            onClick={handleClose}
+                            className="form-button">
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         );
     }
 };

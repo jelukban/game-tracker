@@ -10,47 +10,64 @@ import Container from 'react-bootstrap/Container';
 
 
 function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName, user }) {
-    let navigate = useNavigate();
+
+    const navigate = useNavigate();
 
     if (isLoggedIn) {
     return (
             <Container fluid>
-                <Navbar className="navbar row" variant="dark" >
+                <Navbar className="navbar row"
+                        variant="dark" >
                     <Nav className="nav">
                         <Navbar.Brand className="col-1 navbar-brand">
                             <Controller size={30}/>
                         </Navbar.Brand>
                         <Nav.Item className="col-1">
                             <Nav.Link href="/explore"
-                                    className="nav-titles">Explore</Nav.Link>
+                                    className="nav-titles">
+                                        Explore
+                            </Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-1">
                             <NavDropdown title="Dashboard"
                                             id="dashboard-dropdown"
                                             className="nav-titles">
-                                <NavDropdown.Item href={`/dashboard/${user.id}`}>Recommendations</NavDropdown.Item>
-                                <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>Played Games</NavDropdown.Item>
-                                <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>Interests</NavDropdown.Item>
-                                <NavDropdown.Item href={`/dashboard/${user.id}/follows`}>Follows</NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}`}>
+                                    Recommendations
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>
+                                    Played Games
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>
+                                    Interests
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href={`/dashboard/${user.id}/follows`}>
+                                    Follows
+                                </NavDropdown.Item>
                             </NavDropdown>
                         </Nav.Item>
                         <Nav.Item className="col-1">
                             <Nav.Link href="/find"
-                                            className="nav-titles">Find</Nav.Link>
+                                        className="nav-titles">
+                                Find
+                            </Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-5">
                             <Form className="search-bar-form d-flex"
-                            onSubmit={handleSearchResults}
-                            onKeyPress={(e) => {if (e.key === "Enter") {
-                                            navigate('/search/results')
-                                            }}}>
+                                    onSubmit={handleSearchResults}
+                                    onKeyPress={(e) => {if (e.key === "Enter") {
+                                                    navigate('/search/results')}}}>
                                 <Form.Control type="text"
                                                 placeholder="Search video games"
                                                 onChange={setSearchName}
                                                 size="sm"
                                                 id="search-bar"
-                                                />
-                                <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
+                                />
+                                <Button variant="outline-light"
+                                        onClick={(e) => navigate('/search/results')}
+                                        className="nav-titles">
+                                            Search
+                                </Button>
                             </Form>
                         </Nav.Item>
                         <Nav.Item className="col-2">
@@ -58,7 +75,7 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
                                         onClick={signOut}
                                         id="sign-out"
                                         className="nav-titles">
-                                            Sign Out
+                                Sign Out
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
@@ -68,28 +85,34 @@ function Navigationbar ({isLoggedIn, signOut, handleSearchResults, setSearchName
     } else {
         return(
             <Container fluid>
-                <Navbar className="navbar row" variant="dark" >
+                <Navbar className="navbar row"
+                        variant="dark" >
                     <Nav className="nav">
                         <Navbar.Brand className="col-1 navbar-brand">
                             <Controller size={30}/>
                         </Navbar.Brand>
                         <Nav.Item className="col-1">
                             <Nav.Link href="/explore"
-                                    className="nav-titles">Explore</Nav.Link>
+                                    className="nav-titles">
+                                Explore
+                            </Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="col-5 offset-2">
                             <Form className="search-bar-form d-flex"
-                            onSubmit={handleSearchResults}
-                            onKeyPress={(e) => {if (e.key === "Enter") {
-                                            navigate('/search/results')
-                                            }}}>
+                                    onSubmit={handleSearchResults}
+                                    onKeyPress={(e) => {if (e.key === "Enter") {
+                                                    navigate('/search/results')}}}>
                                 <Form.Control type="text"
                                                 placeholder="Search video games"
                                                 onChange={setSearchName}
                                                 size="sm"
                                                 id="search-bar"
-                                                />
-                                <Button variant="outline-light" onClick={(e) => navigate('/search/results')} className="nav-titles">Search</Button>
+                                />
+                                <Button variant="outline-light"
+                                        onClick={(e) => navigate('/search/results')}
+                                        className="nav-titles">
+                                    Search
+                                </Button>
                             </Form>
                         </Nav.Item>
                         <Nav.Item className="col-1">

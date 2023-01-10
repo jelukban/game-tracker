@@ -1,5 +1,6 @@
 import Spinner from 'react-bootstrap/Spinner';
 
+
 function LoadScreen () {
     return (
       <div id="loading-spinner">

@@ -16,6 +16,9 @@ h1 {
     margin: auto;
     width: 725px;
     height: 350px;
+    border: 3px solid #3A7F73;
+    margin-top: 20px;
+    border-radius: 8px;
 }
 
 .general-game-description {
@@ -37,7 +40,7 @@ h1 {
 
 .title {
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #0f5448;
     height: 75px;
     padding-left: 30px;
@@ -45,17 +48,18 @@ h1 {
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+    padding-top: 10px;
 }
 
 .game-genre {
     display: inline;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #000000d1;
 }
 
 .game-platform {
     display: inline;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #000000d1;
 }
 

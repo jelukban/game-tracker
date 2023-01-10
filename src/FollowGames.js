@@ -1,11 +1,13 @@
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import UserReccomendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
 import UserPlayedGames from './UserPlayedGames.js';
-import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+
 
 function FollowGames () {
-    const { followUserId } = useParams();
+
+    const {followUserId} = useParams();
     const [followUser, setFollowUser] = useState({});
     const [followUserLoaded, setFollowUserLoaded] = useState(false);
 

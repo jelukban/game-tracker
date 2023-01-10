@@ -1,11 +1,7 @@
 import VideoGameContainer from './VideoGameContainer.js'
 
 function GamePage ({games}) {
-    return (
-        <div>
-            <VideoGameContainer games={games} />
-        </div>
-    );
+    return <VideoGameContainer games={games} />;
 };
 
 export default GamePage;

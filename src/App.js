@@ -59,7 +59,7 @@ function App() {
         fetch('/api/login', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
-            }})
+        }})
         .then((response) => response.json())
         .then((result) => {if (result.has_account === 'True') {
             let tempData = {'id': result.user_id,
@@ -78,7 +78,9 @@ function App() {
 
 
     const handleCreateSubmit = (e) => {
+
         e.preventDefault();
+
         fetch('/api/create/account', { method: 'POST',
         body: JSON.stringify(user),
         headers: { 'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ function App() {
                 setShowError({'show':true, 'message':'Requirements not filled'});
             } else if (result.status === 'Account with this email already exists') {
                 setShowError({'show':true, 'message':'Account with this email already exists'});
-            };
+        };
         });
     };
 
@@ -129,7 +131,8 @@ function App() {
                     signOut={handleSignOut}
                     handleSearchResults={handleSearchResults}
                     setSearchName={(e) => setSearchName(e.target.value)}
-                    user={user} />
+                    user={user}
+            />
             <Routes>
                 <Route path ='/' element = {<Home />}/>
                 <Route path ='/explore' element = {isLoading ? <LoadScreen/> : <Explore games={games}/>}/>
@@ -137,19 +140,25 @@ function App() {
                                                                 <LoginPage handleSubmit={handleLoginSubmit}
                                                                     setEmail={(e) => {setUser({ ...user, email: e.target.value })}}
                                                                     setPassword={(e) => {setUser({ ...user, password: e.target.value })}}
-                                                                    showError={showError}/>} />
+                                                                    showError={showError}
+                                                                />}
+                                                            />
                 <Route path='/create' element ={isLoggedIn ? <Navigate to={`/dashboard/${user.id}`} /> :
                                                                 <CreateAccount handleSubmit={handleCreateSubmit}
                                                                             setFirstName={(e) => setUser({ ...user, firstName: e.target.value })}
                                                                             setLastName={(e) => setUser({ ...user, lastName: e.target.value })}
                                                                             setEmail={(e) => setUser({ ...user, email: e.target.value })}
                                                                             setPassword={(e) => setUser({ ...user, password: e.target.value })}
-                                                                            showError={showError} />} />
+                                                                            showError={showError}
+                                                                />}
+                                                            />
                 <Route path={`/dashboard/${user.id}`} element={ <UserRecommendations user={user}/> } />
                 <Route path={`/dashboard/${user.id}/interests`} element={<UserInterests user={user}/>} />
                 <Route path={`/dashboard/${user.id}/gamesplayed`} element={<UserPlayedGames user={user}/>}/>
-                <Route path={`/games/details/:game_id`} element ={<VideoGameDetails isLoggedIn={isLoggedIn}
-                                                                                    user={user}/>}/>
+                <Route path={`/games/details/:game_id`} element={<VideoGameDetails isLoggedIn={isLoggedIn}
+                                                                                    user={user}
+                                                                    />}
+                                                                />
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />

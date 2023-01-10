@@ -10,13 +10,16 @@ import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
+
 function SearchUsers({followerUserInfo}){
+
     const [userEmail, setUserEmail] = useState('');
     const [user, setUser] = useState({});
     const [userFound, setUserFound] = useState(false);
     const [showMessage, setShowMessage] = useState({'show': false,
                                                     'message': '',
                                                     'type': ''});
+
     const [show, setShow] = useState(false);
 
     const [showModalMessage, setShowModalMessage] = useState({'show': false,
@@ -27,7 +30,8 @@ function SearchUsers({followerUserInfo}){
         setShowModalMessage({'show': false,
                             'message': '',
                             'type': ''});
-        setShow(false)};
+        setShow(false);
+    };
 
     const handleSearchUser = (e) => {
         e.preventDefault();
@@ -82,30 +86,39 @@ function SearchUsers({followerUserInfo}){
             <Container>
                 <Row>
                     <h1>Search for another by email!</h1>
-                    <Form onSubmit={handleSearchUser} className="d-flex">
-                            <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
+                    <Form onSubmit={handleSearchUser}
+                            className="d-flex">
+                            <Form.Control type="text"
+                                            placeholder="Email Address"
+                                            onChange={(e)=>setUserEmail(e.target.value)}
+                            />
                             <Form.Text className="text-muted">
                             </Form.Text>
-                            <Button variant="secondary" type="submit" className="form-button">
+                            <Button variant="secondary"
+                                    type="submit"
+                                    className="form-button">
                                 Search
                             </Button>
                     </Form>
                 </Row>
             </Container>
             {showMessage.show ? <Alert variant={showMessage.type} > {showMessage.message}</Alert> : ''}
-            <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
+            <Modal show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Welcome to {user.firstName}'s library!</Modal.Title>
+                    <Modal.Title>
+                        Welcome to {user.firstName}'s library!
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button variant="secondary" onClick={handleFollow} className="form-button">
+                    <Button variant="secondary"
+                            onClick={handleFollow}
+                            className="form-button">
                         Follow
                     </Button>
                     {showModalMessage.show ? <Alert variant={showModalMessage.type} > {showModalMessage.message}</Alert> : ''}
@@ -113,7 +126,8 @@ function SearchUsers({followerUserInfo}){
                     <UserPlayedGames user={user} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary"
+                            onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
@@ -126,11 +140,17 @@ function SearchUsers({followerUserInfo}){
                 <Container>
                     <Row>
                     <h1>Search for another by email!</h1>
-                    <Form onSubmit={handleSearchUser} className="d-flex">
-                            <Form.Control type="text" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)} />
+                    <Form onSubmit={handleSearchUser}
+                            className="d-flex">
+                            <Form.Control type="text"
+                                            placeholder="Email Address"
+                                            onChange={(e)=>setUserEmail(e.target.value)}
+                            />
                             <Form.Text className="text-muted">
                             </Form.Text>
-                            <Button variant="secondary" type="submit" className="form-button">
+                            <Button variant="secondary"
+                                    type="submit"
+                                    className="form-button">
                                 Search
                             </Button>
                     </Form>
