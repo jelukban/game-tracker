@@ -3,7 +3,6 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
-
 h1 {
     font-size: 2.4rem;
     padding: 20px;
@@ -13,13 +12,11 @@ h1 {
     justify-content: center;
 }
 
-
 .game {
     margin: auto;
     width: 725px;
     height: 350px;
 }
-
 
 .general-game-description {
     display: inline-block;
@@ -32,13 +29,11 @@ h1 {
     padding-top: 20px;
 }
 
-
 .small-cover {
     display: inline-block;
     margin-top: auto;
     margin-bottom: auto;
 }
-
 
 .title {
     font-weight: bold;
@@ -52,20 +47,17 @@ h1 {
     word-break: break-word;
 }
 
-
 .game-genre {
     display: inline;
     font-size: 0.8rem;
     color: #000000d1;
 }
 
-
 .game-platform {
     display: inline;
     font-size: 0.8rem;
     color: #000000d1;
 }
-
 
 .description-titles {
     font-weight: bold;
@@ -75,13 +67,11 @@ h1 {
     height: 25px;
 }
 
-
 .release-date {
     font-size: 1rem;
     color: #000000bd;
     padding-left: 30px;
 }
-
 
 .genres {
     display: block;
@@ -92,7 +82,6 @@ h1 {
     padding-bottom: 4px;
 }
 
-
 .platforms {
     display: block;
     height: 65px;
@@ -102,21 +91,17 @@ h1 {
     padding-bottom: 4px;
 }
 
-
 .game-description {
     font-size: 0.9rem;
 }
-
 
 .game-options {
     margin-bottom: 6em;
 }
 
-
 .carousel-indicators {
     bottom:-50px;
-  }
-
+}
 
 .detail-title{
     font-weight: 600;
@@ -126,7 +111,6 @@ h1 {
     padding: 1px;
 }
 
-
 .rating-title {
     font-weight: 600;
     font-size: 1.2rem;
@@ -135,12 +119,10 @@ h1 {
     padding: 10px;
 }
 
-
 .field-labels {
     font-weight: 500;
     font-size: 1.3rem;
 }
-
 
 .interest-played-button {
     margin: auto;
@@ -148,27 +130,22 @@ h1 {
     padding: 10px;
 }
 
-
 .navbar {
     background-color: #3A7F73;
 }
 
-
 .video-game-title {
     padding: 15px;
 }
-
 
 .nav-titles {
     font-weight: 1000;
     color: white;
 }
 
-
 #dashboard-dropdown {
     color: white;
 }
-
 
 .navbar {
     padding: 5px;
@@ -178,13 +155,11 @@ h1 {
     padding: 0px;
 }
 
-
 .nav-titles {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 
 #loading-spinner {
     position: fixed;
@@ -193,24 +168,20 @@ h1 {
     padding: 10px;
 }
 
-
 .forms {
     display: block;
     margin: auto;
     text-align: center;
 }
 
-
 .field-labels {
     padding: 10px;
 }
-
 
 .form-button {
     background-color: #3A7F73;
     margin: 10px;
 }
-
 
 .search-users-input {
     display: block;
@@ -280,13 +251,11 @@ h1 {
     border-radius: 8px;
 }
 
-
 .container-for-home-button {
     padding: 1%;
     margin: auto;
     text-align: center;
 }
-
 
 .home-button {
     background-color: #efeeee;
@@ -294,7 +263,6 @@ h1 {
     color: #0f5448;
     font-size: 1.1rem;
 }
-
 
 .recommends-background {
     background-image: url(https://www.usnews.com/object/image/00000181-2b3d-d686-ab89-2b3d160a0000/gettyimages-1170073824.jpg?update-time=1654287935755&size=responsive970);
@@ -321,7 +289,6 @@ h1 {
     color: black;
     border: 1px solid #efeeee;
 }
-
 
 .rating-form {
     display: block;
