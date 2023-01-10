@@ -13,14 +13,14 @@ import VideoGameDetails from './VideoGameDetails.js';
 import SearchUsers from './SearchUsers.js';
 import Follows from './Follows.js';
 import FollowGames from './FollowGames.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './SearchResults.js';
 import Explore from './Explore.js';
-import './App.css';
 import Home from './Home.js';
+import 'bootstrap/dist/css/bootstrap.min.css';import './App.css';
 
 
 function App() {
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [user, setUser] = useState(() => {
@@ -47,11 +47,11 @@ function App() {
         .then((response) => response.json())
         .then((responseJson) => {
             setGames(responseJson.games);
-         });
+        });
     }, []);
 
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 6000)
+        setTimeout(() => setIsLoading(false), 3500);
     }, [games]);
 
     const handleLoginSubmit = (e) => {
