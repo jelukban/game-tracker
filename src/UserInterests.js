@@ -1,6 +1,7 @@
 import VideoGameContainer from './VideoGameContainer.js';
 import { React, useState, useEffect } from 'react';
 
+
 function UserInterests({user}) {
     const [interestingGames, setInterestingGames] = useState([]);
 

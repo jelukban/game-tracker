@@ -49,7 +49,7 @@ function VideoGameDetails({isLoggedIn, user}){
                 setShowMessage({'show': true,
                                 'message': 'Interest already exists'});
             };
-            });
+        });
     };
 
 
@@ -67,7 +67,7 @@ function VideoGameDetails({isLoggedIn, user}){
                 setShowMessage({'show': true,
                                 'message': 'GamePlayed already exists'});
             };
-            });
+        });
     };
 
 
@@ -77,7 +77,7 @@ function VideoGameDetails({isLoggedIn, user}){
         fetch(`/api/games/${game_id}/create/rating`, {method: 'POST',
                                                 body:JSON.stringify(userGame),
                                                 headers: {'Content-Type': 'application/json',
-                                            }})
+        }})
     };
 
 
@@ -89,16 +89,30 @@ function VideoGameDetails({isLoggedIn, user}){
                     <Col className="align-self-start">
                         <div className="game-selection" >
                             {showMessage.show ? <Alert variant="dark" size="sm" >
-                                {showMessage.message}
-                            </Alert> : ''}
+                                                    {showMessage.message}
+                                                </Alert> : ''}
                             <div className="detail-title">
                                 Track this game!
                             </div>
                             <div className="interest-played-button">
-                                <Button variant="secondary" size="sm" onClick={(e) => handleInterests()} className="form-button" >Interested</Button> {' '}
-                                <Button variant="secondary" size="sm" onClick={(e) => handlePlayed()} className="form-button" >Played</Button>
+                                <Button variant="secondary"
+                                        size="sm"
+                                        onClick={(e) => handleInterests()}
+                                        className="form-button" >
+                                        Interested
+                                </Button> {' '}
+                                <Button variant="secondary"
+                                        size="sm"
+                                        onClick={(e) => handlePlayed()}
+                                        className="form-button" >
+                                    Played
+                                </Button>
                             </div>
-                            <Form onSubmit={handleRating} className="rating-form"> <div className="detail-title">Rate this video game:</div>
+                            <Form onSubmit={handleRating}
+                                    className="rating-form">
+                                <div className="detail-title">
+                                    Rate this video game:
+                                </div>
                                 <Form.Select className="rating-dropdown"
                                                 size="sm"
                                                 onChange={(e) => setScore(e.target.value)}
@@ -110,7 +124,10 @@ function VideoGameDetails({isLoggedIn, user}){
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                 </Form.Select>
-                                <Button variant="secondary" size="sm" type="submit" className="rating-button" >
+                                <Button variant="secondary"
+                                            size="sm"
+                                            type="submit"
+                                            className="rating-button">
                                     Submit
                                 </Button>
                             </Form>

@@ -99,7 +99,7 @@ function App() {
                 setShowError({'show':true, 'message':'Requirements not filled'});
             } else if (result.status === 'Account with this email already exists') {
                 setShowError({'show':true, 'message':'Account with this email already exists'});
-        };
+            };
         });
     };
 

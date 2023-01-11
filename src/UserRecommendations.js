@@ -32,7 +32,8 @@ function UserRecommendations ({user}) {
                                                 name={game.name}
                                                 release_date={game.release_date}
                                                 genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
-                                                platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}/>
+                                                platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
+                                            />
                                         </Carousel.Item>
                                         )}
                 </Carousel>
