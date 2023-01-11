@@ -249,9 +249,12 @@ h1 {
 
 .home-background {
     background-image: url(https://www.usnews.com/object/image/00000181-2b3d-d686-ab89-2b3d160a0000/gettyimages-1170073824.jpg?update-time=1654287935755&size=responsive970);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     height: 75vh;
     opacity: 0.75;
     padding-top: 20%;
+    width: 100%;
 }
 
 .home-title {
@@ -279,6 +282,8 @@ h1 {
 
 .recommends-background {
     background-image: url(https://www.usnews.com/object/image/00000181-2b3d-d686-ab89-2b3d160a0000/gettyimages-1170073824.jpg?update-time=1654287935755&size=responsive970);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     height: 75vh;
     opacity: 0.75;
     padding-top: 2%;
@@ -287,7 +292,7 @@ h1 {
 .recommended-games {
     display: block;
     height: 450px;
-    width: 1000px;
+    width: 900px;
     margin: auto;
     text-align: center;
     padding: 1%;
@@ -298,7 +303,7 @@ h1 {
 
 .recommend-title {
     background-color: #efeeee;
-    width: 1000px;
+    width: 900px;
     margin: auto;
     color: black;
     border: 1px solid #efeeee;
