@@ -10,7 +10,7 @@ function Details({game}){
         <React.Fragment>
             <h1 className="video-game-title"> {game.name}</h1>
             <Col className="align-self-start">
-                <img src={game.cover_url} height="375" width="280"></img>
+                <img src={game.cover_url} height="375" width="280" className="large-cover"></img>
             </Col>
             <Col className="align-self-start">
                 <div className="description-titles">

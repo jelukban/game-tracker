@@ -19,6 +19,7 @@ h1 {
     border: 3px solid #3A7F73;
     margin-top: 20px;
     border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .general-game-description {
@@ -36,6 +37,15 @@ h1 {
     display: inline-block;
     margin-top: auto;
     margin-bottom: auto;
+    padding: 5px;
+    border-radius: 8px;
+    width: 200px;
+    height: 275px;
+    border: 1px solid rgb(177, 173, 173);
+}
+
+.large-cover {
+    border-radius: 8px;
 }
 
 .title {
@@ -55,12 +65,18 @@ h1 {
     display: inline;
     font-size: 0.7rem;
     color: #000000d1;
+    border-color: #3A7F73;
+    border-width: 1px;
+    margin-top: 3px;
 }
 
 .game-platform {
     display: inline;
     font-size: 0.7rem;
     color: #000000d1;
+    border-color: #3A7F73;
+    border-width: 1px;
+    margin-top: 3px;
 }
 
 .description-titles {
@@ -69,6 +85,7 @@ h1 {
     color: black;
     padding-left: 30px;
     height: 25px;
+    padding-top: 5px;
 }
 
 .release-date {
@@ -222,14 +239,6 @@ h1 {
     justify-content: center;
 }
 
-.small-cover {
-    padding: 5px;
-    border-radius: 8px;
-    width: 200px;
-    height: 275px;
-    border: 1px solid rgb(177, 173, 173);
-}
-
 #search-results-count {
     padding: 15px;
 }
@@ -247,7 +256,7 @@ h1 {
 
 .home-title {
     background-color: #efeeee;
-    width: 80%;
+    width: 1000px;
     font-weight: bold;
     margin: auto;
     color: #09362e;
@@ -278,20 +287,23 @@ h1 {
 .recommended-games {
     display: block;
     height: 450px;
-    width: 1200px;
+    width: 1000px;
     margin: auto;
     text-align: center;
     padding: 1%;
     border: 1px solid #efeeee;
     background-color: #efeeee;
+    border-radius: 8px;
 }
 
 .recommend-title {
     background-color: #efeeee;
-    width: 1200px;
+    width: 1000px;
     margin: auto;
     color: black;
     border: 1px solid #efeeee;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .rating-form {
@@ -310,4 +322,11 @@ h1 {
 .rating-button {
     display: inline;
     background-color: #3A7F73;
+}
+
+.follow-button {
+    margin: auto;
+    text-align:center;
+    align-items: center;
+    justify-content: center;
 }

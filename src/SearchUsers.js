@@ -112,15 +112,17 @@ function SearchUsers({followerUserInfo}){
                     centered>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Welcome to {user.firstName}'s library!
+                        <h1>Welcome to {user.firstName}'s library!</h1>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button variant="secondary"
-                            onClick={handleFollow}
-                            className="form-button">
-                        Follow
-                    </Button>
+                    <div className="follow-button">
+                        <Button variant="secondary"
+                                onClick={handleFollow}
+                                className="form-button">
+                            Follow
+                        </Button>
+                    </div>
                     {showModalMessage.show ? <Alert variant={showModalMessage.type} > {showModalMessage.message}</Alert> : ''}
                     <UserInterests user={user} />
                     <UserPlayedGames user={user} />
