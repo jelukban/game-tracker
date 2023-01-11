@@ -317,6 +317,8 @@ h1 {
     width: 40%;
     margin-top: 10px;
     text-align: center;
+    margin-right: 5px;
+    height: 33px;
 }
 
 .rating-button {
@@ -327,6 +329,17 @@ h1 {
 .follow-button {
     margin: auto;
     text-align:center;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-bar {
+    margin-right: 5px;
+}
+
+#search-users-bar {
+    height: 40px;
+    margin: auto;
     align-items: center;
     justify-content: center;
 }

@@ -91,6 +91,7 @@ function SearchUsers({followerUserInfo}){
                             <Form.Control type="text"
                                             placeholder="Email Address"
                                             onChange={(e)=>setUserEmail(e.target.value)}
+                                            id="search-users-bar"
                             />
                             <Form.Text className="text-muted">
                             </Form.Text>
@@ -147,6 +148,7 @@ function SearchUsers({followerUserInfo}){
                             <Form.Control type="text"
                                             placeholder="Email Address"
                                             onChange={(e)=>setUserEmail(e.target.value)}
+                                            id="search-users-bar"
                             />
                             <Form.Text className="text-muted">
                             </Form.Text>
