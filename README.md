@@ -7,6 +7,7 @@ Python, JavaScript, Flask, React, PostGreSQL, SQLAlchemy, HTML and CSS
 
 # Features
 #### Account Creation and Login
+<img width="1792" alt="Screenshot 2023-01-16 at 11 36 51 PM" src="https://user-images.githubusercontent.com/53098859/212837083-4a1198ee-b1ae-4d06-8d38-9c2363daed48.png">
 
 #### Search Video Games and their Information
 
