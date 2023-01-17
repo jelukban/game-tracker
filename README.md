@@ -6,6 +6,17 @@ The game tracker web app gives users access to a diverse library of video games 
 Python, JavaScript, Flask, React, PostGreSQL, SQLAlchemy, HTML and CSS
 
 # Features
+#### Account Creation and Login
+
+#### Search Video Games and their Information
+
+#### Rate Video Games
+
+#### Mark Games as Previously Played or Interested
+
+#### Find Other Users and Follow Them
+
+#### 20 Recommended Video Games
 
 
 # Prerequisites
@@ -22,8 +33,6 @@ export CLIENT_ID="your CLIENT ID"
 export CLIENT_SECRET="your CLIENT SECRET"
 export SECURE_LOCAL_STORAGE_HASH_KEY="create a hash key"
 ```
-
-
 
 Start a virtual environment
 ```
