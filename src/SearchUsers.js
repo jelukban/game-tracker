@@ -85,7 +85,7 @@ function SearchUsers({followerUserInfo}){
         <div className="search-users-input">
             <Container>
                 <Row>
-                    <h1>Search for other games!</h1>
+                    <h1>Search for other gamer!</h1>
                     <Form onSubmit={handleSearchUser}
                             className="d-flex">
                             <Form.Control type="text"
