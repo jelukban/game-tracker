@@ -71,14 +71,8 @@ function SearchUsers({followerUserInfo}){
         }})
         .then((response) => response.json())
         .then((result) => {if (result.status === 'Follow was made!') {
-                setShowModalMessage({'show': true,
-                                'message': 'Follow was made!',
-                                'type':'success'});
-            } else {
-                setShowModalMessage({'show': true,
-                                'message': 'Already following this user',
-                                'type': 'secondary'});
-            };
+                setUserFollowStatus(true);
+            }
         });
     };
 
