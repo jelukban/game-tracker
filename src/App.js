@@ -27,7 +27,7 @@ function App() {
         const userInput = JSON.parse(secureLocalStorage.getItem('user'));
         if (userInput !== null) {
             setIsLoggedIn(true);
-            return userInput
+            return userInput;
         } else {
             return '';
         };
@@ -161,7 +161,7 @@ function App() {
                                                                 />
                 <Route path='/find' element={<SearchUsers followerUserInfo={user}/>} />
                 <Route path={`/dashboard/${user.id}/follows`} element={<Follows user={user}/>} />
-                <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames />} />
+                <Route path={`/dashboard/${user.id}/follows/:followUserId`} element={<FollowGames userId={user.id}/>} />
                 <Route path='/search/results' element={<SearchResults games={searchGames} />} />
                 <Route path='/signout' element={<Navigate to='/explore' />} />
             </Routes>

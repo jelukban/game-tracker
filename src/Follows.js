@@ -18,6 +18,7 @@ function Follows({user}) {
         fetch(`/api/dashboard/${user.id}/follows`)
         .then((response) => response.json())
         .then((result) => {if (result.status !== 'User has no follows') {
+            console.log(result);
             setFollows(result);
         }
         });
@@ -44,9 +45,12 @@ function Follows({user}) {
                 </Modal.Header>
                 <Modal.Body>
                     <ListGroup>
-                        {follows.map(follow => <ListGroup.Item
-                                                    action href={`/dashboard/${user.id}/follows/${follow.id}`}
-                                                    className="follows-list"> {follow.firstName} {follow.lastName}</ListGroup.Item>)}
+                        {follows.map(follow => <div>
+                            <ListGroup.Item action href={`/dashboard/${user.id}/follows/${follow.id}`}
+                                            className="follows-list">
+                                            {follow.firstName} {follow.lastName}
+                            </ListGroup.Item>
+                                                </div>)}
                     </ListGroup>
                 </Modal.Body>
                 <Modal.Footer>

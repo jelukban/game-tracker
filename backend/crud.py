@@ -280,7 +280,8 @@ def retrieve_all_followings_for_user(follower_user_id):
             follows.append({'id': info.id,
                             'firstName': info.fname,
                             'lastName':info.lname,
-                            'email':info.email})
+                            'email':info.email,
+                            'follow_status': 'true'})
 
     return follows
 

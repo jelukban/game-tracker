@@ -266,7 +266,7 @@ def follow_another_user():
 
 @app.route('/api/search/user/unfollow', methods=['POST'])
 def unfollow_another_user():
-    """ Deletes a follow from a user. """
+    """ Deletes a follow from a user in search bar. """
 
     data = request.get_json()
 

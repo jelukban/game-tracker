@@ -352,3 +352,10 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+
+#follow-button-on-dashboard {
+    margin: auto;
+    text-align:center;
+    align-items: center;
+    justify-content: center;
+}

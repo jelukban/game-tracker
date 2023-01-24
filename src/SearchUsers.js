@@ -51,7 +51,6 @@ function SearchUsers({followerUserInfo}){
                         'email': result.email});
                 setUserFound(true);
                 setShow(true);
-                console.log(result);
                 setUserFollowStatus(result.follow_status === 'true');
             } else {
                 setShowMessage({'show': true,
