@@ -203,8 +203,11 @@ def retrieve_user_data_by_email():
     data = request.get_json()
 
     email = data.get('email')
+    follower_user_id = data.get('followerId')
 
-    user_info = crud.get_user_search_results(email=email)
+    user_info = crud.get_user_search_results(email=email,
+                                                follower_user_id=follower_user_id)
+
     if user_info != 'This user does not exist!':
         user_info['status'] = 'Account found!'
         return jsonify(user_info)
@@ -233,6 +236,7 @@ def retrieve_user_data_by_id():
 
     id = data.get('id')
     user_info = crud.get_user_search_results_by_id(user_id=id)
+
     if user_info != 'This user does not exist!':
         user_info['status'] = 'Account found!'
         return jsonify(user_info)
@@ -258,6 +262,25 @@ def follow_another_user():
         return jsonify({'status': 'Follow was made!'})
     else:
         return jsonify({'status': 'User is already following this user'})
+
+
+@app.route('/api/search/user/unfollow', methods=['POST'])
+def unfollow_another_user():
+    """ Deletes a follow from a user. """
+
+    data = request.get_json()
+
+    follower_user_id = data.get('followUserId')
+    following_user_id = data.get('followingUserId')
+
+    result = crud.delete_a_follow(follower_user_id=follower_user_id,
+                                following_user_id=following_user_id)
+
+    if result == 'Follow does not exist':
+        return jsonify({'status':'User is not following this user'})
+    else:
+        db.session.commit()
+        return jsonify({'status':'Follow deleted'})
 
 
 if __name__ == "__main__":

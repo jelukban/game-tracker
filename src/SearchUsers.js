@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserRecommendations from './UserRecommendations.js';
 import UserInterests from './UserInterests.js';
@@ -26,6 +26,8 @@ function SearchUsers({followerUserInfo}){
                                                     'message': '',
                                                     'type': ''});
 
+    const [userFollowStatus, setUserFollowStatus] = useState(false);
+
     const handleClose = () => {
         setShowModalMessage({'show': false,
                             'message': '',
@@ -37,7 +39,8 @@ function SearchUsers({followerUserInfo}){
         e.preventDefault();
 
         fetch('/api/search/user/email', { method: 'POST',
-        body: JSON.stringify({'email':userEmail}),
+        body: JSON.stringify({'email':userEmail,
+                                'followerId': followerUserInfo.id}),
         headers: { 'Content-Type': 'application/json',
         }})
         .then((response) => response.json())
@@ -48,6 +51,8 @@ function SearchUsers({followerUserInfo}){
                         'email': result.email});
                 setUserFound(true);
                 setShow(true);
+                console.log(result);
+                setUserFollowStatus(result.follow_status === 'true');
             } else {
                 setShowMessage({'show': true,
                                 'message': 'Email was not found',
@@ -75,6 +80,21 @@ function SearchUsers({followerUserInfo}){
                                 'message': 'Already following this user',
                                 'type': 'secondary'});
             };
+        });
+    };
+
+    const handleUnfollow = (e) => {
+        e.preventDefault();
+
+        fetch('/api/search/user/unfollow', { method: 'POST',
+        body: JSON.stringify({'followUserId':followerUserInfo.id,
+                        'followingUserId':user.id}),
+        headers: { 'Content-Type': 'application/json',
+        }})
+        .then((response) => response.json())
+        .then((result) => {if (result.status === 'Follow deleted') {
+                setUserFollowStatus(false);
+            }
         });
     };
 
@@ -118,11 +138,17 @@ function SearchUsers({followerUserInfo}){
                 </Modal.Header>
                 <Modal.Body>
                     <div className="follow-button">
-                        <Button variant="secondary"
-                                onClick={handleFollow}
-                                className="form-button">
-                            Follow
-                        </Button>
+                        {!userFollowStatus ? <Button variant="secondary"
+                                                    onClick={handleFollow}
+                                                    className="form-button">
+                                                Follow
+                                            </Button> :
+                                            <Button variant="secondary"
+                                                    onClick={handleUnfollow}
+                                                    className="form-button">
+                                                Unfollow
+                                            </Button>}
+
                     </div>
                     {showModalMessage.show ? <Alert variant={showModalMessage.type} > {showModalMessage.message}</Alert> : ''}
                     <UserInterests user={user} />

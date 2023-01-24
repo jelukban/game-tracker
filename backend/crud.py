@@ -240,17 +240,27 @@ def create_user_follow(follower_user_id, following_user_id):
         return 'User is already following this user'
 
 
-def get_user_search_results(email):
+def get_user_search_results(email, follower_user_id):
     """ Finds user by email. """
 
     user = db.session.query(User).filter(User.email == email).first()
 
     if user:
-        return {'id': user.id,
+        follow = db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
+                                        Following.following_user_id == user.id).first()
+
+        if follow:
+            return {'id': user.id,
+                    'firstName': user.fname,
+                    'lastName': user.lname,
+                    'email': user.email,
+                    'follow_status': 'true'}
+        else:
+            return {'id': user.id,
                 'firstName': user.fname,
                 'lastName': user.lname,
                 'email': user.email,
-                'password': user.password}
+                'follow_status': 'false'}
     else:
         return 'This user does not exist!'
 
@@ -288,6 +298,17 @@ def get_user_search_results_by_id(user_id):
                 'password': user.password}
     else:
         return 'This user does not exist!'
+
+
+def delete_a_follow(follower_user_id, following_user_id):
+
+    follow = db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
+                                            Following.following_user_id == following_user_id).first()
+
+    if follow:
+        db.session.delete(follow)
+    else:
+        return 'Follow does not exist'
 
 
 if __name__ == '__main__':
