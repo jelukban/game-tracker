@@ -2,9 +2,13 @@
 from flask import Flask, render_template, request, flash, redirect, jsonify
 from model import connect_to_db, db, Rating
 import crud
+import os
 
 app = Flask(__name__)
-app.secret_key = "dev"
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
+app.secret_key = SECRET_KEY
 
 
 @app.route('/api/games')
