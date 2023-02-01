@@ -4,7 +4,7 @@ from model import connect_to_db, db, Rating
 import crud
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../build", static_url_path="/")
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
@@ -285,6 +285,17 @@ def unfollow_another_user():
     else:
         db.session.commit()
         return jsonify({'status':'Follow deleted'})
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def index(path):
+    return app.send_static_file("index.html")
+
+
+@app.errorhandler(404)
+def not_found(_error):
+    return app.send_static_file("index.html")
 
 
 if __name__ == "__main__":
