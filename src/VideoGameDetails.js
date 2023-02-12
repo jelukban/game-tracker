@@ -16,10 +16,7 @@ function VideoGameDetails({isLoggedIn, user}){
     const {game_id}  = useParams();
     const userGame = {'user_id': user.id, 'game_id': game_id}
     const [score, setScore] = useState();
-    const [showMessage, setShowMessage] = useState({'show': false,
-                                                    'message': ''});
-    const [gameStatus, setGameStatus] = useState({'interestStatus': false,
-                                                'playedStatus': false})
+    const [gameStatus, setGameStatus] = useState({})
 
 
     useEffect(() => {
@@ -50,13 +47,8 @@ function VideoGameDetails({isLoggedIn, user}){
         .then((response) => response.json())
         .then((result) => {
             if (result.status === 'Interest made') {
-                setShowMessage({'show': true,
-                                'message': 'Interest made'});
                 setGameStatus({...gameStatus, 'interestStatus': true});
-            } else {
-                setShowMessage({'show': true,
-                                'message': 'Interest already exists'});
-            };
+            }
         });
     };
 
@@ -81,12 +73,8 @@ function VideoGameDetails({isLoggedIn, user}){
         .then((response) => response.json())
         .then((result) => {
             if (result.status === 'GamePlayed was made') {
-                setShowMessage({'show': true,
-                                'message': 'GamePlayed was made'});
+
                 setGameStatus({...gameStatus, 'playedStatus': true});
-            } else {
-                setShowMessage({'show': true,
-                                'message': 'GamePlayed already exists'});
             };
         });
     };
@@ -121,9 +109,9 @@ function VideoGameDetails({isLoggedIn, user}){
                     <Details game={game} />
                     <Col className="align-self-start">
                         <div className="game-selection" >
-                            {showMessage.show ? <Alert variant="dark" size="sm" >
+                            {/* {showMessage.show ? <Alert variant="dark" size="sm" >
                                                     {showMessage.message}
-                                                </Alert> : ''}
+                                                </Alert> : ''} */}
                             <div className="detail-title">
                                 Track this game!
                             </div>
@@ -131,25 +119,25 @@ function VideoGameDetails({isLoggedIn, user}){
                                 {gameStatus.interestStatus ? <Button variant="secondary"
                                                                     size="sm"
                                                                     onClick={(e) => deleteInterests()}
-                                                                    className="form-button" >
+                                                                    className="form-button game-status" >
                                                                     Uninterest
                                                             </Button> :
                                                             <Button variant="secondary"
                                                                     size="sm"
                                                                     onClick={(e) => handleInterests()}
-                                                                    className="form-button" >
+                                                                    className="form-button game-status" >
                                                                     Interest
                                                             </Button>} {' '}
                                 {gameStatus.playedStatus ? <Button variant="secondary"
                                                                     size="sm"
                                                                     onClick={(e) => deletePlayed()}
-                                                                    className="form-button" >
+                                                                    className="form-button game-status" >
                                                                 Unplayed
                                                             </Button> :
                                                             <Button variant="secondary"
                                                                     size="sm"
                                                                     onClick={(e) => handlePlayed()}
-                                                                    className="form-button" >
+                                                                    className="form-button game-status" >
                                                                 Played
                                                             </Button> }
                             </div>

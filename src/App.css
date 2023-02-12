@@ -359,3 +359,7 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+
+.game-status {
+    font-size: 0.8rem;
+}

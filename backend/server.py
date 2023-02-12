@@ -300,11 +300,11 @@ def delete_game_interested_by_user(game_id):
     result = crud.delete_an_interest(game_id=game_id,
                                      user_id=user_id)
 
-    if result == "Interest does not exist":
-        return jsonify({'status':'Interest does not exist'})
-    else:
+    if result == 'Interest deleted':
         db.session.commit()
         return jsonify({'status':'Interest deleted'})
+    else:
+        return jsonify({'status':'Interest does not exist'})
 
 
 @app.route('/api/games/<game_id>/played', methods=['DELETE'])
@@ -317,11 +317,11 @@ def delete_game_played_by_user(game_id):
     result = crud.delete_a_game_played(game_id=game_id,
                                      user_id=user_id)
 
-    if result == "Interest does not exist":
-        return jsonify({'status':'Game played does not exist'})
-    else:
+    if result == 'Game played deleted':
         db.session.commit()
         return jsonify({'status':'Game played deleted'})
+    else:
+        return jsonify({'status':'Game played does not exist'})
 
 
 if __name__ == "__main__":

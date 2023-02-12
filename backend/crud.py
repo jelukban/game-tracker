@@ -319,8 +319,10 @@ def delete_an_interest(game_id, user_id):
     interest = db.session.query(Interest).filter(game_id==game_id,
                                                  user_id==user_id).first()
 
+
     if interest:
         db.session.delete(interest)
+        return 'Interest deleted'
     else:
         return "Interest does not exist"
 
@@ -333,6 +335,7 @@ def delete_a_game_played(game_id, user_id):
 
     if game_played:
         db.session.delete(game_played)
+        return 'Game played deleted'
     else:
         return "Game played does not exist"
 
