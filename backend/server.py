@@ -283,6 +283,40 @@ def unfollow_another_user():
         return jsonify({'status':'Follow deleted'})
 
 
+@app.route('/api/games/<game_id>/interest', methods=['DELETE'])
+def delete_game_interested_by_user(game_id):
+
+    data = request.get_json()
+
+    user_id = data.get('user_id')
+
+    result = crud.delete_an_interest(game_id=game_id,
+                                     user_id=user_id)
+
+    if result == "Interest does not exist":
+        return jsonify({'status':'Interest does not exist'})
+    else:
+        db.session.commit()
+        return jsonify({'status':'Interest deleted'})
+
+
+@app.route('/api/games/<game_id>/played', methods=['DELETE'])
+def delete_game_played_by_user(game_id):
+
+    data = request.get_json()
+
+    user_id = data.get('user_id')
+
+    result = crud.delete_a_game_played(game_id=game_id,
+                                     user_id=user_id)
+
+    if result == "Interest does not exist":
+        return jsonify({'status':'Game played does not exist'})
+    else:
+        db.session.commit()
+        return jsonify({'status':'Game played deleted'})
+
+
 if __name__ == "__main__":
 
     connect_to_db(app)

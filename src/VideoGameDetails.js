@@ -18,6 +18,8 @@ function VideoGameDetails({isLoggedIn, user}){
     const [score, setScore] = useState();
     const [showMessage, setShowMessage] = useState({'show': false,
                                                     'message': ''});
+    const [gameStatus, setGameStatus] = useState({'interestStatus': false,
+                                                'playedStatus': false})
 
 
     useEffect(() => {
@@ -45,10 +47,23 @@ function VideoGameDetails({isLoggedIn, user}){
             if (result.status === 'Interest made') {
                 setShowMessage({'show': true,
                                 'message': 'Interest made'});
+                setGameStatus({...gameStatus, 'interestStatus': true});
             } else {
                 setShowMessage({'show': true,
                                 'message': 'Interest already exists'});
             };
+        });
+    };
+
+    const deleteInterests = () => {
+        fetch(`/api/games/${game_id}/interest`, {method: 'DELETE',
+                                    body:JSON.stringify(userGame),
+                                    headers: {'Content-Type': 'application/json',
+                                }})
+        .then((response) => response.json())
+        .then((result)  => {if (result.status === 'Interest deleted') {
+            setGameStatus({...gameStatus, 'interestStatus': false});
+        }
         });
     };
 
@@ -63,10 +78,23 @@ function VideoGameDetails({isLoggedIn, user}){
             if (result.status === 'GamePlayed was made') {
                 setShowMessage({'show': true,
                                 'message': 'GamePlayed was made'});
+                setGameStatus({...gameStatus, 'playedStatus': true});
             } else {
                 setShowMessage({'show': true,
                                 'message': 'GamePlayed already exists'});
             };
+        });
+    };
+
+    const deletePlayed = () => {
+        fetch(`/api/games/${game_id}/played`, {method: 'DELETE',
+                                    body:JSON.stringify(userGame),
+                                    headers: {'Content-Type': 'application/json',
+                                }})
+        .then((response) => response.json())
+        .then((result)  => {if (result.status === 'Game played deleted') {
+            setGameStatus({...gameStatus, 'playedStatus': false});
+        }
         });
     };
 
@@ -95,18 +123,30 @@ function VideoGameDetails({isLoggedIn, user}){
                                 Track this game!
                             </div>
                             <div className="interest-played-button">
-                                <Button variant="secondary"
-                                        size="sm"
-                                        onClick={(e) => handleInterests()}
-                                        className="form-button" >
-                                        Interested
-                                </Button> {' '}
-                                <Button variant="secondary"
-                                        size="sm"
-                                        onClick={(e) => handlePlayed()}
-                                        className="form-button" >
-                                    Played
-                                </Button>
+                                {gameStatus.interestStatus ? <Button variant="secondary"
+                                                                    size="sm"
+                                                                    onClick={(e) => deleteInterests()}
+                                                                    className="form-button" >
+                                                                    Uninterest
+                                                            </Button> :
+                                                            <Button variant="secondary"
+                                                                    size="sm"
+                                                                    onClick={(e) => handleInterests()}
+                                                                    className="form-button" >
+                                                                    Interest
+                                                            </Button>} {' '}
+                                {gameStatus.playedStatus ? <Button variant="secondary"
+                                                                    size="sm"
+                                                                    onClick={(e) => deletePlayed()}
+                                                                    className="form-button" >
+                                                                Unplayed
+                                                            </Button> :
+                                                            <Button variant="secondary"
+                                                                    size="sm"
+                                                                    onClick={(e) => handlePlayed()}
+                                                                    className="form-button" >
+                                                                Played
+                                                            </Button> }
                             </div>
                             <Form onSubmit={handleRating}
                                     className="rating-form">

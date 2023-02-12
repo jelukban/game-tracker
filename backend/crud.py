@@ -302,6 +302,7 @@ def get_user_search_results_by_id(user_id):
 
 
 def delete_a_follow(follower_user_id, following_user_id):
+    """ Deletes a follow between users. """
 
     follow = db.session.query(Following).filter(Following.follower_user_id == follower_user_id,
                                             Following.following_user_id == following_user_id).first()
@@ -310,6 +311,30 @@ def delete_a_follow(follower_user_id, following_user_id):
         db.session.delete(follow)
     else:
         return 'Follow does not exist'
+
+
+def delete_an_interest(game_id, user_id):
+    """ Deleted an interest marked by a user. """
+
+    interest = db.session.query(Interest).filter(game_id==game_id,
+                                                 user_id==user_id).first()
+
+    if interest:
+        db.session.delete(interest)
+    else:
+        return "Interest does not exist"
+
+
+def delete_a_game_played(game_id, user_id):
+    """ Deleted a played game marked by user.  """
+
+    game_played = db.session.query(GamePlayed).filter(game_id==game_id,
+                                                      user_id==user_id).first()
+
+    if game_played:
+        db.session.delete(game_played)
+    else:
+        return "Game played does not exist"
 
 
 if __name__ == '__main__':
