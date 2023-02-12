@@ -337,6 +337,25 @@ def delete_a_game_played(game_id, user_id):
         return "Game played does not exist"
 
 
+def get_game_statuses(game_id, user_id):
+    """ Retrieve user-specific statuses for a video game. """
+
+    interest_status = db.session.query(Interest).filter(game_id==game_id,
+                                                    user_id==user_id).first()
+    played_status = db.session.query(GamePlayed).filter(game_id==game_id,
+                                                    user_id==user_id).first()
+
+    statuses = {'interest': False, 'game_played': False}
+
+    if interest_status:
+        statuses['interest'] = True
+
+    if played_status:
+        statuses['game_played'] =  True
+
+    return statuses
+
+
 if __name__ == '__main__':
 
     from server import app

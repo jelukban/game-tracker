@@ -23,7 +23,10 @@ function VideoGameDetails({isLoggedIn, user}){
 
 
     useEffect(() => {
-        fetch(`/api/games/${game_id}/details`)
+        fetch(`/api/games/${game_id}/details`, {method: 'POST',
+                                                body:JSON.stringify(userGame),
+                                                headers: {'Content-Type': 'application/json',
+                                            }})
         .then((response) => response.json())
         .then((result) => {
             result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',');
@@ -33,6 +36,8 @@ function VideoGameDetails({isLoggedIn, user}){
                 result.description = '';
             };
             setGame(result);
+            setGameStatus({'interestStatus': result.interest_status,
+                            'playedStatus': result.game_played_status});
         });
     }, []);
 

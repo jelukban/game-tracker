@@ -73,16 +73,23 @@ def create_user_account():
         return jsonify({'status':'Requirements not filled'})
 
 
-@app.route('/api/games/<game_id>/details')
+@app.route('/api/games/<game_id>/details', methods=['POST'])
 def show_game_information(game_id):
     """ Shows details for individual game. """
 
-    game = crud.get_game_by_id(game_id)
+    data = request.get_json()
 
+    user_id = data.get('user_id')
+
+    game = crud.get_game_by_id(game_id)
     ave_score = crud.get_average_rating_by_id(game_id)
+    statuses = crud.get_game_statuses(game_id, user_id)
 
     if ave_score != 'No ratings for this game':
         game['score'] = float(ave_score)
+
+    game['interest_status'] =  statuses['interest']
+    game['game_played_status'] =  statuses['game_played']
 
     return jsonify(game)
 
