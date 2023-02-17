@@ -53,12 +53,7 @@ def get_all_games():
 
     games = db.session.query(Game).order_by(func.random()).limit(50).all()
 
-    final_json = []
-
-    for game in games:
-        final_json.append(game.to_json())
-
-    return final_json
+    return [game.to_json() for game in games]
 
 
 def get_all_users():
