@@ -51,17 +51,12 @@ def create_game_played(game_id, user_id):
 def get_all_games():
     """ Returns all video games in the Game db. """
 
-    games = db.session.query(Game).order_by(func.random()).all()
+    games = db.session.query(Game).order_by(func.random()).limit(50).all()
 
     final_json = []
 
-    count = 0
-
     for game in games:
         final_json.append(game.to_json())
-        if count == 49:
-            break
-        count += 1
 
     return final_json
 
