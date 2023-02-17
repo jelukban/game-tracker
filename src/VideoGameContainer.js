@@ -18,8 +18,8 @@ function VideoGameContainer({games}) {
                                                                                 cover_url={game.cover_url}
                                                                                 name={game.name}
                                                                                 release_date={game.release_date}
-                                                                                genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
-                                                                                platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
+                                                                                genres={game.genres}
+                                                                                platforms={game.platforms}
                                                                     />
                                                                 </div>)}
                     </Col>
@@ -29,8 +29,8 @@ function VideoGameContainer({games}) {
                                                                                             cover_url={game.cover_url}
                                                                                             name={game.name}
                                                                                             release_date={game.release_date}
-                                                                                            genres={game.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
-                                                                                            platforms={game.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',')}
+                                                                                            genres={game.genres}
+                                                                                            platforms={game.platforms}
                                                                                 />
                                                                             </div>)}
                     </Col>

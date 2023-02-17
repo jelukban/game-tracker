@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "dev"
 
 
-@app.route('/api/games')
+@app.route('/games')
 def get_games_json():
     """ Return a JSON response with all video games. """
 
@@ -16,7 +16,7 @@ def get_games_json():
     return jsonify({'games': games})
 
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def check_user_login():
     """ Checks user logged in information against db. """
 
@@ -35,7 +35,7 @@ def check_user_login():
         return jsonify(user_info)
 
 
-@app.route('/api/create/account', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def create_user_account():
     """ Creates user account. """
 
@@ -73,11 +73,11 @@ def create_user_account():
         return jsonify({'status':'Requirements not filled'})
 
 
-@app.route('/api/games/<game_id>/details', methods=['POST'])
+@app.route('/games/<game_id>')
 def show_game_information(game_id):
     """ Shows details for individual game. """
 
-    data = request.get_json()
+    data = request.headers
 
     user_id = data.get('user_id')
 

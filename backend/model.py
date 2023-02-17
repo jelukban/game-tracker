@@ -1,6 +1,7 @@
 """ Models for video game tracker """
 
 from flask_sqlalchemy import SQLAlchemy
+from json import dumps
 
 
 db = SQLAlchemy()
@@ -35,13 +36,13 @@ class Game(db.Model):
         for platform in self.platforms:
             platforms.append(platform.name)
 
-        return {'id': f"{self.id}",
-                'name': f"{self.name}",
-                'description': f"{self.description}",
-                'cover_url': f"{self.cover_url}",
-                'release_date': f"{self.release_date}",
-                'genres': f"{genres}",
-                'platforms': f"{platforms}"}
+        return {'id': f'{self.id}',
+                'name': f'{self.name}',
+                'description': f'{self.description}',
+                'cover_url': f'{self.cover_url}',
+                'release_date': f'{self.release_date}',
+                'genres': genres,
+                'platforms': platforms}
 
     def __repr__(self):
         return f"<Id = {self.id}, Name = {self.name} Genres = {self.genres} Platforms = {self.platforms}>"

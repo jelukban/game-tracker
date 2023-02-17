@@ -20,14 +20,11 @@ function VideoGameDetails({isLoggedIn, user}){
 
 
     useEffect(() => {
-        fetch(`/api/games/${game_id}/details`, {method: 'POST',
-                                                body:JSON.stringify(userGame),
-                                                headers: {'Content-Type': 'application/json',
+        fetch(`/games/${game_id}`, {headers: {'user': userGame,
+                                                'Content-Type': 'application/json'
                                             }})
         .then((response) => response.json())
         .then((result) => {
-            result.genres = result.genres.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',');
-            result.platforms = result.platforms.replaceAll(`'`, ``).replace(`\[`, '').replace(`\]`, '').split(',');
             result.release_date = result.release_date.slice(0,-9);
             if (result.description === 'None') {
                 result.description = '';

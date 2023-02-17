@@ -21,7 +21,7 @@ function VideoGame({game_id, cover_url, name, release_date, genres, platforms}) 
                     Platforms:
                 </div>
                 <div className="platforms">
-                    {platforms?.slice(0, 6).map(platform => <Button variant="light" size="sm" className="game-platform">{platform}</Button>)}
+                    {platforms?.map(platform => <Button variant="light" size="sm" className="game-platform">{platform}</Button>)}
                 </div>
                 <div className="description-titles">
                     Release Date:

@@ -43,7 +43,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/games')
+        fetch('/games')
         .then((response) => response.json())
         .then((responseJson) => {
             setGames(responseJson.games);
@@ -56,7 +56,7 @@ function App() {
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-        fetch('/api/login', { method: 'POST',
+        fetch('/login', { method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json',
         }})
@@ -81,7 +81,7 @@ function App() {
 
         e.preventDefault();
 
-        fetch('/api/create/account', { method: 'POST',
+        fetch('/register', { method: 'POST',
         body: JSON.stringify(user),
         headers: { 'Content-Type': 'application/json',
         }})
