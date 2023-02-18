@@ -37,9 +37,8 @@ function VideoGameDetails({isLoggedIn, user}){
 
 
     const handleInterests = () => {
-        fetch(`/api/games/${game_id}/create/interest`, {method: 'POST',
-                                    body:JSON.stringify(userGame),
-                                    headers: {'Content-Type': 'application/json',
+        fetch(`/games/${game_id}//interest`, {headers: {'user': userGame,
+                                            'Content-Type': 'application/json'
                                 }})
         .then((response) => response.json())
         .then((result) => {
