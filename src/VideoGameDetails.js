@@ -105,9 +105,6 @@ function VideoGameDetails({isLoggedIn, user}){
                     <Details game={game} />
                     <Col className="align-self-start">
                         <div className="game-selection" >
-                            {/* {showMessage.show ? <Alert variant="dark" size="sm" >
-                                                    {showMessage.message}
-                                                </Alert> : ''} */}
                             <div className="detail-title">
                                 Track this game!
                             </div>

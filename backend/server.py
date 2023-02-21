@@ -94,7 +94,7 @@ def show_game_information(game_id):
     return jsonify(game)
 
 
-@app.route('/api/games/<game_id>/create/interest', methods=['POST'])
+@app.route('/games/<game_id>/interest')
 def create_interest_game_by_user(game_id):
     """ Creates an interested game for a user. """
 

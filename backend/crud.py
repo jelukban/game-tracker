@@ -306,8 +306,8 @@ def delete_a_follow(follower_user_id, following_user_id):
 def delete_an_interest(game_id, user_id):
     """ Deleted an interest marked by a user. """
 
-    interest = db.session.query(Interest).filter(game_id==game_id,
-                                                 user_id==user_id).first()
+    interest = db.session.query(Interest).filter(Interest.game_id==game_id,
+                                                 Interest.user_id==user_id).first()
 
 
     if interest:
@@ -320,8 +320,8 @@ def delete_an_interest(game_id, user_id):
 def delete_a_game_played(game_id, user_id):
     """ Deleted a played game marked by user.  """
 
-    game_played = db.session.query(GamePlayed).filter(game_id==game_id,
-                                                      user_id==user_id).first()
+    game_played = db.session.query(GamePlayed).filter(GamePlayed.game_id==game_id,
+                                                      GamePlayed.user_id==user_id).first()
 
     if game_played:
         db.session.delete(game_played)
@@ -333,10 +333,10 @@ def delete_a_game_played(game_id, user_id):
 def get_game_statuses(game_id, user_id):
     """ Retrieve user-specific statuses for a video game. """
 
-    interest_status = db.session.query(Interest).filter(game_id==game_id,
-                                                    user_id==user_id).first()
-    played_status = db.session.query(GamePlayed).filter(game_id==game_id,
-                                                    user_id==user_id).first()
+    interest_status = db.session.query(Interest).filter(Interest.game_id==game_id,
+                                                    Interest.user_id==user_id).first()
+    played_status = db.session.query(GamePlayed).filter(GamePlayed.game_id==game_id,
+                                                    GamePlayed.user_id==user_id).first()
 
     statuses = {'interest': False, 'game_played': False}
 
