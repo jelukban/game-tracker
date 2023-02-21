@@ -62,10 +62,10 @@ function VideoGameDetails({isLoggedIn, user}){
 
 
     const handlePlayed = () => {
-        fetch(`/api/games/${game_id}/create/played`, {method: 'POST',
-                                    body:JSON.stringify(userGame),
-                                    headers: {'Content-Type': 'application/json',
-                                }})
+        fetch(`/games/${game_id}/played`, {method: 'POST',
+                                    headers: {'User': JSON.stringify(userGame),
+                                                'Content-Type': 'application/json'
+                                            }})
         .then((response) => response.json())
         .then((result) => {
             if (result.status === 'GamePlayed was made') {

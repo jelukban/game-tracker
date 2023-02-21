@@ -130,13 +130,13 @@ def get_all_games_of_interest():
     return jsonify({'games': games})
 
 
-@app.route('/api/games/<game_id>/create/played', methods=['POST'])
+@app.route('/games/<game_id>/played', methods=['POST'])
 def create_played_game_by_user(game_id):
     """ Created a played game for a user. """
 
-    data = request.get_json()
-
-    user_id = data.get('user_id')
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('user_id')
 
     played = crud.create_game_played(game_id=int(game_id),
                                     user_id=int(user_id))
@@ -152,12 +152,13 @@ def create_played_game_by_user(game_id):
         return jsonify({'status': 'GamePlayed exists'})
 
 
-@app.route('/api/dashboard/played', methods=['POST'])
+@app.route('/user/played')
 def get_all_played_games():
     """ Returns all games played by a user. """
 
-    data = request.get_json()
-    user_id = data.get('id')
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('id')
 
     games = crud.get_games_played_by_user(user_id)
 

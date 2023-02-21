@@ -7,10 +7,9 @@ function UserPlayedGames({user}) {
 
 
     useEffect(() => {
-        fetch('/api/dashboard/played', { method: 'POST',
-            body: JSON.stringify(user),
-            headers: { 'Content-Type': 'application/json',
-            }})
+        fetch('/user/played', {headers: {'User': JSON.stringify(user),
+                                            'Content-Type': 'application/json'
+                                        }})
         .then((response) => response.json())
         .then((result) => {
             setGamesPlayed(result.games);
