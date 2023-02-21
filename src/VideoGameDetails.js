@@ -18,9 +18,8 @@ function VideoGameDetails({isLoggedIn, user}){
     const [score, setScore] = useState();
     const [gameStatus, setGameStatus] = useState({})
 
-
     useEffect(() => {
-        fetch(`/games/${game_id}`, {headers: {'user': userGame,
+        fetch(`/games/${game_id}`, {headers: {'User': JSON.stringify(userGame),
                                                 'Content-Type': 'application/json'
                                             }})
         .then((response) => response.json())
@@ -37,8 +36,9 @@ function VideoGameDetails({isLoggedIn, user}){
 
 
     const handleInterests = () => {
-        fetch(`/games/${game_id}//interest`, {headers: {'user': userGame,
-                                            'Content-Type': 'application/json'
+        fetch(`/games/${game_id}/interest`, {method: 'POST',
+                                            headers: {'User': JSON.stringify(userGame),
+                                                'Content-Type': 'application/json'
                                 }})
         .then((response) => response.json())
         .then((result) => {

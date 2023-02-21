@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, request, flash, redirect, jsonify
 from model import connect_to_db, db, Rating
+import json
 import crud
 
 app = Flask(__name__)
@@ -78,8 +79,8 @@ def show_game_information(game_id):
     """ Shows details for individual game. """
 
     data = request.headers
-
-    user_id = data.get('user_id')
+    user = json.loads(data.get('User'))
+    user_id = user.get('user_id')
 
     game = crud.get_game_by_id(game_id)
     ave_score = crud.get_average_rating_by_id(game_id)
@@ -94,13 +95,13 @@ def show_game_information(game_id):
     return jsonify(game)
 
 
-@app.route('/games/<game_id>/interest')
+@app.route('/games/<game_id>/interest', methods=['POST'])
 def create_interest_game_by_user(game_id):
     """ Creates an interested game for a user. """
 
-    data = request.get_json()
-
-    user_id = data.get('user_id')
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('user_id')
 
     interest = crud.create_interest(game_id=int(game_id),
                                     user_id=int(user_id))
@@ -116,12 +117,13 @@ def create_interest_game_by_user(game_id):
         return jsonify({'status': 'Interest exists'})
 
 
-@app.route('/api/dashboard/interests', methods=['POST'])
+@app.route('/user/interests')
 def get_all_games_of_interest():
     """ Returns all games interested by a user. """
 
-    data = request.get_json()
-    user_id = data.get('id')
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('id')
 
     games = crud.get_interesting_games_by_user_id(user_id)
 
