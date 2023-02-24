@@ -1,10 +1,33 @@
 import GamePage from "./GamePage.js";
+import LoadScreen from "./LoadScreen.js";
+import { useState, useEffect } from "react";
 
-function Explore({ games }) {
+function Explore() {
+  const [games, setGames] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
+
+  useEffect(() => {
+    fetch("/games")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setGames(responseJson.games);
+      });
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoaded(false), 3500);
+  }, [games]);
+
   return (
-    <div id="homepage">
-      <h1> Find Your Next Adventure </h1>
-      <GamePage games={games} />
+    <div>
+      {isLoaded ? (
+        <LoadScreen />
+      ) : (
+        <div id="homepage">
+          <h1> Find Your Next Adventure </h1>
+          <GamePage games={games} />
+        </div>
+      )}
     </div>
   );
 }

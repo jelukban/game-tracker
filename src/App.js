@@ -40,25 +40,10 @@ function App() {
     }
   });
 
-  const [games, setGames] = useState([]);
   const [gameId, setGameId] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [searchGames, setSearchGames] = useState([]);
   const [showError, setShowError] = useState({ show: false, message: "" });
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/games")
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setGames(responseJson.games);
-      });
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 3500);
-  }, [games]);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -152,10 +137,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/explore"
-          element={isLoading ? <LoadScreen /> : <Explore games={games} />}
-        />
+        <Route path="/explore" element={<Explore />} />
         <Route
           path="/login"
           element={
