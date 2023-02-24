@@ -160,7 +160,7 @@ function App() {
           path="/login"
           element={
             isLoggedIn ? (
-              <Navigate to={`/dashboard/${user.id}`} />
+              <Navigate to={`/dashboard/${user.id}/recommendations`} />
             ) : (
               <LoginPage
                 handleSubmit={handleLoginSubmit}
@@ -176,10 +176,10 @@ function App() {
           }
         />
         <Route
-          path="/create"
+          path="/register"
           element={
             isLoggedIn ? (
-              <Navigate to={`/dashboard/${user.id}`} />
+              <Navigate to={`/dashboard/${user.id}/recommendations`} />
             ) : (
               <CreateAccount
                 handleSubmit={handleCreateSubmit}
@@ -199,7 +199,7 @@ function App() {
           }
         />
         <Route
-          path={`/dashboard/${user.id}`}
+          path={`/dashboard/${user.id}/recommendations`}
           element={<UserRecommendations user={user} />}
         />
         <Route
@@ -216,11 +216,11 @@ function App() {
         />
         <Route path="/find" element={<SearchUsers followerUserInfo={user} />} />
         <Route
-          path={`/dashboard/${user.id}/follows`}
+          path={`/dashboard/${user.id}/following`}
           element={<Follows user={user} />}
         />
         <Route
-          path={`/dashboard/${user.id}/follows/:followUserId`}
+          path={`/dashboard/${user.id}/following/:followUserId`}
           element={<FollowGames userId={user.id} />}
         />
         <Route

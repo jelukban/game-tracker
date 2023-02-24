@@ -56,7 +56,7 @@ function Follows({ user }) {
               <div>
                 <ListGroup.Item
                   action
-                  href={`/dashboard/${user.id}/follows/${follow.id}`}
+                  href={`/dashboard/${user.id}/following/${follow.id}`}
                   className="follows-list"
                 >
                   {follow.firstName} {follow.lastName}
