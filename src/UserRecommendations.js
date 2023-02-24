@@ -14,7 +14,9 @@ function UserRecommendations ({user}) {
 
 
     useEffect(() => {
-        fetch(`/api/dashboard/${user.id}`)
+        fetch(`/user/recommendations`, {headers: {'User': JSON.stringify(user),
+                                            'Content-Type': 'application/json'
+                                        }})
         .then((response) => response.json())
         .then((responseJson) => {
             setGames(responseJson.games);

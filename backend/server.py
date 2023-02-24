@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, flash, redirect, jsonify
 from model import connect_to_db, db, Rating
 import json
@@ -197,9 +196,13 @@ def create_video_game_rating(game_id):
     return('your video game was created!')
 
 
-@app.route('/api/dashboard/<user_id>')
-def get_user_recommendations(user_id):
+@app.route('/user/recommendations')
+def get_user_recommendations():
     """ Returns user recommended games based on interested genres. """
+
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('id')
 
     games = crud.select_user_recommendations(user_id)
 
