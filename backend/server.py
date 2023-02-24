@@ -228,9 +228,13 @@ def retrieve_user_data_by_email():
         return jsonify({'status':'Account not found'})
 
 
-@app.route('/api/dashboard/<user_id>/follows')
-def retrieve_user_follows(user_id):
+@app.route('/user/followings')
+def retrieve_user_follows():
     """ Returns all users followed by a user. """
+
+    data = request.headers
+    user = json.loads(data.get('User'))
+    user_id = user.get('id')
 
     followings = crud.retrieve_all_followings_for_user(follower_user_id=user_id)
 

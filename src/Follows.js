@@ -15,10 +15,11 @@ function Follows({user}) {
     const [show, setShow] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/dashboard/${user.id}/follows`)
+        fetch(`/user/followings`, {headers: {'User': JSON.stringify(user),
+                                                                'Content-Type': 'application/json'
+                                    }})
         .then((response) => response.json())
         .then((result) => {if (result.status !== 'User has no follows') {
-            console.log(result);
             setFollows(result);
         }
         });
@@ -41,7 +42,7 @@ function Follows({user}) {
                     keyboard={false}
                     className="follows-card">
                 <Modal.Header closeButton>
-                    <Modal.Title className="follows-list-title w-100">Your Follows</Modal.Title>
+                    <Modal.Title className="follows-list-title w-100">Following</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <ListGroup>
