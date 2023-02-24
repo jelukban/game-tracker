@@ -25,11 +25,10 @@ def check_user_login():
     email = data.get('email')
     password = data.get('password')
 
-
     user_info = crud.find_account(email, password)
 
     if user_info == "User does not exist":
-        return jsonify({'status':'Account not found'})
+        return jsonify({'status': 'Account not found'})
     else:
         user_info['has_account'] = 'True'
         return jsonify(user_info)
@@ -46,15 +45,14 @@ def create_user_account():
     email = data.get('email')
     password = data.get('password')
 
-
     if len(email) > 5 and len(password) >= 6:
         user_info = crud.create_account(email=email, password=password)
 
         if user_info == "User does not exist":
             new_account = crud.create_user(fname=first_name,
-                                    lname=last_name,
-                                    email=email,
-                                    password=password)
+                                           lname=last_name,
+                                           email=email,
+                                           password=password)
 
             db.session.add(new_account)
             db.session.commit()
@@ -63,14 +61,14 @@ def create_user_account():
             user_info['has_account'] = 'True'
 
         elif user_info == "Email already exists":
-            return jsonify({'status':'Account with this email already exists'})
+            return jsonify({'status': 'Account with this email already exists'})
         else:
             user_info['has_account'] = 'True'
 
         return jsonify(user_info)
 
     else:
-        return jsonify({'status':'Requirements not filled'})
+        return jsonify({'status': 'Requirements not filled'})
 
 
 @app.route('/games/<game_id>')
@@ -88,8 +86,8 @@ def show_game_information(game_id):
     if ave_score != 'No ratings for this game':
         game['score'] = float(ave_score)
 
-    game['interest_status'] =  statuses['interest']
-    game['game_played_status'] =  statuses['game_played']
+    game['interest_status'] = statuses['interest']
+    game['game_played_status'] = statuses['game_played']
 
     return jsonify(game)
 
@@ -138,7 +136,7 @@ def create_played_game_by_user(game_id):
     user_id = user.get('user_id')
 
     played = crud.create_game_played(game_id=int(game_id),
-                                    user_id=int(user_id))
+                                     user_id=int(user_id))
 
     if played != 'User has already played this game':
         db.session.add(played)
@@ -146,7 +144,7 @@ def create_played_game_by_user(game_id):
 
         return jsonify({'user_id': user_id,
                         'game_id': game_id,
-                        'status':'GamePlayed was made'})
+                        'status': 'GamePlayed was made'})
     else:
         return jsonify({'status': 'GamePlayed exists'})
 
@@ -174,7 +172,7 @@ def get_search_results():
 
     games = crud.search_for_game_by_name(search_name)
 
-    return jsonify({'games':games})
+    return jsonify({'games': games})
 
 
 @app.route('/games/<game_id>/rating', methods=['POST'])
@@ -187,13 +185,13 @@ def create_video_game_rating(game_id):
     score = data.get('score')
 
     rating = crud.create_rating_for_game(game_id=game_id,
-                                            user_id=user_id,
-                                            score=score)
+                                         user_id=user_id,
+                                         score=score)
 
     db.session.add(rating)
     db.session.commit()
 
-    return('your video game was created!')
+    return ('your video game was created!')
 
 
 @app.route('/user/recommendations')
@@ -219,13 +217,13 @@ def retrieve_user_data_by_email():
     follower_user_id = data.get('followerId')
 
     user_info = crud.get_user_search_results(email=email,
-                                                follower_user_id=follower_user_id)
+                                             follower_user_id=follower_user_id)
 
     if user_info != 'This user does not exist!':
         user_info['status'] = 'Account found!'
         return jsonify(user_info)
     else:
-        return jsonify({'status':'Account not found'})
+        return jsonify({'status': 'Account not found'})
 
 
 @app.route('/user/followings')
@@ -236,12 +234,13 @@ def retrieve_user_follows():
     user = json.loads(data.get('User'))
     user_id = user.get('id')
 
-    followings = crud.retrieve_all_followings_for_user(follower_user_id=user_id)
+    followings = crud.retrieve_all_followings_for_user(
+        follower_user_id=user_id)
 
     if len(followings) != 0:
         return jsonify(followings)
     else:
-        return jsonify({'status':'User has no follows'})
+        return jsonify({'status': 'User has no follows'})
 
 
 @app.route('/api/search/user/id', methods=['POST'])
@@ -250,7 +249,6 @@ def retrieve_user_data_by_id():
 
     data = request.get_json()
 
-
     id = data.get('id')
     user_info = crud.get_user_search_results_by_id(user_id=id)
 
@@ -258,10 +256,10 @@ def retrieve_user_data_by_id():
         user_info['status'] = 'Account found!'
         return jsonify(user_info)
     else:
-        return jsonify({'status':'Account not found'})
+        return jsonify({'status': 'Account not found'})
 
 
-@app.route('/api/search/user/follow', methods=['POST'])
+@app.route('/follow', methods=['PUT'])
 def follow_another_user():
     """ Creates a follow by a user. """
 
@@ -271,7 +269,7 @@ def follow_another_user():
     following_user_id = data.get('followingUserId')
 
     follow = crud.create_user_follow(follower_user_id=follower_user_id,
-                                        following_user_id=following_user_id)
+                                     following_user_id=following_user_id)
 
     if follow != 'User is already following this user':
         db.session.add(follow)
@@ -291,13 +289,13 @@ def unfollow_another_user():
     following_user_id = data.get('followingUserId')
 
     result = crud.delete_a_follow(follower_user_id=follower_user_id,
-                                following_user_id=following_user_id)
+                                  following_user_id=following_user_id)
 
     if result == 'Follow does not exist':
-        return jsonify({'status':'User is not following this user'})
+        return jsonify({'status': 'User is not following this user'})
     else:
         db.session.commit()
-        return jsonify({'status':'Follow deleted'})
+        return jsonify({'status': 'Follow deleted'})
 
 
 @app.route('/games/<game_id>/interest', methods=['DELETE'])
@@ -312,9 +310,9 @@ def delete_game_interested_by_user(game_id):
 
     if result == 'Interest deleted':
         db.session.commit()
-        return jsonify({'status':'Interest deleted'})
+        return jsonify({'status': 'Interest deleted'})
     else:
-        return jsonify({'status':'Interest does not exist'})
+        return jsonify({'status': 'Interest does not exist'})
 
 
 @app.route('/games/<game_id>/played', methods=['DELETE'])
@@ -325,13 +323,13 @@ def delete_game_played_by_user(game_id):
     user_id = data.get('user_id')
 
     result = crud.delete_a_game_played(game_id=game_id,
-                                     user_id=user_id)
+                                       user_id=user_id)
 
     if result == 'Game played deleted':
         db.session.commit()
-        return jsonify({'status':'Game played deleted'})
+        return jsonify({'status': 'Game played deleted'})
     else:
-        return jsonify({'status':'Game played does not exist'})
+        return jsonify({'status': 'Game played does not exist'})
 
 
 if __name__ == "__main__":

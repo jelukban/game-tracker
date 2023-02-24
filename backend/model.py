@@ -21,9 +21,10 @@ class Game(db.Model):
     ratings = db.relationship('Rating', back_populates='game')
     interests = db.relationship('Interest', back_populates='game')
     games_played = db.relationship('GamePlayed', back_populates='game')
-    platforms = db.relationship('Platform', secondary='game_platforms', back_populates='games')
-    genres = db.relationship('Genre', secondary='game_genres', back_populates='games')
-
+    platforms = db.relationship(
+        'Platform', secondary='game_platforms', back_populates='games')
+    genres = db.relationship(
+        'Genre', secondary='game_genres', back_populates='games')
 
     def to_json(self):
         """ Returns data of object. """
@@ -62,7 +63,6 @@ class User(db.Model):
     ratings = db.relationship('Rating', back_populates='user')
     interests = db.relationship('Interest', back_populates='user')
     games_played = db.relationship('GamePlayed', back_populates='user')
-
 
     def to_json(self):
         """ Returns data of object. """
@@ -134,7 +134,8 @@ class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    games = db.relationship('Game', secondary='game_genres', back_populates='genres')
+    games = db.relationship(
+        'Game', secondary='game_genres', back_populates='genres')
 
     def __repr__(self):
         return f"<Id = {self.id} Genre Name = {self.name}>"
@@ -148,7 +149,8 @@ class Platform(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    games = db.relationship('Game', secondary='game_platforms', back_populates='platforms')
+    games = db.relationship(
+        'Game', secondary='game_platforms', back_populates='platforms')
 
     def __repr__(self):
         return f"<Id = {self.id} Platform Name = {self.name}>"
@@ -161,8 +163,8 @@ class GameGenre(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
-    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'), nullable=False)
-
+    genre_id = db.Column(db.Integer, db.ForeignKey(
+        'genres.id'), nullable=False)
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.genre_id}"
@@ -175,8 +177,8 @@ class GamePlatform(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
-    platform_id = db.Column(db.Integer, db.ForeignKey('platforms.id'), nullable=False)
-
+    platform_id = db.Column(db.Integer, db.ForeignKey(
+        'platforms.id'), nullable=False)
 
     def __repr__(self):
         return f"<Id = {self.id} Game = {self.game_id} Genre = {self.platform_id}"
@@ -188,11 +190,15 @@ class Following(db.Model):
     __tablename__ = 'followings'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    follower_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    following_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    follower_user_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
+    following_user_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    following_users = db.relationship('User', foreign_keys = [follower_user_id], backref='followings')
-    followers_users = db.relationship('User', foreign_keys = [following_user_id], backref='followers')
+    following_users = db.relationship(
+        'User', foreign_keys=[follower_user_id], backref='followings')
+    followers_users = db.relationship(
+        'User', foreign_keys=[following_user_id], backref='followers')
 
     def __repr__(self):
         return f"<Id = {self.id} Follower Id = {self.follower_user_id} Following User = {self.following_user_id}>"

@@ -21,13 +21,14 @@ access_token = res.json()
 access_token = access_token['access_token']
 
 payload = {'Client-ID': API_ID,
-'Authorization': f"Bearer {access_token}"}
+           'Authorization': f"Bearer {access_token}"}
 
 i = 0
 while i < 215000:
 
     data = f'query games "Games" {{fields id, name, platforms.name, storyline, genres.name, cover.url, first_release_date; sort id asc; limit 500; offset {i};}};'
-    req = requests.post('https://api.igdb.com/v4/multiquery', data=data, headers=payload)
+    req = requests.post('https://api.igdb.com/v4/multiquery',
+                        data=data, headers=payload)
     search_results = req.json()
 
     search_results = search_results[0].get('result')
@@ -40,7 +41,7 @@ while i < 215000:
         release_date = game.get('first_release_date')
 
         if cover_url:
-            cover_url = cover_url.get('url').replace('t_thumb','t_cover_big')
+            cover_url = cover_url.get('url').replace('t_thumb', 't_cover_big')
 
         if release_date:
             release_date = datetime.fromtimestamp(int(release_date))
@@ -48,12 +49,11 @@ while i < 215000:
         if name and id and cover_url and game.get('genres') and game.get('platforms'):
             id = int(id)
 
-
             new_game = crud.create_game(id=id,
-                                    name=name,
-                                    description=description,
-                                    cover_url=cover_url,
-                                    release_date=release_date)
+                                        name=name,
+                                        description=description,
+                                        cover_url=cover_url,
+                                        release_date=release_date)
             model.db.session.add(new_game)
             model.db.session.commit()
 
@@ -78,14 +78,15 @@ while i < 215000:
                 platform_id = int(platform_id)
                 platform_name = platform.get('name')
 
-                platform = crud.create_platform(id=platform_id, name=platform_name)
+                platform = crud.create_platform(
+                    id=platform_id, name=platform_name)
 
                 if platform != 'This genre has already been added':
                     model.db.session.add(platform)
                     model.db.session.commit()
 
                 game_platform = crud.create_game_platform(game_id=id,
-                                                            platform_id=platform_id)
+                                                          platform_id=platform_id)
                 model.db.session.add(game_platform)
                 model.db.session.commit()
 
