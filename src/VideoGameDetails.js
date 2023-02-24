@@ -91,7 +91,7 @@ function VideoGameDetails({isLoggedIn, user}){
     const handleRating = (e) => {
         userGame['score'] = score;
 
-        fetch(`/api/games/${game_id}/create/rating`, {method: 'POST',
+        fetch(`/games/${game_id}/rating`, {method: 'POST',
                                                 body:JSON.stringify(userGame),
                                                 headers: {'Content-Type': 'application/json',
         }})

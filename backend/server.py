@@ -178,7 +178,7 @@ def get_search_results():
     return jsonify({'games':games})
 
 
-@app.route('/api/games/<game_id>/create/rating', methods=['POST'])
+@app.route('/games/<game_id>/rating', methods=['POST'])
 def create_video_game_rating(game_id):
     """ Creates a rating for a video game by user. """
 
