@@ -279,7 +279,7 @@ def follow_another_user():
         return jsonify({'status': 'User is already following this user'})
 
 
-@app.route('/api/search/user/unfollow', methods=['POST'])
+@app.route('/unfollow', methods=['PUT'])
 def unfollow_another_user():
     """ Deletes a follow from a user in search bar. """
 

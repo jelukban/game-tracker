@@ -71,8 +71,8 @@ function SearchUsers({ followerUserInfo }) {
   const handleFollow = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/user/follow", {
-      method: "POST",
+    fetch("/follow", {
+      method: "PUT",
       body: JSON.stringify({
         followUserId: followerUserInfo.id,
         followingUserId: user.id,
@@ -90,8 +90,8 @@ function SearchUsers({ followerUserInfo }) {
   const handleUnfollow = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/user/unfollow", {
-      method: "POST",
+    fetch("/unfollow", {
+      method: "PUT",
       body: JSON.stringify({
         followUserId: followerUserInfo.id,
         followingUserId: user.id,
