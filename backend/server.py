@@ -6,6 +6,18 @@ import crud
 app = Flask(__name__)
 app.secret_key = "dev"
 
+HTTP_RESPONSE_CODES = {
+    "noContent": 204,
+    "unauthorized": 401,
+    "forbidden": 403,
+    "doesntExist": 404,
+    "methodNotAllowed": 405,
+    "notAcceptable": 406,
+    "conflict": 409,
+    "unprocessedEntity": 422,
+    "serverError": 500
+}
+
 
 @app.route('/games')
 def get_games_json():
