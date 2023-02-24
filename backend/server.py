@@ -296,7 +296,7 @@ def unfollow_another_user():
         return jsonify({'status':'Follow deleted'})
 
 
-@app.route('/api/games/<game_id>/interest', methods=['DELETE'])
+@app.route('/games/<game_id>/interest', methods=['DELETE'])
 def delete_game_interested_by_user(game_id):
 
     data = request.get_json()
@@ -313,7 +313,7 @@ def delete_game_interested_by_user(game_id):
         return jsonify({'status':'Interest does not exist'})
 
 
-@app.route('/api/games/<game_id>/played', methods=['DELETE'])
+@app.route('/games/<game_id>/played', methods=['DELETE'])
 def delete_game_played_by_user(game_id):
 
     data = request.get_json()

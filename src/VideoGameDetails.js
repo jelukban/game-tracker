@@ -49,7 +49,7 @@ function VideoGameDetails({isLoggedIn, user}){
     };
 
     const deleteInterests = () => {
-        fetch(`/api/games/${game_id}/interest`, {method: 'DELETE',
+        fetch(`/games/${game_id}/interest`, {method: 'DELETE',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
@@ -76,7 +76,7 @@ function VideoGameDetails({isLoggedIn, user}){
     };
 
     const deletePlayed = () => {
-        fetch(`/api/games/${game_id}/played`, {method: 'DELETE',
+        fetch(`/games/${game_id}/played`, {method: 'DELETE',
                                     body:JSON.stringify(userGame),
                                     headers: {'Content-Type': 'application/json',
                                 }})
