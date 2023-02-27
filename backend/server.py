@@ -174,7 +174,7 @@ def get_all_played_games():
     return jsonify({'games': games})
 
 
-@app.route('/search')
+@app.route('/search/games')
 def get_search_results():
     """ Returns games matching search input. """
 

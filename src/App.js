@@ -118,7 +118,7 @@ function App() {
     let queryString = new URLSearchParams({
       gameName: searchName,
     }).toString();
-    let url = `/search?${queryString}`;
+    let url = `/search/games?${queryString}`;
 
     fetch(url)
       .then((response) => response.json())
