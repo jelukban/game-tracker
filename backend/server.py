@@ -216,17 +216,28 @@ def get_user_recommendations():
     return jsonify({'games': games})
 
 
-@app.route('/api/search/user/email', methods=['POST'])
+@app.route('/search/user')
 def retrieve_user_data_by_email():
-    """ Finds user by email and returns user information. """
+    """ Finds user by email or id and returns user information. """
 
-    data = request.get_json()
+    email = request.args.get('email')
 
-    email = data.get('email')
-    follower_user_id = data.get('followerId')
+    if email:
+        data = request.headers
+        follower_user_id = json.loads(data.get('User'))
+        user_info = crud.get_user_search_results(email=email,
+                                                 follower_user_id=follower_user_id)
 
-    user_info = crud.get_user_search_results(email=email,
-                                             follower_user_id=follower_user_id)
+        if user_info != 'This user does not exist!':
+            user_info['status'] = 'Account found!'
+            return jsonify(user_info)
+        else:
+            return jsonify({'status': 'Account not found'})
+
+    follow_user_id = request.args.get('id')
+
+    user_info = crud.get_user_search_results_by_id(
+        user_id=follow_user_id)
 
     if user_info != 'This user does not exist!':
         user_info['status'] = 'Account found!'
@@ -250,22 +261,6 @@ def retrieve_user_follows():
         return jsonify(followings)
     else:
         return jsonify({'status': 'User has no follows'})
-
-
-@app.route('/api/search/user/id', methods=['POST'])
-def retrieve_user_data_by_id():
-    """ Returns user information by user id. """
-
-    data = request.get_json()
-
-    id = data.get('id')
-    user_info = crud.get_user_search_results_by_id(user_id=id)
-
-    if user_info != 'This user does not exist!':
-        user_info['status'] = 'Account found!'
-        return jsonify(user_info)
-    else:
-        return jsonify({'status': 'Account not found'})
 
 
 @app.route('/follow', methods=['PUT'])

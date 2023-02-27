@@ -11,9 +11,12 @@ function FollowGames(userId) {
   const [userFollowStatus, setUserFollowStatus] = useState(true);
 
   useEffect(() => {
-    fetch("/api/search/user/id", {
-      method: "POST",
-      body: JSON.stringify({ id: followUserId }),
+    let queryString = new URLSearchParams({
+      id: followUserId,
+    }).toString();
+    let url = `/search/user?${queryString}`;
+
+    fetch(url, {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
@@ -28,8 +31,8 @@ function FollowGames(userId) {
   const handleFollow = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/user/follow", {
-      method: "POST",
+    fetch("/follow", {
+      method: "PUT",
       body: JSON.stringify({
         followUserId: userId.userId,
         followingUserId: followUserId,
@@ -47,8 +50,8 @@ function FollowGames(userId) {
   const handleUnfollow = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/user/unfollow", {
-      method: "POST",
+    fetch("/unfollow", {
+      method: "PUT",
       body: JSON.stringify({
         followUserId: userId.userId,
         followingUserId: followUserId,

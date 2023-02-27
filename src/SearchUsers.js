@@ -38,13 +38,16 @@ function SearchUsers({ followerUserInfo }) {
   const handleSearchUser = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/user/email", {
-      method: "POST",
-      body: JSON.stringify({
-        email: userEmail,
-        followerId: followerUserInfo.id,
-      }),
-      headers: { "Content-Type": "application/json" },
+    let queryString = new URLSearchParams({
+      email: userEmail,
+    }).toString();
+    let url = `/search/user?${queryString}`;
+
+    fetch(url, {
+      headers: {
+        User: followerUserInfo.id,
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => response.json())
       .then((result) => {
