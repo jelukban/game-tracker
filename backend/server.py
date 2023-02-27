@@ -174,15 +174,12 @@ def get_all_played_games():
     return jsonify({'games': games})
 
 
-@app.route('/api/search/name', methods=['POST'])
+@app.route('/search')
 def get_search_results():
     """ Returns games matching search input. """
 
-    data = request.get_json()
-
-    search_name = data.get('searchName')
-
-    games = crud.search_for_game_by_name(search_name)
+    game_name = request.args.get('gameName')
+    games = crud.search_for_game_by_name(game_name)
 
     return jsonify({'games': games})
 

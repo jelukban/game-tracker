@@ -115,11 +115,12 @@ function App() {
   const handleSearchResults = (e) => {
     e.preventDefault();
 
-    fetch("/api/search/name", {
-      method: "POST",
-      body: JSON.stringify({ searchName }),
-      headers: { "Content-Type": "application/json" },
-    })
+    let queryString = new URLSearchParams({
+      gameName: searchName,
+    }).toString();
+    let url = `/search?${queryString}`;
+
+    fetch(url)
       .then((response) => response.json())
       .then((result) => {
         setSearchGames(result.games);
