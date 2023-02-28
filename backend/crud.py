@@ -96,8 +96,7 @@ def find_account(email, password):
         return {'user_id': user.id,
                 'first_name': user.fname,
                 'last_name': user.lname,
-                'email': user.email,
-                'password': user.password}
+                'email': user.email}
     else:
         return "User does not exist"
 

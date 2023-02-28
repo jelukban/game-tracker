@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.secret_key = "dev"
 
 HTTP_RESPONSE_CODES = {
+    "success": 200,
     "noContent": 204,
     "unauthorized": 401,
     "forbidden": 403,
@@ -19,13 +20,20 @@ HTTP_RESPONSE_CODES = {
 }
 
 
+def api_output(status_code, data=None, message=None, authorization=False):
+
+    return jsonify({'authorization': authorization,
+                    'data': data,
+                    'message': message}), status_code
+
+
 @app.route('/games')
 def get_games_json():
     """ Return a JSON response with all video games. """
 
     games = crud.get_all_games()
 
-    return jsonify({'games': games})
+    return api_output(HTTP_RESPONSE_CODES['success'], data=games)
 
 
 @app.route('/login', methods=['POST'])
@@ -40,10 +48,9 @@ def check_user_login():
     user_info = crud.find_account(email, password)
 
     if user_info == "User does not exist":
-        return jsonify({'status': 'Account not found'})
+        return api_output(HTTP_RESPONSE_CODES['doesntExist'], message='Account not found')
     else:
-        user_info['has_account'] = 'True'
-        return jsonify(user_info)
+        return api_output(HTTP_RESPONSE_CODES['success'], user_info, 'Account found', True)
 
 
 @app.route('/register', methods=['POST'])

@@ -35,9 +35,8 @@ function App() {
     if (userInput !== null) {
       setIsLoggedIn(true);
       return userInput;
-    } else {
-      return "";
     }
+    return "";
   });
 
   const [gameId, setGameId] = useState(0);
@@ -54,18 +53,17 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.has_account === "True") {
+        if (result.authorization === true) {
           let tempData = {
-            id: result.user_id,
-            firstName: result.first_name,
-            lastName: result.last_name,
-            email: result.email,
-            password: result.password,
+            id: result.data.user_id,
+            firstName: result.data.first_name,
+            lastName: result.data.last_name,
+            email: result.data.email,
           };
           setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
           setIsLoggedIn(true);
-        } else if (result.status === "Account not found") {
+        } else if (result.message === "Account not found") {
           setShowError({
             show: true,
             message: "Account not found or password incorrect",
