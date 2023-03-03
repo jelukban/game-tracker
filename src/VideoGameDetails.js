@@ -25,6 +25,7 @@ function VideoGameDetails({ isLoggedIn, user }) {
     })
       .then((response) => response.json())
       .then((result) => {
+        result = result.data;
         result.release_date = result.release_date.slice(0, -9);
         if (result.description === "None") {
           result.description = "";

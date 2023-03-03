@@ -108,7 +108,7 @@ def show_game_information(game_id):
     game['interest_status'] = statuses['interest']
     game['game_played_status'] = statuses['game_played']
 
-    return jsonify(game)
+    return api_output(HTTP_RESPONSE_CODES['success'], data=game)
 
 
 @app.route('/games/<game_id>/interest', methods=['POST'])
@@ -126,9 +126,11 @@ def create_interest_game_by_user(game_id):
         db.session.add(interest)
         db.session.commit()
 
-        return jsonify({'user_id': user_id,
-                        'game_id': game_id,
-                        'status': 'Interest made'})
+        data = {'user_id': user_id,
+                'game_id': game_id,
+                'status': 'Interest made'}
+
+        return jsonify()
     else:
         return jsonify({'status': 'Interest exists'})
 
