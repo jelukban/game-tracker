@@ -84,7 +84,7 @@ function SearchUsers({ followerUserInfo }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "Follow was made!") {
+        if (result.message === "Follow was made!") {
           setUserFollowStatus(true);
         }
       });
@@ -103,7 +103,7 @@ function SearchUsers({ followerUserInfo }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "Follow deleted") {
+        if (result.message === "Follow deleted") {
           setUserFollowStatus(false);
         }
       });

@@ -20,7 +20,7 @@ function UserRecommendations({ user }) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        setGames(responseJson.games);
+        setGames(responseJson.data);
       });
   }, []);
 

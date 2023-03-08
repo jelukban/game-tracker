@@ -48,7 +48,7 @@ function VideoGameDetails({ isLoggedIn, user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "Interest made") {
+        if (result.message === "Interest made") {
           setGameStatus({ ...gameStatus, interestStatus: true });
         }
       });
@@ -62,7 +62,7 @@ function VideoGameDetails({ isLoggedIn, user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "Interest deleted") {
+        if (result.message === "Interest deleted") {
           setGameStatus({ ...gameStatus, interestStatus: false });
         }
       });
@@ -78,7 +78,7 @@ function VideoGameDetails({ isLoggedIn, user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "GamePlayed was made") {
+        if (result.message === "GamePlayed was made") {
           setGameStatus({ ...gameStatus, playedStatus: true });
         }
       });
@@ -92,7 +92,7 @@ function VideoGameDetails({ isLoggedIn, user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status === "Game played deleted") {
+        if (result.message === "Game played deleted") {
           setGameStatus({ ...gameStatus, playedStatus: false });
         }
       });

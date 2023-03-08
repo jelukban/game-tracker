@@ -33,7 +33,7 @@ def get_games_json():
 
     games = crud.get_all_games()
 
-    return api_output(HTTP_RESPONSE_CODES['success'], data=games)
+    return api_output(HTTP_RESPONSE_CODES['success'], games)
 
 
 @app.route('/login', methods=['POST'])
@@ -122,17 +122,16 @@ def create_interest_game_by_user(game_id):
     interest = crud.create_interest(game_id=int(game_id),
                                     user_id=int(user_id))
 
-    if interest != 'User has already interested this game':
+    if interest:
         db.session.add(interest)
         db.session.commit()
 
         data = {'user_id': user_id,
-                'game_id': game_id,
-                'status': 'Interest made'}
+                'game_id': game_id}
 
-        return jsonify()
-    else:
-        return jsonify({'status': 'Interest exists'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          data,
+                          'Interest made')
 
 
 @app.route('/user/interests')
@@ -145,7 +144,7 @@ def get_all_games_of_interest():
 
     games = crud.get_interesting_games_by_user_id(user_id)
 
-    return jsonify({'games': games})
+    return api_output(HTTP_RESPONSE_CODES['success'], games)
 
 
 @app.route('/games/<game_id>/played', methods=['POST'])
@@ -163,11 +162,12 @@ def create_played_game_by_user(game_id):
         db.session.add(played)
         db.session.commit()
 
-        return jsonify({'user_id': user_id,
-                        'game_id': game_id,
-                        'status': 'GamePlayed was made'})
-    else:
-        return jsonify({'status': 'GamePlayed exists'})
+        data = {'user_id': user_id,
+                'game_id': game_id}
+
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          data,
+                          'GamePlayed was made')
 
 
 @app.route('/user/played')
@@ -180,7 +180,7 @@ def get_all_played_games():
 
     games = crud.get_games_played_by_user(user_id)
 
-    return jsonify({'games': games})
+    return api_output(HTTP_RESPONSE_CODES['success'], games)
 
 
 @app.route('/search/games')
@@ -190,7 +190,7 @@ def get_search_results():
     game_name = request.args.get('gameName')
     games = crud.search_for_game_by_name(game_name)
 
-    return jsonify({'games': games})
+    return api_output(HTTP_RESPONSE_CODES['success'], games)
 
 
 @app.route('/games/<game_id>/rating', methods=['POST'])
@@ -209,7 +209,7 @@ def create_video_game_rating(game_id):
     db.session.add(rating)
     db.session.commit()
 
-    return ('your video game was created!')
+    return api_output(HTTP_RESPONSE_CODES['success'])
 
 
 @app.route('/user/recommendations')
@@ -222,7 +222,7 @@ def get_user_recommendations():
 
     games = crud.select_user_recommendations(user_id)
 
-    return jsonify({'games': games})
+    return api_output(HTTP_RESPONSE_CODES['success'], games)
 
 
 @app.route('/search/user')
@@ -267,9 +267,10 @@ def retrieve_user_follows():
         follower_user_id=user_id)
 
     if len(followings) != 0:
-        return jsonify(followings)
+        return api_output(HTTP_RESPONSE_CODES['success'], followings)
     else:
-        return jsonify({'status': 'User has no follows'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          message='User has no follows')
 
 
 @app.route('/follow', methods=['PUT'])
@@ -287,9 +288,8 @@ def follow_another_user():
     if follow != 'User is already following this user':
         db.session.add(follow)
         db.session.commit()
-        return jsonify({'status': 'Follow was made!'})
-    else:
-        return jsonify({'status': 'User is already following this user'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          message='Follow was made!')
 
 
 @app.route('/unfollow', methods=['PUT'])
@@ -304,11 +304,10 @@ def unfollow_another_user():
     result = crud.delete_a_follow(follower_user_id=follower_user_id,
                                   following_user_id=following_user_id)
 
-    if result == 'Follow does not exist':
-        return jsonify({'status': 'User is not following this user'})
-    else:
+    if result != 'Follow does not exist':
         db.session.commit()
-        return jsonify({'status': 'Follow deleted'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          message='Follow deleted')
 
 
 @app.route('/games/<game_id>/interest', methods=['DELETE'])
@@ -323,9 +322,8 @@ def delete_game_interested_by_user(game_id):
 
     if result == 'Interest deleted':
         db.session.commit()
-        return jsonify({'status': 'Interest deleted'})
-    else:
-        return jsonify({'status': 'Interest does not exist'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          message='Interest deleted')
 
 
 @app.route('/games/<game_id>/played', methods=['DELETE'])
@@ -340,9 +338,8 @@ def delete_game_played_by_user(game_id):
 
     if result == 'Game played deleted':
         db.session.commit()
-        return jsonify({'status': 'Game played deleted'})
-    else:
-        return jsonify({'status': 'Game played does not exist'})
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          message='Game played deleted')
 
 
 if __name__ == "__main__":

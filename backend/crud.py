@@ -33,8 +33,6 @@ def create_interest(game_id, user_id):
     if not interest:
         return Interest(game_id=game_id,
                         user_id=user_id)
-    else:
-        return 'User has already interested this game'
 
 
 def create_game_played(game_id, user_id):

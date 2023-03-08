@@ -13,7 +13,7 @@ function UserInterests({ user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        setInterestingGames(result.games);
+        setInterestingGames(result.data);
       });
   }, []);
 

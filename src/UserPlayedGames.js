@@ -13,7 +13,7 @@ function UserPlayedGames({ user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        setGamesPlayed(result.games);
+        setGamesPlayed(result.data);
       });
   }, []);
 

@@ -21,8 +21,8 @@ function Follows({ user }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status !== "User has no follows") {
-          setFollows(result);
+        if (result.message !== "User has no follows") {
+          setFollows(result.data);
         }
       });
   }, []);
