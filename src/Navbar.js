@@ -7,15 +7,12 @@ import Navbar from "react-bootstrap/Navbar";
 import { Controller } from "react-bootstrap-icons";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
+import secureLocalStorage from "react-secure-storage";
 
-function Navigationbar({
-  isLoggedIn,
-  signOut,
-  handleSearchResults,
-  setSearchName,
-  user,
-}) {
+function Navigationbar({ signOut, handleSearchResults, setSearchName, user }) {
   const navigate = useNavigate();
+
+  const isLoggedIn = secureLocalStorage.getItem("authorized");
 
   if (isLoggedIn) {
     return (

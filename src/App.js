@@ -28,12 +28,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [user, setUser] = useState(() => {
     const userInput = JSON.parse(secureLocalStorage.getItem("user"));
     if (userInput !== null) {
-      setIsLoggedIn(true);
       return userInput;
     }
     return "";
@@ -59,10 +56,11 @@ function App() {
             firstName: result.data.first_name,
             lastName: result.data.last_name,
             email: result.data.email,
+            authorized: true,
           };
           setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
-          setIsLoggedIn(true);
+          secureLocalStorage.setItem("authorized", true);
         } else if (result.message === "Account not found") {
           setShowError({
             show: true,
@@ -92,7 +90,7 @@ function App() {
           };
           setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
-          setIsLoggedIn(true);
+          secureLocalStorage.setItem("authorized", true);
         } else if (result.status === "Requirements not filled") {
           setShowError({ show: true, message: "Requirements not filled" });
         } else if (result.status === "Account with this email already exists") {
@@ -107,7 +105,7 @@ function App() {
   const handleSignOut = (e) => {
     setUser({});
     secureLocalStorage.removeItem("user");
-    setIsLoggedIn(false);
+    secureLocalStorage.removeItem("authorized");
   };
 
   const handleSearchResults = (e) => {
@@ -128,7 +126,6 @@ function App() {
   return (
     <BrowserRouter>
       <Navigationbar
-        isLoggedIn={isLoggedIn}
         signOut={handleSignOut}
         handleSearchResults={handleSearchResults}
         setSearchName={(e) => setSearchName(e.target.value)}
@@ -140,7 +137,7 @@ function App() {
         <Route
           path="/login"
           element={
-            isLoggedIn ? (
+            secureLocalStorage.getItem("authorized") ? (
               <Navigate to={`/dashboard/${user.id}/recommendations`} />
             ) : (
               <LoginPage
@@ -159,7 +156,7 @@ function App() {
         <Route
           path="/register"
           element={
-            isLoggedIn ? (
+            secureLocalStorage.getItem("authorized") ? (
               <Navigate to={`/dashboard/${user.id}/recommendations`} />
             ) : (
               <CreateAccount
@@ -193,7 +190,7 @@ function App() {
         />
         <Route
           path={`/games/details/:game_id`}
-          element={<VideoGameDetails isLoggedIn={isLoggedIn} user={user} />}
+          element={<VideoGameDetails user={user} />}
         />
         <Route path="/find" element={<SearchUsers followerUserInfo={user} />} />
         <Route
