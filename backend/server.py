@@ -20,10 +20,9 @@ HTTP_RESPONSE_CODES = {
 }
 
 
-def api_output(status_code, data=None, message=None, authorization=False):
+def api_output(status_code, data=None, message=None):
 
-    return jsonify({'authorization': authorization,
-                    'data': data,
+    return jsonify({'data': data,
                     'message': message}), status_code
 
 
@@ -77,17 +76,17 @@ def create_user_account():
             db.session.commit()
 
             user_info = crud.find_account(email, password)
-            user_info['has_account'] = 'True'
 
         elif user_info == "Email already exists":
-            return jsonify({'status': 'Account with this email already exists'})
-        else:
-            user_info['has_account'] = 'True'
+            return api_output(status_code=HTTP_RESPONSE_CODES['notAcceptable'],
+                              message='Account with this email already exists')
 
-        return jsonify(user_info)
+        return api_output(HTTP_RESPONSE_CODES['success'],
+                          user_info)
 
     else:
-        return jsonify({'status': 'Requirements not filled'})
+        return api_output(status_code=HTTP_RESPONSE_CODES['notAcceptable'],
+                          message='Requirements not filled')
 
 
 @app.route('/games/<game_id>')

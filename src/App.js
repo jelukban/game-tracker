@@ -80,20 +80,23 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.has_account === "True") {
+        console.log(result);
+        if (result.data !== null) {
           let tempData = {
-            id: result.user_id,
-            firstName: result.first_name,
-            lastName: result.last_name,
-            email: result.email,
-            password: result.password,
+            id: result.data.user_id,
+            firstName: result.data.first_name,
+            lastName: result.data.last_name,
+            email: result.data.email,
+            password: result.data.password,
           };
           setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
           secureLocalStorage.setItem("authorized", true);
-        } else if (result.status === "Requirements not filled") {
+        } else if (result.message === "Requirements not filled") {
           setShowError({ show: true, message: "Requirements not filled" });
-        } else if (result.status === "Account with this email already exists") {
+        } else if (
+          result.message === "Account with this email already exists"
+        ) {
           setShowError({
             show: true,
             message: "Account with this email already exists",
