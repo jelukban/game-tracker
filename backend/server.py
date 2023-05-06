@@ -49,7 +49,7 @@ def check_user_login():
     if user_info == "User does not exist":
         return api_output(HTTP_RESPONSE_CODES['doesntExist'], message='Account not found')
     else:
-        return api_output(HTTP_RESPONSE_CODES['success'], user_info, 'Account found', True)
+        return api_output(HTTP_RESPONSE_CODES['success'], user_info, 'Account found')
 
 
 @app.route('/register', methods=['POST'])

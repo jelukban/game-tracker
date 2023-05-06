@@ -50,13 +50,12 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.authorization === true) {
+        if (result.message === "Account found") {
           let tempData = {
             id: result.data.user_id,
             firstName: result.data.first_name,
             lastName: result.data.last_name,
             email: result.data.email,
-            authorized: true,
           };
           setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
@@ -80,7 +79,6 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         if (result.data !== null) {
           let tempData = {
             id: result.data.user_id,
