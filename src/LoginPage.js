@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
+import secureLocalStorage from "react-secure-storage";
 
-function LoginPage({ handleSubmit, setEmail, setPassword, showError }) {
+function LoginPage({ handleLoginSubmit, showError }) {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
 
@@ -22,13 +23,15 @@ function LoginPage({ handleSubmit, setEmail, setPassword, showError }) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit} className="forms">
+        <Form onSubmit={handleLoginSubmit} className="forms">
           <Form.Group className="w-100" controlId="formBasicEmail">
             <Form.Label className="field-labels">Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
-              onChange={setEmail}
+              onChange={(e) => {
+                secureLocalStorage.setItem("loginEmail", e.target.value);
+              }}
             />
           </Form.Group>
 
@@ -37,7 +40,9 @@ function LoginPage({ handleSubmit, setEmail, setPassword, showError }) {
             <Form.Control
               type="password"
               placeholder="Password"
-              onChange={setPassword}
+              onChange={(e) => {
+                secureLocalStorage.setItem("loginPassword", e.target.value);
+              }}
               mb={8}
             />
           </Form.Group>

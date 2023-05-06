@@ -4,9 +4,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import secureLocalStorage from "react-secure-storage";
 
-function Follows({ user }) {
+function Follows() {
   const navigate = useNavigate();
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
 
   const [follows, setFollows] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -56,7 +60,7 @@ function Follows({ user }) {
               <div>
                 <ListGroup.Item
                   action
-                  href={`/dashboard/${user.id}/following/${follow.id}`}
+                  href={`/dashboard/following/${follow.id}`}
                   className="follows-list"
                 >
                   {follow.firstName} {follow.lastName}

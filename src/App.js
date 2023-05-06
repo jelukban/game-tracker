@@ -12,7 +12,7 @@ import secureLocalStorage from "react-secure-storage";
 import CreateAccount from "./CreateAccount.js";
 import GamePage from "./GamePage.js";
 import LoginPage from "./LoginPage.js";
-import Navigationbar from "./Navbar.js";
+import NavigationBar from "./NavigationBar.js";
 import LoadScreen from "./LoadScreen.js";
 import UserRecommendations from "./UserRecommendations.js";
 import UserInterests from "./UserInterests.js";
@@ -28,46 +28,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState(() => {
-    const userInput = JSON.parse(secureLocalStorage.getItem("user"));
-    if (userInput !== null) {
-      return userInput;
-    }
-    return "";
-  });
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : secureLocalStorage.setItem("authorized", false);
 
+  const [updateLocalStorage, setLocalStorage] = useState("");
   const [gameId, setGameId] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [searchGames, setSearchGames] = useState([]);
   const [showError, setShowError] = useState({ show: false, message: "" });
-
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    fetch("/login", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Account found") {
-          let tempData = {
-            id: result.data.user_id,
-            firstName: result.data.first_name,
-            lastName: result.data.last_name,
-            email: result.data.email,
-          };
-          setUser(tempData);
-          secureLocalStorage.setItem("user", JSON.stringify(tempData));
-          secureLocalStorage.setItem("authorized", true);
-        } else if (result.message === "Account not found") {
-          setShowError({
-            show: true,
-            message: "Account not found or password incorrect",
-          });
-        }
-      });
-  };
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
@@ -87,9 +56,9 @@ function App() {
             email: result.data.email,
             password: result.data.password,
           };
-          setUser(tempData);
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
           secureLocalStorage.setItem("authorized", true);
+          setLocalStorage("success");
         } else if (result.message === "Requirements not filled") {
           setShowError({ show: true, message: "Requirements not filled" });
         } else if (
@@ -101,12 +70,6 @@ function App() {
           });
         }
       });
-  };
-
-  const handleSignOut = (e) => {
-    setUser({});
-    secureLocalStorage.removeItem("user");
-    secureLocalStorage.removeItem("authorized");
   };
 
   const handleSearchResults = (e) => {
@@ -124,13 +87,42 @@ function App() {
       });
   };
 
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: secureLocalStorage.getItem("loginEmail"),
+        password: secureLocalStorage.getItem("loginPassword"),
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === "Account found") {
+          let tempData = {
+            id: result.data.user_id,
+            firstName: result.data.first_name,
+            lastName: result.data.last_name,
+            email: result.data.email,
+          };
+          secureLocalStorage.setItem("user", JSON.stringify(tempData));
+          secureLocalStorage.setItem("authorized", true);
+          setLocalStorage("success");
+        } else if (result.message === "Account not found") {
+          setShowError({
+            show: true,
+            message: "Account not found or password incorrect",
+          });
+        }
+      });
+  };
+
   return (
     <BrowserRouter>
-      <Navigationbar
-        signOut={handleSignOut}
+      <NavigationBar
         handleSearchResults={handleSearchResults}
         setSearchName={(e) => setSearchName(e.target.value)}
-        user={user}
       />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -139,16 +131,10 @@ function App() {
           path="/login"
           element={
             secureLocalStorage.getItem("authorized") ? (
-              <Navigate to={`/dashboard/${user.id}/recommendations`} />
+              <Navigate to={`/dashboard/recommendations`} />
             ) : (
               <LoginPage
-                handleSubmit={handleLoginSubmit}
-                setEmail={(e) => {
-                  setUser({ ...user, email: e.target.value });
-                }}
-                setPassword={(e) => {
-                  setUser({ ...user, password: e.target.value });
-                }}
+                handleLoginSubmit={handleLoginSubmit}
                 showError={showError}
               />
             )
@@ -158,7 +144,7 @@ function App() {
           path="/register"
           element={
             secureLocalStorage.getItem("authorized") ? (
-              <Navigate to={`/dashboard/${user.id}/recommendations`} />
+              <Navigate to={`/dashboard/recommendations`} />
             ) : (
               <CreateAccount
                 handleSubmit={handleCreateSubmit}
@@ -178,29 +164,23 @@ function App() {
           }
         />
         <Route
-          path={`/dashboard/${user.id}/recommendations`}
-          element={<UserRecommendations user={user} />}
+          path={`/dashboard/recommendations`}
+          element={<UserRecommendations />}
         />
-        <Route
-          path={`/dashboard/${user.id}/interests`}
-          element={<UserInterests user={user} />}
-        />
-        <Route
-          path={`/dashboard/${user.id}/gamesplayed`}
-          element={<UserPlayedGames user={user} />}
-        />
+        <Route path={`/dashboard/interests`} element={<UserInterests />} />
+        <Route path={`/dashboard/gamesplayed`} element={<UserPlayedGames />} />
         <Route
           path={`/games/details/:game_id`}
-          element={<VideoGameDetails user={user} />}
+          element={<VideoGameDetails />}
         />
-        <Route path="/find" element={<SearchUsers followerUserInfo={user} />} />
+        <Route path="/find" element={<SearchUsers />} />
         <Route
-          path={`/dashboard/${user.id}/following`}
+          path={`/dashboard/following`}
           element={<Follows user={user} />}
         />
         <Route
-          path={`/dashboard/${user.id}/following/:followUserId`}
-          element={<FollowGames userId={user.id} />}
+          path={`/dashboard/following/:followUserId`}
+          element={<FollowGames />}
         />
         <Route
           path="/search/results"

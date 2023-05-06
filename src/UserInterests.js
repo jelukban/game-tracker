@@ -1,8 +1,12 @@
 import VideoGameContainer from "./VideoGameContainer.js";
 import { React, useState, useEffect } from "react";
+import secureLocalStorage from "react-secure-storage";
 
-function UserInterests({ user }) {
+function UserInterests() {
   const [interestingGames, setInterestingGames] = useState([]);
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
 
   useEffect(() => {
     fetch("/user/interests", {

@@ -9,8 +9,12 @@ import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import secureLocalStorage from "react-secure-storage";
 
-function SearchUsers({ followerUserInfo }) {
+function SearchUsers() {
+  const followerUserInfo = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
   const [userEmail, setUserEmail] = useState("");
   const [user, setUser] = useState({});
   const [userFound, setUserFound] = useState(false);

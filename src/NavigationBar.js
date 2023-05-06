@@ -9,10 +9,16 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import secureLocalStorage from "react-secure-storage";
 
-function Navigationbar({ signOut, handleSearchResults, setSearchName, user }) {
+function NavigationBar({ handleSearchResults, setSearchName }) {
   const navigate = useNavigate();
-
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
   const isLoggedIn = secureLocalStorage.getItem("authorized");
+
+  const handleSignOut = () => {
+    secureLocalStorage.clear();
+  };
 
   if (isLoggedIn) {
     return (
@@ -33,18 +39,16 @@ function Navigationbar({ signOut, handleSearchResults, setSearchName, user }) {
                 id="dashboard-dropdown"
                 className="nav-titles"
               >
-                <NavDropdown.Item
-                  href={`/dashboard/${user.id}/recommendations`}
-                >
+                <NavDropdown.Item href={`/dashboard/recommendations`}>
                   Recommendations
                 </NavDropdown.Item>
-                <NavDropdown.Item href={`/dashboard/${user.id}/gamesplayed`}>
+                <NavDropdown.Item href={`/dashboard/gamesplayed`}>
                   Played Games
                 </NavDropdown.Item>
-                <NavDropdown.Item href={`/dashboard/${user.id}/interests`}>
+                <NavDropdown.Item href={`/dashboard/interests`}>
                   Interests
                 </NavDropdown.Item>
-                <NavDropdown.Item href={`/dashboard/${user.id}/following`}>
+                <NavDropdown.Item href={`/dashboard/following`}>
                   Following
                 </NavDropdown.Item>
               </NavDropdown>
@@ -83,7 +87,7 @@ function Navigationbar({ signOut, handleSearchResults, setSearchName, user }) {
             <Nav.Item className="col-2">
               <Nav.Link
                 href="/signout"
-                onClick={signOut}
+                onClick={handleSignOut}
                 id="sign-out"
                 className="nav-titles"
               >
@@ -150,4 +154,4 @@ function Navigationbar({ signOut, handleSearchResults, setSearchName, user }) {
   }
 }
 
-export default Navigationbar;
+export default NavigationBar;

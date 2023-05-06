@@ -1,8 +1,13 @@
 import { React, useEffect, useParams, useState } from "react";
 import VideoGame from "./VideoGame.js";
 import Carousel from "react-bootstrap/Carousel";
+import secureLocalStorage from "react-secure-storage";
 
-function UserRecommendations({ user }) {
+function UserRecommendations() {
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
+
   const [games, setGames] = useState([]);
 
   const [index, setIndex] = useState(0);

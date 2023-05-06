@@ -10,10 +10,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Alert from "react-bootstrap/Alert";
 import secureLocalStorage from "react-secure-storage";
 
-function VideoGameDetails({ user }) {
+function VideoGameDetails() {
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
   const [game, setGame] = useState({});
   const { game_id } = useParams();
-  const userGame = { user_id: user.id, game_id: game_id };
+  const userGame = { game_id: game_id };
+  if (user) {
+    userGame[user_id] = user.id;
+  }
+
   const [score, setScore] = useState();
   const [gameStatus, setGameStatus] = useState({});
   const isLoggedIn = secureLocalStorage.getItem("authorized");

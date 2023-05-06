@@ -3,8 +3,14 @@ import { useParams } from "react-router-dom";
 import UserInterests from "./UserInterests.js";
 import UserPlayedGames from "./UserPlayedGames.js";
 import Button from "react-bootstrap/Button";
+import secureLocalStorage from "react-secure-storage";
 
-function FollowGames(userId) {
+function FollowGames() {
+  const user = secureLocalStorage.getItem("user");
+  if (user) {
+    const userId = user.id;
+  }
+
   const { followUserId } = useParams();
   const [followUser, setFollowUser] = useState({});
   const [followUserLoaded, setFollowUserLoaded] = useState(false);
