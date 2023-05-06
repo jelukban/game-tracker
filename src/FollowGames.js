@@ -6,10 +6,7 @@ import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
 
 function FollowGames() {
-  const user = secureLocalStorage.getItem("user");
-  if (user) {
-    const userId = user.id;
-  }
+  const user = JSON.parse(secureLocalStorage.getItem("user"));
 
   const { followUserId } = useParams();
   const [followUser, setFollowUser] = useState({});
@@ -40,7 +37,7 @@ function FollowGames() {
     fetch("/follow", {
       method: "PUT",
       body: JSON.stringify({
-        followUserId: userId.userId,
+        followUserId: user.id,
         followingUserId: followUserId,
       }),
       headers: { "Content-Type": "application/json" },
@@ -59,7 +56,7 @@ function FollowGames() {
     fetch("/unfollow", {
       method: "PUT",
       body: JSON.stringify({
-        followUserId: userId.userId,
+        followUserId: user.id,
         followingUserId: followUserId,
       }),
       headers: { "Content-Type": "application/json" },
