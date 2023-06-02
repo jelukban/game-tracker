@@ -17,8 +17,9 @@ function VideoGameDetails() {
   const [game, setGame] = useState({});
   const { game_id } = useParams();
   const userGame = { game_id: game_id };
+
   if (user) {
-    userGame[user_id] = user.id;
+    userGame["user_id"] = user.id;
   }
 
   const [score, setScore] = useState();

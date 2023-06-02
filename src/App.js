@@ -38,40 +38,6 @@ function App() {
   const [searchGames, setSearchGames] = useState([]);
   const [showError, setShowError] = useState({ show: false, message: "" });
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
-
-    fetch("/register", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data !== null) {
-          let tempData = {
-            id: result.data.user_id,
-            firstName: result.data.first_name,
-            lastName: result.data.last_name,
-            email: result.data.email,
-            password: result.data.password,
-          };
-          secureLocalStorage.setItem("user", JSON.stringify(tempData));
-          secureLocalStorage.setItem("authorized", true);
-          setLocalStorage("success");
-        } else if (result.message === "Requirements not filled") {
-          setShowError({ show: true, message: "Requirements not filled" });
-        } else if (
-          result.message === "Account with this email already exists"
-        ) {
-          setShowError({
-            show: true,
-            message: "Account with this email already exists",
-          });
-        }
-      });
-  };
-
   const handleSearchResults = (e) => {
     e.preventDefault();
 
@@ -108,7 +74,6 @@ function App() {
           };
           secureLocalStorage.setItem("user", JSON.stringify(tempData));
           secureLocalStorage.setItem("authorized", true);
-          setLocalStorage("success");
         } else if (result.message === "Account not found") {
           setShowError({
             show: true,
@@ -146,20 +111,7 @@ function App() {
             secureLocalStorage.getItem("authorized") ? (
               <Navigate to={`/dashboard/recommendations`} />
             ) : (
-              <CreateAccount
-                handleSubmit={handleCreateSubmit}
-                setFirstName={(e) =>
-                  setUser({ ...user, firstName: e.target.value })
-                }
-                setLastName={(e) =>
-                  setUser({ ...user, lastName: e.target.value })
-                }
-                setEmail={(e) => setUser({ ...user, email: e.target.value })}
-                setPassword={(e) =>
-                  setUser({ ...user, password: e.target.value })
-                }
-                showError={showError}
-              />
+              <CreateAccount showError={showError} />
             )
           }
         />
