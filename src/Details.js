@@ -18,16 +18,26 @@ function Details({ game }) {
       <Col className="align-self-start">
         <div className="description-titles">Genres:</div>
         <div className="genres">
-          {game.genres?.map((genre) => (
-            <Button variant="light" size="sm" className="game-genre">
+          {game.genres?.map((genre, index) => (
+            <Button
+              variant="light"
+              size="sm"
+              className="game-genre"
+              key={index}
+            >
               {genre}
             </Button>
           ))}
         </div>
         <div className="description-titles">Platforms:</div>
         <div className="platforms">
-          {game.platforms?.slice(0, 6).map((platform) => (
-            <Button variant="light" size="sm" className="game-platform">
+          {game.platforms?.slice(0, 6).map((platform, index) => (
+            <Button
+              variant="light"
+              size="sm"
+              className="game-platform"
+              key={index}
+            >
               {platform}
             </Button>
           ))}

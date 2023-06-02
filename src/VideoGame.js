@@ -16,16 +16,26 @@ function VideoGame({
         <div className="title">{name}</div>
         <div className="description-titles">Genres:</div>
         <div className="genres">
-          {genres?.map((genre) => (
-            <Button variant="light" size="sm" className="game-genre">
+          {genres?.map((genre, index) => (
+            <Button
+              variant="light"
+              size="sm"
+              className="game-genre"
+              key={index}
+            >
               {genre}
             </Button>
           ))}
         </div>
         <div className="description-titles">Platforms:</div>
         <div className="platforms">
-          {platforms?.map((platform) => (
-            <Button variant="light" size="sm" className="game-platform">
+          {platforms?.map((platform, index) => (
+            <Button
+              variant="light"
+              size="sm"
+              className="game-platform"
+              key={index}
+            >
               {platform}
             </Button>
           ))}
