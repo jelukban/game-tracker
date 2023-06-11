@@ -1,4 +1,4 @@
-import VideoGameContainer from "./VideoGameContainer.js";
+import VideoGameContainer from "./components/VideoGameContainer.js";
 
 function SearchResults({ games }) {
   return (

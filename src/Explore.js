@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import VideoGameContainer from "./VideoGameContainer.js";
-import LoadScreen from "./LoadScreen.js";
+import VideoGameContainer from "./components/VideoGameContainer.js";
+import LoadScreen from "./components/LoadScreen.js";
 
 function Explore() {
   const [games, setGames] = useState([]);

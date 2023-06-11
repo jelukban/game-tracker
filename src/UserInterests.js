@@ -1,4 +1,4 @@
-import VideoGameContainer from "./VideoGameContainer.js";
+import VideoGameContainer from "./components/VideoGameContainer.js";
 import { React, useState, useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 
