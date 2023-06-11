@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import CreateAccount from "./CreateAccount.js";
-import GamePage from "./GamePage.js";
 import LoginPage from "./LoginPage.js";
 import NavigationBar from "./NavigationBar.js";
 import LoadScreen from "./LoadScreen.js";
@@ -33,7 +32,7 @@ function App() {
     : secureLocalStorage.setItem("authorized", false);
 
   const [updateLocalStorage, setLocalStorage] = useState("");
-  const [gameId, setGameId] = useState(0);
+  const [gameId, setGameId] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [searchGames, setSearchGames] = useState([]);
 

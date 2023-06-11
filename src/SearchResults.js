@@ -1,4 +1,4 @@
-import GamePage from "./GamePage.js";
+import VideoGameContainer from "./VideoGameContainer.js";
 
 function SearchResults({ games }) {
   return (
@@ -6,7 +6,7 @@ function SearchResults({ games }) {
       <div id="search-results-count">
         {games.length} search results were found.
       </div>
-      <GamePage games={games} />
+      <VideoGameContainer games={games} />
     </div>
   );
 }

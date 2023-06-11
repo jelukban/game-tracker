@@ -1,6 +1,6 @@
-import GamePage from "./GamePage.js";
-import LoadScreen from "./LoadScreen.js";
 import { useState, useEffect } from "react";
+import VideoGameContainer from "./VideoGameContainer.js";
+import LoadScreen from "./LoadScreen.js";
 
 function Explore() {
   const [games, setGames] = useState([]);
@@ -25,7 +25,7 @@ function Explore() {
       ) : (
         <div id="homepage">
           <h1> Find Your Next Adventure </h1>
-          <GamePage games={games} />
+          <VideoGameContainer games={games} />
         </div>
       )}
     </div>
