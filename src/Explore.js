@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import VideoGameContainer from "./components/VideoGameContainer.js";
-import LoadScreen from "./components/LoadScreen.js";
+import LoadSpinner from "./components/LoadSpinner.js";
 
 function Explore() {
   const [games, setGames] = useState([]);
@@ -21,7 +21,7 @@ function Explore() {
   return (
     <div>
       {isLoaded ? (
-        <LoadScreen />
+        <LoadSpinner />
       ) : (
         <div id="homepage">
           <h1> Find Your Next Adventure </h1>

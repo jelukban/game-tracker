@@ -1,6 +1,6 @@
 import Spinner from "react-bootstrap/Spinner";
 
-function LoadScreen() {
+function LoadSpinner() {
   return (
     <div id="loading-spinner">
       <Spinner animation="border" role="secondary">
@@ -10,4 +10,4 @@ function LoadScreen() {
   );
 }
 
-export default LoadScreen;
+export default LoadSpinner;

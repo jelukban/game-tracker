@@ -12,7 +12,7 @@ import secureLocalStorage from "react-secure-storage";
 import CreateAccount from "./CreateAccount.js";
 import LoginPage from "./LoginPage.js";
 import NavigationBar from "./NavigationBar.js";
-import LoadScreen from "./components/LoadScreen.js";
+import LoadSpinner from "./components/LoadSpinner.js";
 import UserRecommendations from "./UserRecommendations.js";
 import UserInterests from "./UserInterests.js";
 import UserPlayedGames from "./UserPlayedGames.js";
