@@ -6,10 +6,11 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 
-function CreateAccount({ showError }) {
+function CreateAccount() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const [user, setUser] = useState({});
+  const [showError, setShowError] = useState({ show: false, message: "" });
 
   const handleClose = () => {
     setShow(false);

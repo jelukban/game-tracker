@@ -6,13 +6,45 @@ import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import secureLocalStorage from "react-secure-storage";
 
-function LoginPage({ handleLoginSubmit, showError }) {
+function LoginPage() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
+  const [showError, setShowError] = useState({ show: false, message: "" });
 
   const handleClose = () => {
     setShow(false);
     navigate("/explore");
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: secureLocalStorage.getItem("loginEmail"),
+        password: secureLocalStorage.getItem("loginPassword"),
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === "Account found") {
+          let tempData = {
+            id: result.data.user_id,
+            firstName: result.data.first_name,
+            lastName: result.data.last_name,
+            email: result.data.email,
+          };
+          secureLocalStorage.setItem("user", JSON.stringify(tempData));
+          secureLocalStorage.setItem("authorized", true);
+          navigate("/explore");
+        } else if (result.message === "Account not found") {
+          setShowError({
+            show: true,
+            message: "Account not found or password incorrect",
+          });
+        }
+      });
   };
 
   return (

@@ -36,7 +36,6 @@ function App() {
   const [gameId, setGameId] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [searchGames, setSearchGames] = useState([]);
-  const [showError, setShowError] = useState({ show: false, message: "" });
 
   const handleSearchResults = (e) => {
     e.preventDefault();
@@ -53,36 +52,6 @@ function App() {
       });
   };
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    fetch("/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: secureLocalStorage.getItem("loginEmail"),
-        password: secureLocalStorage.getItem("loginPassword"),
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Account found") {
-          let tempData = {
-            id: result.data.user_id,
-            firstName: result.data.first_name,
-            lastName: result.data.last_name,
-            email: result.data.email,
-          };
-          secureLocalStorage.setItem("user", JSON.stringify(tempData));
-          secureLocalStorage.setItem("authorized", true);
-        } else if (result.message === "Account not found") {
-          setShowError({
-            show: true,
-            message: "Account not found or password incorrect",
-          });
-        }
-      });
-  };
-
   return (
     <BrowserRouter>
       <NavigationBar
@@ -92,29 +61,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
-        <Route
-          path="/login"
-          element={
-            secureLocalStorage.getItem("authorized") ? (
-              <Navigate to={`/dashboard/recommendations`} />
-            ) : (
-              <LoginPage
-                handleLoginSubmit={handleLoginSubmit}
-                showError={showError}
-              />
-            )
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            secureLocalStorage.getItem("authorized") ? (
-              <Navigate to={`/dashboard/recommendations`} />
-            ) : (
-              <CreateAccount showError={showError} />
-            )
-          }
-        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<CreateAccount />} />
         <Route
           path={`/dashboard/recommendations`}
           element={<UserRecommendations />}
