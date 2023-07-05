@@ -1,13 +1,5 @@
-import { React, useState, useEffect, Fragment } from "react";
-import {
-  Link,
-  BrowserRouter,
-  Route,
-  Navigate,
-  Routes,
-  redirect,
-  useNavigate,
-} from "react-router-dom";
+import { React } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import CreateAccount from "./CreateAccount.js";
 import LoginPage from "./LoginPage.js";
@@ -31,32 +23,9 @@ function App() {
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : secureLocalStorage.setItem("authorized", false);
 
-  const [updateLocalStorage, setLocalStorage] = useState("");
-  const [gameId, setGameId] = useState([]);
-  const [searchName, setSearchName] = useState("");
-  const [searchGames, setSearchGames] = useState([]);
-
-  const handleSearchResults = (e) => {
-    e.preventDefault();
-
-    let queryString = new URLSearchParams({
-      gameName: searchName,
-    }).toString();
-    let url = `/search/games?${queryString}`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((result) => {
-        setSearchGames(result.data);
-      });
-  };
-
   return (
     <BrowserRouter>
-      <NavigationBar
-        handleSearchResults={handleSearchResults}
-        setSearchName={(e) => setSearchName(e.target.value)}
-      />
+      <NavigationBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
@@ -82,8 +51,8 @@ function App() {
           element={<FollowGames />}
         />
         <Route
-          path="/search/results"
-          element={<SearchResults games={searchGames} />}
+          path={`/search/games/:queryString`}
+          element={<SearchResults />}
         />
         <Route path="/signout" element={<Navigate to="/explore" />} />
       </Routes>

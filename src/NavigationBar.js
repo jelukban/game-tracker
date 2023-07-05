@@ -9,7 +9,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import secureLocalStorage from "react-secure-storage";
 
-function NavigationBar({ handleSearchResults, setSearchName }) {
+function NavigationBar() {
   const navigate = useNavigate();
   const user = JSON.parse(secureLocalStorage.getItem("user"))
     ? JSON.parse(secureLocalStorage.getItem("user"))
@@ -18,6 +18,16 @@ function NavigationBar({ handleSearchResults, setSearchName }) {
 
   const handleSignOut = () => {
     secureLocalStorage.clear();
+  };
+  const [searchName, setSearchName] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let queryString = new URLSearchParams({
+      gameName: searchName,
+    }).toString();
+    let url = `/search/games/${queryString}`;
+    navigate(`/search/games/${queryString}`);
   };
 
   if (isLoggedIn) {
@@ -61,24 +71,24 @@ function NavigationBar({ handleSearchResults, setSearchName }) {
             <Nav.Item className="col-5">
               <Form
                 className="search-bar-form d-flex"
-                onSubmit={handleSearchResults}
+                onSubmit={handleSubmit}
+                onChange={(e) => setSearchName(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    navigate("/search/results");
+                    handleSubmit;
                   }
                 }}
               >
                 <Form.Control
                   type="text"
                   placeholder="Search video games"
-                  onChange={setSearchName}
                   size="sm"
                   id="search-bar"
                 />
                 <Button
                   variant="outline-light"
-                  onClick={(e) => navigate("/search/results")}
                   className="nav-titles"
+                  // onClick={() => navigate(`/search/games?${queryString}`)}
                 >
                   Search
                 </Button>
@@ -114,24 +124,24 @@ function NavigationBar({ handleSearchResults, setSearchName }) {
             <Nav.Item className="col-5 offset-2">
               <Form
                 className="search-bar-form d-flex"
-                onSubmit={handleSearchResults}
+                onSubmit={handleSubmit}
+                onChange={(e) => setSearchName(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    navigate("/search/results");
+                    handleSubmit;
                   }
                 }}
               >
                 <Form.Control
                   type="text"
                   placeholder="Search video games"
-                  onChange={setSearchName}
                   size="sm"
                   id="search-bar"
                 />
                 <Button
                   variant="outline-light"
-                  onClick={(e) => navigate("/search/results")}
                   className="nav-titles"
+                  // onClick={() => navigate(`/search/games?${queryString}`)}
                 >
                   Search
                 </Button>
