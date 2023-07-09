@@ -1,5 +1,10 @@
 import { React, useEffect, useState, Fragment } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  createSearchParams,
+} from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -23,11 +28,10 @@ function NavigationBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let queryString = new URLSearchParams({
-      gameName: searchName,
-    }).toString();
-    let url = `/search/games/${queryString}`;
-    navigate(`/search/games/${queryString}`);
+    navigate({
+      pathname: `/search/games`,
+      search: createSearchParams({ gameName: searchName }).toString(),
+    });
   };
 
   if (isLoggedIn) {
@@ -88,7 +92,7 @@ function NavigationBar() {
                 <Button
                   variant="outline-light"
                   className="nav-titles"
-                  // onClick={() => navigate(`/search/games?${queryString}`)}
+                  onClick={handleSubmit}
                 >
                   Search
                 </Button>
@@ -141,7 +145,7 @@ function NavigationBar() {
                 <Button
                   variant="outline-light"
                   className="nav-titles"
-                  // onClick={() => navigate(`/search/games?${queryString}`)}
+                  onClick={handleSubmit}
                 >
                   Search
                 </Button>

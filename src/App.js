@@ -50,10 +50,7 @@ function App() {
           path={`/dashboard/following/:followUserId`}
           element={<FollowGames />}
         />
-        <Route
-          path={`/search/games/:queryString`}
-          element={<SearchResults />}
-        />
+        <Route path={`/search/games`} element={<SearchResults />} />
         <Route path="/signout" element={<Navigate to="/explore" />} />
       </Routes>
     </BrowserRouter>

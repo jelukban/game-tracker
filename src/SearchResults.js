@@ -1,10 +1,11 @@
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import VideoGameContainer from "./components/VideoGameContainer.js";
 
 function SearchResults() {
-  const { queryString } = useParams();
-  let url = `/search/games?${queryString}`;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const gameName = searchParams.get("gameName");
+  let url = `/search/games?gameName=${gameName}`;
   const [games, setGames] = useState([]);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ function SearchResults() {
       .then((result) => {
         setGames(result.data);
       });
-  }, [queryString]);
+  }, [gameName]);
 
   return (
     <div id="search-games-results">
