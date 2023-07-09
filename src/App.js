@@ -19,10 +19,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  const user = JSON.parse(secureLocalStorage.getItem("user"))
-    ? JSON.parse(secureLocalStorage.getItem("user"))
-    : secureLocalStorage.setItem("authorized", false);
-
   return (
     <BrowserRouter>
       <NavigationBar />
@@ -42,10 +38,7 @@ function App() {
           element={<VideoGameDetails />}
         />
         <Route path="/find" element={<SearchUsers />} />
-        <Route
-          path={`/dashboard/following`}
-          element={<Follows user={user} />}
-        />
+        <Route path={`/dashboard/following`} element={<Follows />} />
         <Route
           path={`/dashboard/following/:followUserId`}
           element={<FollowGames />}
