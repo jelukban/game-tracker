@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import VideoGameContainer from "./components/VideoGameContainer.js";
-import LoadSpinner from "./components/LoadSpinner.js";
+import VideoGameContainer from "../videoGame/VideoGameContainer.js";
+import LoadSpinner from "../common/LoadSpinner.js";
 
 function Explore() {
   const [games, setGames] = useState([]);

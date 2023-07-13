@@ -1,22 +1,22 @@
 import { React } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
-import CreateAccount from "./CreateAccount.js";
-import LoginPage from "./LoginPage.js";
-import NavigationBar from "./NavigationBar.js";
-import LoadSpinner from "./components/LoadSpinner.js";
-import UserRecommendations from "./UserRecommendations.js";
-import UserInterests from "./UserInterests.js";
-import UserPlayedGames from "./UserPlayedGames.js";
-import VideoGameDetails from "./VideoGameDetails.js";
-import SearchUsers from "./SearchUsers.js";
-import Follows from "./Follows.js";
-import FollowGames from "./FollowGames.js";
-import SearchResults from "./SearchResults.js";
-import Explore from "./Explore.js";
-import Home from "./Home.js";
+import CreateAccount from "./components/createAccount/CreateAccount.js";
+import LoginPage from "./components/login/LoginPage.js";
+import NavigationBar from "./components/navigation/NavigationBar.js";
+import LoadSpinner from "./components/common/LoadSpinner.js";
+import UserRecommendations from "./components/profile/UserRecommendations.js";
+import UserInterests from "./components/profile/UserInterests.js";
+import UserPlayedGames from "./components/profile/UserPlayedGames.js";
+import VideoGameDetails from "./components/videoGame/VideoGameDetails.js";
+import SearchUsers from "./components/search/SearchUsers.js";
+import Follows from "./components/profile/Follows.js";
+import FollowGames from "./components/profile/FollowGames.js";
+import SearchResults from "./components/search/SearchResults.js";
+import Explore from "./components/explore/Explore.js";
+import Home from "./components/home/Home.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "./styles/App.css";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import VideoGameContainer from "./components/VideoGameContainer.js";
+import VideoGameContainer from "../videoGame/VideoGameContainer.js";
 
 function SearchResults() {
   const [searchParams, setSearchParams] = useSearchParams();

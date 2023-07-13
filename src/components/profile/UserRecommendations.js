@@ -1,5 +1,5 @@
 import { React, useEffect, useParams, useState } from "react";
-import VideoGame from "./components/VideoGame.js";
+import VideoGame from "../videoGame/VideoGame.js";
 import Carousel from "react-bootstrap/Carousel";
 import secureLocalStorage from "react-secure-storage";
 
