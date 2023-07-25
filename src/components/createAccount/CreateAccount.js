@@ -8,12 +8,17 @@ import Modal from "react-bootstrap/Modal";
 
 function CreateAccount() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
-  const [user, setUser] = useState({});
-  const [showError, setShowError] = useState({ show: false, message: "" });
+
+  const [state, setState] = useState({
+    showModal: true,
+    user: {},
+    showError: { show: false, message: "" },
+  });
+
+  const { showModal, user, showError } = state;
 
   const handleClose = () => {
-    setShow(false);
+    setState({ ...state, showModal: false });
     navigate("/explore");
   };
 
@@ -39,20 +44,31 @@ function CreateAccount() {
           secureLocalStorage.setItem("authorized", true);
           navigate("/explore");
         } else if (result.message === "Requirements not filled") {
-          setShowError({ show: true, message: "Requirements not filled" });
+          setState({
+            ...state,
+            showError: { show: true, message: "Requirements not filled" },
+          });
         } else if (
           result.message === "Account with this email already exists"
         ) {
-          setShowError({
-            show: true,
-            message: "Account with this email already exists",
+          setState({
+            ...state,
+            showError: {
+              show: true,
+              message: "Account with this email already exists",
+            },
           });
         }
       });
   };
 
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal
+      show={showModal}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+    >
       <Modal.Header closeButton>
         <Modal.Title className="follows-list-title w-100">
           Create an Account
@@ -65,7 +81,12 @@ function CreateAccount() {
             <Form.Control
               type="text"
               placeholder="Enter first name"
-              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  user: { ...user, firstName: e.target.value },
+                })
+              }
             />
           </Form.Group>
 
@@ -74,7 +95,12 @@ function CreateAccount() {
             <Form.Control
               type="text"
               placeholder="Enter last name"
-              onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  user: { ...user, lastName: e.target.value },
+                })
+              }
             />
           </Form.Group>
 
@@ -83,7 +109,12 @@ function CreateAccount() {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  user: { ...user, email: e.target.value },
+                })
+              }
             />
           </Form.Group>
 
@@ -92,7 +123,12 @@ function CreateAccount() {
             <Form.Control
               type="password"
               placeholder="Password"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  user: { ...user, password: e.target.value },
+                })
+              }
               mb={8}
             />
             <Form.Text className="text-muted">
