@@ -63,7 +63,7 @@ def create_user_account():
     email = data.get("email")
     password = data.get("password")
 
-    if len(email) > 5 and len(password) >= 6:
+    if len(email) > 5 and len(password) >= 8:
         user_info = crud.create_account(email=email, password=password)
 
         if user_info == "User does not exist":
