@@ -16,7 +16,7 @@ import SearchResults from "./components/search/SearchResults.js";
 import Explore from "./components/explore/Explore.js";
 import Home from "./components/home/Home.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/App.css";
+import "./css/App.css";
 
 function App() {
   return (

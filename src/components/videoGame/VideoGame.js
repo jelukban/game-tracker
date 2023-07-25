@@ -30,7 +30,7 @@ function VideoGame({
         <div className="description-titles">Platforms:</div>
         <div className="platforms">
           {platforms?.map((platform, index) => (
-            <Button
+            <Button  
               variant="light"
               size="sm"
               className="game-platform"

@@ -22,7 +22,7 @@ function VideoGameDetails() {
     userGame["user_id"] = user.id;
   }
 
-  const [score, setScore] = useState();
+  const [score, setScore] = useState(); 
   const [gameStatus, setGameStatus] = useState({});
   const isLoggedIn = secureLocalStorage.getItem("authorized");
 
