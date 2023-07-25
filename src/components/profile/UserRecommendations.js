@@ -8,12 +8,15 @@ function UserRecommendations() {
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
 
-  const [games, setGames] = useState([]);
+  const [state, setState] = useState({
+    games: [],
+    index: 0,
+  });
 
-  const [index, setIndex] = useState(0);
+  const { games, index } = state;
 
   const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
+    setState({ ...state, index: selectedIndex });
   };
 
   useEffect(() => {
@@ -25,7 +28,7 @@ function UserRecommendations() {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        setGames(responseJson.data);
+        setState({ ...state, games: responseJson.data });
       });
   }, []);
 
@@ -34,8 +37,8 @@ function UserRecommendations() {
       <h1 className="recommend-title"> Your recommendations </h1>
       <div className="recommended-games">
         <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
-          {games.map((game) => (
-            <Carousel.Item>
+          {games.map((game, idx) => (
+            <Carousel.Item key={idx}>
               <VideoGame
                 game_id={game.id}
                 cover_url={game.cover_url}

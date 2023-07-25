@@ -8,10 +8,15 @@ import secureLocalStorage from "react-secure-storage";
 function FollowGames() {
   const user = JSON.parse(secureLocalStorage.getItem("user"));
 
+  const [state, setState] = useState({
+    followUser: {},
+    followUserLoaded: false,
+    userFollowStatus: true,
+  });
+
   const { followUserId } = useParams();
-  const [followUser, setFollowUser] = useState({});
-  const [followUserLoaded, setFollowUserLoaded] = useState(false);
-  const [userFollowStatus, setUserFollowStatus] = useState(true);
+
+  const { followUser, followUserLoaded, userFollowStatus } = state;
 
   useEffect(() => {
     let queryString = new URLSearchParams({
@@ -25,10 +30,8 @@ function FollowGames() {
       .then((response) => response.json())
       .then((result) => {
         if (result.state !== "Account not found") {
-          setFollowUser(result);
-          setFollowUserLoaded(true);
+          setState({ ...state, followUser: result, followUserLoaded: true });
         }
-        console.log(result);
       });
   }, []);
 
@@ -46,7 +49,7 @@ function FollowGames() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow was made!") {
-          setUserFollowStatus(true);
+          setState({ ...state, userFollowStatus: true });
         }
       });
   };
@@ -65,7 +68,7 @@ function FollowGames() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow deleted") {
-          setUserFollowStatus(false);
+          setState({ ...state, userFollowStatus: false });
         }
       });
   };

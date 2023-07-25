@@ -14,28 +14,41 @@ function SearchUsers() {
   const followerUserInfo = JSON.parse(secureLocalStorage.getItem("user"))
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
-  const [userEmail, setUserEmail] = useState("");
-  const [user, setUser] = useState({});
-  const [userFound, setUserFound] = useState(false);
-  const [showMessage, setShowMessage] = useState({
-    show: false,
-    message: "",
-    type: "",
+
+  const [state, setState] = useState({
+    userEmail: "",
+    user: {},
+    userFound: false,
+    showMessage: {
+      show: false,
+      message: "",
+      type: "",
+    },
+    showModal: false,
+    showModalMessage: {
+      show: false,
+      message: "",
+      type: "",
+    },
+    userFollowStatus: false,
   });
 
-  const [show, setShow] = useState(false);
-
-  const [showModalMessage, setShowModalMessage] = useState({
-    show: false,
-    message: "",
-    type: "",
-  });
-
-  const [userFollowStatus, setUserFollowStatus] = useState(false);
+  const {
+    userEmail,
+    user,
+    userFound,
+    showMessage,
+    showModal,
+    showModalMessage,
+    userFollowStatus,
+  } = state;
 
   const handleClose = () => {
-    setShowModalMessage({ show: false, message: "", type: "" });
-    setShow(false);
+    setState({
+      ...state,
+      showModalMessage: { show: false, message: "", type: "" },
+      showModal: false,
+    });
   };
 
   const handleSearchUser = (e) => {
@@ -55,20 +68,26 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message !== "Account not found") {
-          setUser({
-            id: result.data.id,
-            firstName: result.data.firstName,
-            lastName: result.data.lastName,
-            email: result.data.email,
+          setState({
+            ...state,
+            user: {
+              id: result.data.id,
+              firstName: result.data.firstName,
+              lastName: result.data.lastName,
+              email: result.data.email,
+            },
+            userFound: true,
+            showModal: true,
+            userFollowStatus: result.data.follow_status === "true",
           });
-          setUserFound(true);
-          setShow(true);
-          setUserFollowStatus(result.data.follow_status === "true");
         } else {
-          setShowMessage({
-            show: true,
-            message: "Email was not found",
-            type: "danger",
+          setState({
+            ...state,
+            showMessage: {
+              show: true,
+              message: "Email was not found",
+              type: "danger",
+            },
           });
         }
       });
@@ -88,7 +107,7 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow was made!") {
-          setUserFollowStatus(true);
+          setState({ ...state, userFollowStatus: true });
         }
       });
   };
@@ -107,7 +126,7 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow deleted") {
-          setUserFollowStatus(false);
+          setState({ ...state, userFollowStatus: false });
         }
       });
   };
@@ -122,7 +141,9 @@ function SearchUsers() {
               <Form.Control
                 type="text"
                 placeholder="Email Address"
-                onChange={(e) => setUserEmail(e.target.value)}
+                onChange={(e) =>
+                  setState({ ...state, userEmail: e.target.value })
+                }
                 id="search-users-bar"
               />
               <Form.Text className="text-muted"></Form.Text>
@@ -138,7 +159,7 @@ function SearchUsers() {
           ""
         )}
         <Modal
-          show={show}
+          show={showModal}
           onHide={handleClose}
           backdrop="static"
           keyboard={false}
@@ -200,7 +221,9 @@ function SearchUsers() {
               <Form.Control
                 type="text"
                 placeholder="Email Address"
-                onChange={(e) => setUserEmail(e.target.value)}
+                onChange={(e) =>
+                  setState({ ...state, userEmail: e.target.value })
+                }
                 id="search-users-bar"
               />
               <Form.Text className="text-muted"></Form.Text>

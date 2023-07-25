@@ -12,9 +12,14 @@ function Follows() {
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
 
-  const [follows, setFollows] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [show, setShow] = useState(true);
+
+  const [state, setState] = useState({
+    follows: [],
+    showModal: true,
+  });
+
+  const { follows, showModal } = state;
 
   useEffect(() => {
     fetch(`/user/followings`, {
@@ -26,7 +31,7 @@ function Follows() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message !== "User has no follows") {
-          setFollows(result.data);
+          setState({ ...state, follows: result.data });
         }
       });
   }, []);
@@ -36,14 +41,15 @@ function Follows() {
   }, [follows]);
 
   const handleClose = () => {
-    setShow(false);
+    // setShow(false);
+    setState({ ...state, showModal: false });
     navigate("/explore");
   };
 
   if (isLoaded) {
     return (
       <Modal
-        show={show}
+        show={showModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
@@ -56,8 +62,8 @@ function Follows() {
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            {follows.map((follow) => (
-              <div>
+            {follows.map((follow, idx) => (
+              <div key={idx}>
                 <ListGroup.Item
                   action
                   href={`/dashboard/following/${follow.id}`}

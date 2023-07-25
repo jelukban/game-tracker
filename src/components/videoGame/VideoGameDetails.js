@@ -14,7 +14,7 @@ function VideoGameDetails() {
   const user = JSON.parse(secureLocalStorage.getItem("user"))
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
-  const [game, setGame] = useState({});
+
   const { game_id } = useParams();
   const userGame = { game_id: game_id };
 
@@ -22,8 +22,14 @@ function VideoGameDetails() {
     userGame["user_id"] = user.id;
   }
 
-  const [score, setScore] = useState(); 
-  const [gameStatus, setGameStatus] = useState({});
+  const [state, setState] = useState({
+    game: {},
+    score: 0,
+    gameStatus: {},
+  });
+
+  const { game, score, gameStatus } = state;
+
   const isLoggedIn = secureLocalStorage.getItem("authorized");
 
   useEffect(() => {
@@ -40,10 +46,13 @@ function VideoGameDetails() {
         if (result.description === "None") {
           result.description = "";
         }
-        setGame(result);
-        setGameStatus({
-          interestStatus: result.interest_status,
-          playedStatus: result.game_played_status,
+        setState({
+          ...state,
+          game: result,
+          gameStatus: {
+            interestStatus: result.interest_status,
+            playedStatus: result.game_played_status,
+          },
         });
       });
   }, []);
@@ -59,7 +68,10 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest made") {
-          setGameStatus({ ...gameStatus, interestStatus: true });
+          setState({
+            ...state,
+            gameStatus: { ...gameStatus, interestStatus: true },
+          });
         }
       });
   };
@@ -73,7 +85,10 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest deleted") {
-          setGameStatus({ ...gameStatus, interestStatus: false });
+          setState({
+            ...state,
+            gameStatus: { ...gameStatus, interestStatus: false },
+          });
         }
       });
   };
@@ -89,7 +104,10 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "GamePlayed was made") {
-          setGameStatus({ ...gameStatus, playedStatus: true });
+          setState({
+            ...state,
+            gameStatus: { ...gameStatus, playedStatus: true },
+          });
         }
       });
   };
@@ -103,7 +121,10 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Game played deleted") {
-          setGameStatus({ ...gameStatus, playedStatus: false });
+          setState({
+            ...state,
+            gameStatus: { ...gameStatus, playedStatus: false },
+          });
         }
       });
   };
@@ -131,7 +152,7 @@ function VideoGameDetails() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={(e) => deleteInterests()}
+                    onClick={deleteInterests}
                     className="form-button game-status"
                   >
                     Uninterest
@@ -140,7 +161,7 @@ function VideoGameDetails() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={(e) => handleInterests()}
+                    onClick={handleInterests}
                     className="form-button game-status"
                   >
                     Interest
@@ -150,7 +171,7 @@ function VideoGameDetails() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={(e) => deletePlayed()}
+                    onClick={deletePlayed}
                     className="form-button game-status"
                   >
                     Unplayed
@@ -159,7 +180,7 @@ function VideoGameDetails() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={(e) => handlePlayed()}
+                    onClick={handlePlayed}
                     className="form-button game-status"
                   >
                     Played
@@ -171,8 +192,10 @@ function VideoGameDetails() {
                 <Form.Select
                   className="rating-dropdown"
                   size="sm"
-                  onChange={(e) => setScore(e.target.value)}
-                  autosize={false}
+                  onChange={(e) =>
+                    setState({ ...state, score: e.target.value })
+                  }
+                  autosize="false"
                 >
                   <option value="0">0</option>
                   <option value="1">1</option>

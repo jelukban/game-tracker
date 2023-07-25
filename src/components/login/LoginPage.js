@@ -8,11 +8,16 @@ import secureLocalStorage from "react-secure-storage";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
-  const [showError, setShowError] = useState({ show: false, message: "" });
+
+  const [state, setState] = useState({
+    showModal: true,
+    showError: { show: false, message: "" },
+  });
+
+  const { showModal, showError } = state;
 
   const handleClose = () => {
-    setShow(false);
+    setState({ ...state, showModal: false });
     navigate("/explore");
   };
 
@@ -39,16 +44,24 @@ function LoginPage() {
           secureLocalStorage.setItem("authorized", true);
           navigate("/explore");
         } else if (result.message === "Account not found") {
-          setShowError({
-            show: true,
-            message: "Account not found or password incorrect",
+          setState({
+            ...state,
+            showError: {
+              show: true,
+              message: "Account not found or password incorrect",
+            },
           });
         }
       });
   };
 
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal
+      show={showModal}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+    >
       <Modal.Header closeButton>
         <Modal.Title className="follows-list-title w-100">
           Welcome back gamer!
