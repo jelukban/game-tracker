@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserRecommendations from "../profile/UserInterests.js";
+import UserInterests from "../profile/UserInterests.js";
 import UserPlayedGames from "../profile/UserPlayedGames.js";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -54,16 +54,16 @@ function SearchUsers() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status !== "Account not found") {
+        if (result.message !== "Account not found") {
           setUser({
-            id: result.id,
-            firstName: result.firstName,
-            lastName: result.lastName,
-            email: result.email,
+            id: result.data.id,
+            firstName: result.data.firstName,
+            lastName: result.data.lastName,
+            email: result.data.email,
           });
           setUserFound(true);
           setShow(true);
-          setUserFollowStatus(result.follow_status === "true");
+          setUserFollowStatus(result.data.follow_status === "true");
         } else {
           setShowMessage({
             show: true,

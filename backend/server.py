@@ -231,9 +231,11 @@ def retrieve_user_data_by_email():
 
         if user_info != "This user does not exist!":
             user_info["status"] = "Account found!"
-            return jsonify(user_info)
+            return api_output(HTTP_RESPONSE_CODES["success"], user_info)
         else:
-            return jsonify({"status": "Account not found"})
+            return api_output(
+                HTTP_RESPONSE_CODES["doesntExist"], message="Account not found"
+            )
 
     follow_user_id = request.args.get("id")
 
@@ -241,9 +243,11 @@ def retrieve_user_data_by_email():
 
     if user_info != "This user does not exist!":
         user_info["status"] = "Account found!"
-        return jsonify(user_info)
+        return api_output(HTTP_RESPONSE_CODES["success"], user_info)
     else:
-        return jsonify({"status": "Account not found"})
+        return api_output(
+            HTTP_RESPONSE_CODES["doesntExist"], message="Account not found"
+        )
 
 
 @app.route("/user/followings")
