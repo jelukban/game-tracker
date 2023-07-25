@@ -28,6 +28,7 @@ function FollowGames() {
           setFollowUser(result);
           setFollowUserLoaded(true);
         }
+        console.log(result);
       });
   }, []);
 
@@ -72,7 +73,7 @@ function FollowGames() {
   if (followUserLoaded) {
     return (
       <div className="user-profile">
-        <h1> Welcome to {followUser.firstName}'s library!</h1>
+        <h1> Welcome to {followUser.data.firstName}'s library!</h1>
         <div id="follow-button-on-dashboard">
           {!userFollowStatus ? (
             <Button
@@ -92,8 +93,8 @@ function FollowGames() {
             </Button>
           )}
         </div>
-        <UserInterests user={followUser} />
-        <UserPlayedGames user={followUser} />
+        <UserInterests user={followUser.data} />
+        <UserPlayedGames user={followUser.data} />
       </div>
     );
   }
