@@ -1,10 +1,13 @@
 import { useState } from "react";
+import useQueryGames from "../../hooks/useQueryGames";
 import VideoGame from "./VideoGame.js";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function VideoGameContainer({ games }) {
+function VideoGameContainer() {
+  const gamesQuery = useQueryGames();
+  const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
   const halfOfGames = Math.ceil(games.length / 2);
 
   return (
