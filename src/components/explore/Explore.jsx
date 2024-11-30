@@ -1,5 +1,5 @@
-import VideoGameContainer from "../videoGame/VideoGameContainer.js";
-import LoadSpinner from "../common/LoadSpinner.js";
+import VideoGameContainer from "../videoGame/VideoGameContainer";
+import LoadSpinner from "../common/LoadSpinner.jsx";
 
 function Explore() {
   return (

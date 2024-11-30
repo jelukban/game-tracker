@@ -1,6 +1,6 @@
 import { useState } from "react";
-import useQueryGames from "../../hooks/useQueryGames";
-import VideoGame from "./VideoGame.js";
+import useQueryGames from "../../hooks/useQueryGames.js";
+import VideoGame from "./VideoGame";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

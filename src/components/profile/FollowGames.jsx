@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import UserInterests from "./UserInterests.js";
-import UserPlayedGames from "./UserPlayedGames.js";
+import UserInterests from "./UserInterests";
+import UserPlayedGames from "./UserPlayedGames";
 import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
 
