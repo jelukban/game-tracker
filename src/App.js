@@ -8,7 +8,7 @@ import LoadSpinner from "./components/common/LoadSpinner.jsx";
 import UserRecommendations from "./components/profile/UserRecommendations";
 import UserInterests from "./components/profile/UserInterests";
 import UserPlayedGames from "./components/profile/UserPlayedGames";
-import VideoGameDetails from "./components/videoGame/VideoGameDetails";
+import VideoGame from "./components/videoGame/VideoGame.jsx";
 import SearchUsers from "./components/search/SearchUsers";
 import Follows from "./components/profile/Follows";
 import FollowGames from "./components/profile/FollowGames";
@@ -33,10 +33,7 @@ function App() {
         />
         <Route path={`/dashboard/interests`} element={<UserInterests />} />
         <Route path={`/dashboard/gamesplayed`} element={<UserPlayedGames />} />
-        <Route
-          path={`/games/details/:game_id`}
-          element={<VideoGameDetails />}
-        />
+        <Route path={`/games/details/:game_id`} element={<VideoGame />} />
         <Route path="/find" element={<SearchUsers />} />
         <Route path={`/dashboard/following`} element={<Follows />} />
         <Route

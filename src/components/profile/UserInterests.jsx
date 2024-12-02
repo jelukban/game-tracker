@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
-import VideoGameContainer from "../videoGame/VideoGameContainer";
+import VideoGameContainer from "../common/videoGame/VideoGameContainer";
 
 function UserInterests(props) {
   const [interestingGames, setInterestingGames] = useState([]);

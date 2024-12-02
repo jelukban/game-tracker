@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
-import VideoGameContainer from "../videoGame/VideoGameContainer";
+import VideoGameContainer from "../common/videoGame/VideoGameContainer";
 
 function UserPlayedGames(props) {
   const [gamesPlayed, setGamesPlayed] = useState([]);
