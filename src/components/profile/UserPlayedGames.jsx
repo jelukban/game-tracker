@@ -1,34 +1,15 @@
-import { React, useState, useEffect } from "react";
-import secureLocalStorage from "react-secure-storage";
+import { React } from "react";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
 import VideoGameContainer from "../common/videoGame/VideoGameContainer";
 
 function UserPlayedGames(props) {
-  const [gamesPlayed, setGamesPlayed] = useState([]);
-  let { user } = props;
-
-  if (!user) {
-    user = JSON.parse(secureLocalStorage.getItem("user"))
-      ? JSON.parse(secureLocalStorage.getItem("user"))
-      : undefined;
-  }
-
-  useEffect(() => {
-    fetch("/user/played", {
-      headers: {
-        User: JSON.stringify(user),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setGamesPlayed(result.data);
-      });
-  }, []);
+  const gamesQuery = useQueryUserGames("played");
+  const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 
   return (
     <div>
       <h1>Played Games</h1>
-      <VideoGameContainer games={gamesPlayed} />
+      <VideoGameContainer games={games} />
     </div>
   );
 }

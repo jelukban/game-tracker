@@ -1,36 +1,17 @@
-import { React, useEffect, useParams, useState } from "react";
+import { React, useState } from "react";
 import VideoGame from "../common/videoGame/VideoGameCard";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
 import Carousel from "react-bootstrap/Carousel";
-import secureLocalStorage from "react-secure-storage";
 
 function UserRecommendations() {
-  const user = JSON.parse(secureLocalStorage.getItem("user"))
-    ? JSON.parse(secureLocalStorage.getItem("user"))
-    : undefined;
+  const [index, setIndex] = useState(0);
 
-  const [state, setState] = useState({
-    games: [],
-    index: 0,
-  });
-
-  const { games, index } = state;
+  const gamesQuery = useQueryUserGames("recommendations");
+  const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 
   const handleSelect = (selectedIndex, e) => {
-    setState({ ...state, index: selectedIndex });
+    setIndex(selectedIndex);
   };
-
-  useEffect(() => {
-    fetch(`/user/recommendations`, {
-      headers: {
-        User: JSON.stringify(user),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setState({ ...state, games: responseJson.data });
-      });
-  }, []);
 
   return (
     <div className="recommends-background">

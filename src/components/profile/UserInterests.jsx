@@ -1,36 +1,15 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import secureLocalStorage from "react-secure-storage";
+import { React } from "react";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
 import VideoGameContainer from "../common/videoGame/VideoGameContainer";
 
 function UserInterests(props) {
-  const [interestingGames, setInterestingGames] = useState([]);
-
-  let { user } = props;
-
-  if (!user) {
-    user = JSON.parse(secureLocalStorage.getItem("user"))
-      ? JSON.parse(secureLocalStorage.getItem("user"))
-      : undefined;
-  }
-
-  useEffect(() => {
-    fetch("/user/interests", {
-      headers: {
-        User: JSON.stringify(user),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setInterestingGames(result.data);
-      });
-  }, []);
+  const gamesQuery = useQueryUserGames("interests");
+  const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 
   return (
     <div>
       <h1>Interests</h1>
-      <VideoGameContainer games={interestingGames} />
+      <VideoGameContainer games={games} />
     </div>
   );
 }

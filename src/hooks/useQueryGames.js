@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchGames = (url) => {
-  const data = axios.get(url);
+const fetchGames = () => {
+  const data = axios.get("/games");
 
   return data;
 };
