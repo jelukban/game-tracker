@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import UserInterests from "../common/user/UserInterests";
 import UserPlayedGames from "../common/user/UserPlayedGames";
 import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
+import { selectId } from "../../redux/reducers";
 
 function FollowGames() {
   const user = JSON.parse(secureLocalStorage.getItem("user"));
@@ -14,7 +15,7 @@ function FollowGames() {
     userFollowStatus: true,
   });
 
-  const { followUserId } = useParams();
+  const followUserId = useSelector(selectId);
 
   const { followUser, followUserLoaded, userFollowStatus } = state;
 

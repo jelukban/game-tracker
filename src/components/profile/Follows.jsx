@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
-import Card from "react-bootstrap/Card";
+import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import secureLocalStorage from "react-secure-storage";
+import { setId } from "../../redux/reducers";
 
 function Follows() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const user = JSON.parse(secureLocalStorage.getItem("user"))
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
@@ -41,7 +44,6 @@ function Follows() {
   }, [follows]);
 
   const handleClose = () => {
-    // setShow(false);
     setState({ ...state, showModal: false });
     navigate("/explore");
   };
@@ -66,7 +68,12 @@ function Follows() {
               <div key={idx}>
                 <ListGroup.Item
                   action
-                  href={`/dashboard/following/${follow.id}`}
+                  onClick={() => {
+                    dispatch(setId(follow.id));
+                    navigate(
+                      `/dashboard/following/${follow.firstName.toLowerCase()}.${follow.lastName.toLowerCase()}`
+                    );
+                  }}
                   className="follows-list"
                 >
                   {follow.firstName} {follow.lastName}

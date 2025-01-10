@@ -34,10 +34,7 @@ function App() {
         <Route path={`/games/details/:game_id`} element={<VideoGame />} />
         <Route path="/find" element={<SearchUsers />} />
         <Route path={`/dashboard/following`} element={<Follows />} />
-        <Route
-          path={`/dashboard/following/:followUserId`}
-          element={<FollowGames />}
-        />
+        <Route path={`/dashboard/following/:user`} element={<FollowGames />} />
         <Route path={`/search/games`} element={<SearchResults />} />
         <Route path="/signout" element={<Navigate to="/explore" />} />
       </Routes>
