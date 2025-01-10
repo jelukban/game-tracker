@@ -1,9 +1,7 @@
-import { useState } from "react";
-import useQueryGames from "../../../hooks/useQueryGames.js";
-import VideoGameCard from "./VideoGameCard.jsx";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import VideoGameCard from "./VideoGameCard.jsx";
 
 function VideoGameContainer({ games }) {
   const halfOfGames = Math.ceil(games.length / 2);

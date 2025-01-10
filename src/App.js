@@ -2,7 +2,7 @@ import { React } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import CreateAccount from "./components/createAccount/CreateAccount";
 import LoginPage from "./components/login/LoginPage";
-import NavigationBar from "./components/navigation/NavigationBar";
+import NavigationBar from "./components/common/navigation/NavigationBar.jsx";
 import UserRecommendations from "./components/profile/UserRecommendations";
 import UserInterests from "./components/common/user/UserInterests";
 import UserPlayedGames from "./components/common/user/UserPlayedGames";

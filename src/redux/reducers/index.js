@@ -1,16 +1,17 @@
-// import { SET_GAMES } from "../../constants/reduxConstants.js";
+import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//   ganmes: [],
-// };
+const initialState = { id: null };
 
-// export default function rootReducer(state = initialState, action) {
-//   const { type, payload } = action;
-//   switch (type) {
-//     case SET_GAMES:
-//       return (state.games = payload);
-//       break;
-//     default:
-//       break;
-//   }
-// }
+const followSlice = createSlice({
+  name: "follow",
+  initialState,
+  reducers: {
+    setId(state, action) {
+      return action.payload;
+    },
+  },
+});
+
+export const { setId } = followSlice.actions;
+export const selectId = (state) => state.follow.id;
+export default followSlice.reducer;

@@ -1,4 +1,4 @@
-// import { createStore } from "redux";
-// import rootReducer from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import followReducer from "./reducers";
 
-// export const store = createStore(rootReducer);
+export const store = configureStore({ reducer: { follow: followReducer } });

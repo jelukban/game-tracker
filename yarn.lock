@@ -6533,6 +6533,7 @@ __metadata:
     react-stars: ^2.2.5
     recharts: ^2.2.0
     redux: ^5.0.1
+    redux-thunk: ^3.1.0
     reinstall-node-modules: ^2.0.0
   languageName: unknown
   linkType: soft

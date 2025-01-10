@@ -8,9 +8,9 @@ const root = ReactDOM.createRoot(document.querySelector("#root"));
 const queryClient = new QueryClient();
 
 root.render(
-  // <Provider store={store}>
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
-  // </Provider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </Provider>
 );
