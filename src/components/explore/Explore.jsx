@@ -1,6 +1,6 @@
 import VideoGameContainer from "../common/videoGame/VideoGameContainer";
 import useQueryGames from "../../hooks/useQueryGames";
-import LoadSpinner from "../common/LoadSpinner.jsx";
+import LoadSpinner from "../common/spinner/LoadSpinner.jsx";
 
 function Explore() {
   const gamesQuery = useQueryGames();

@@ -1,8 +1,8 @@
 import { React } from "react";
-import useQueryUserGames from "../../hooks/useQueryUserGames";
-import VideoGameContainer from "../common/videoGame/VideoGameContainer";
+import useQueryUserGames from "../../../hooks/useQueryUserGames";
+import VideoGameContainer from "../videoGame/VideoGameContainer";
 
-function UserPlayedGames(props) {
+function UserPlayedGames() {
   const gamesQuery = useQueryUserGames("played");
   const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 

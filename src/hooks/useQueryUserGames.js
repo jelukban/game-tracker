@@ -17,7 +17,7 @@ const fetchUserGames = (type) => {
 
 export default function useQueryUserGames(type) {
   return useQuery({
-    queryKey: ["userGames"],
+    queryKey: ["userGames", type],
     queryFn: () => fetchUserGames(type),
   });
 }

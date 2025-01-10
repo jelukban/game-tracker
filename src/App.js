@@ -1,13 +1,11 @@
 import { React } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import secureLocalStorage from "react-secure-storage";
 import CreateAccount from "./components/createAccount/CreateAccount";
 import LoginPage from "./components/login/LoginPage";
 import NavigationBar from "./components/navigation/NavigationBar";
-import LoadSpinner from "./components/common/LoadSpinner.jsx";
 import UserRecommendations from "./components/profile/UserRecommendations";
-import UserInterests from "./components/profile/UserInterests";
-import UserPlayedGames from "./components/profile/UserPlayedGames";
+import UserInterests from "./components/common/user/UserInterests";
+import UserPlayedGames from "./components/common/user/UserPlayedGames";
 import VideoGame from "./components/videoGame/VideoGame.jsx";
 import SearchUsers from "./components/search/SearchUsers";
 import Follows from "./components/profile/Follows";

@@ -1,7 +1,6 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import UserInterests from "../profile/UserInterests";
-import UserPlayedGames from "../profile/UserPlayedGames";
+import UserInterests from "../common/user/UserInterests";
+import UserPlayedGames from "../common/user/UserPlayedGames";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
