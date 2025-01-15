@@ -1,13 +1,29 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import secureLocalStorage from "react-secure-storage";
+import {
+  setInterestStatus,
+  setPlayedStatus,
+} from "../../redux/slices/gameDetailsSlice";
 
 function VideoGameOptions() {
   const gameStatus = useSelector((state) => state.gameDetails);
+  const dispatch = useDispatch();
+
   const [score, setScore] = useState(0);
 
   const { game_id } = useParams();
+
+  const user = JSON.parse(secureLocalStorage.getItem("user"))
+    ? JSON.parse(secureLocalStorage.getItem("user"))
+    : undefined;
+
+  const userGame = { game_id: game_id };
+  if (user) {
+    userGame["user_id"] = user.id;
+  }
 
   const handleRating = (e) => {
     userGame["score"] = score;
@@ -30,10 +46,7 @@ function VideoGameOptions() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest made") {
-          setGameStatus({
-            ...gameStatus,
-            interestStatus: true,
-          });
+          dispatch(setInterestStatus(true));
         }
       });
   };
@@ -47,10 +60,7 @@ function VideoGameOptions() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest deleted") {
-          setGameStatus({
-            ...gameStatus,
-            interestStatus: false,
-          });
+          dispatch(setInterestStatus(false));
         }
       });
   };
@@ -66,10 +76,7 @@ function VideoGameOptions() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "GamePlayed was made") {
-          setGameStatus({
-            ...gameStatus,
-            playedStatus: true,
-          });
+          dispatch(setPlayedStatus(true));
         }
       });
   };
@@ -83,10 +90,7 @@ function VideoGameOptions() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Game played deleted") {
-          setGameStatus({
-            ...gameStatus,
-            playedStatus: false,
-          });
+          dispatch(setPlayedStatus(false));
         }
       });
   };

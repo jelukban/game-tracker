@@ -14,17 +14,7 @@ import useQueryGames from "../../hooks/useQueryGames";
 function VideoGameDetails() {
   const dispatch = useDispatch();
 
-  const user = JSON.parse(secureLocalStorage.getItem("user"))
-    ? JSON.parse(secureLocalStorage.getItem("user"))
-    : undefined;
-
   const { game_id } = useParams();
-  const userGame = { game_id: game_id };
-
-  if (user) {
-    userGame["user_id"] = user.id;
-  }
-
   const isLoggedIn = secureLocalStorage.getItem("authorized");
 
   const gameQuery = useQueryGames(`/${game_id}`);
