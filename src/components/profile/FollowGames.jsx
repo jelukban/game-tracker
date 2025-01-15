@@ -4,7 +4,7 @@ import UserInterests from "../common/user/UserInterests";
 import UserPlayedGames from "../common/user/UserPlayedGames";
 import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
-import { selectId } from "../../redux/reducers";
+import { selectId } from "../../redux/slices/followSlice";
 
 function FollowGames() {
   const user = JSON.parse(secureLocalStorage.getItem("user"));

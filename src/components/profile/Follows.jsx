@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import secureLocalStorage from "react-secure-storage";
-import { setId } from "../../redux/reducers";
+import { setId } from "../../redux/slices/followSlice";
 
 function Follows() {
   const navigate = useNavigate();
