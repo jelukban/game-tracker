@@ -1,14 +1,14 @@
-import { React, useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import Details from "./Details";
+import { React, useState } from "react";
+import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Alert from "react-bootstrap/Alert";
 import secureLocalStorage from "react-secure-storage";
+import Details from "./Details";
+import VideoGameOptions from "./VideoGameOptions";
+import useQueryGames from "../../hooks/useQueryGames";
 
 function VideoGameDetails() {
   const user = JSON.parse(secureLocalStorage.getItem("user"))
@@ -22,41 +22,25 @@ function VideoGameDetails() {
     userGame["user_id"] = user.id;
   }
 
-  const [state, setState] = useState({
-    game: {},
-    score: 0,
-    gameStatus: {},
-  });
-
-  const { game, score, gameStatus } = state;
+  const [score, setScore] = useState(0);
 
   const isLoggedIn = secureLocalStorage.getItem("authorized");
 
-  useEffect(() => {
-    fetch(`/games/${game_id}`, {
-      headers: {
-        User: JSON.stringify(userGame),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        result = result.data;
-        result.release_date = result.release_date.slice(0, -9);
-        if (result.description === "None") {
-          result.description = "";
-        }
-        setState({
-          ...state,
-          game: result,
-          gameStatus: {
-            interestStatus: result.interest_status,
-            playedStatus: result.game_played_status,
-          },
-        });
-      });
-  }, []);
+  const gameQuery = useQueryGames(`/${game_id}`);
+  const game = gameQuery.isSuccess ? gameQuery?.data?.data?.data : {};
 
+  if (game?.release_date) {
+    game.release_date = game.release_date.slice(0, -9);
+  }
+
+  const initialGameStatus = {
+    interestStatus: game.interest_status,
+    playedStatus: game.game_played_status,
+  };
+
+  const [gameStatus, setGameStatus] = useState(initialGameStatus);
+
+  console.log({ game });
   const handleInterests = () => {
     fetch(`/games/${game_id}/interest`, {
       method: "POST",
@@ -68,9 +52,9 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest made") {
-          setState({
-            ...state,
-            gameStatus: { ...gameStatus, interestStatus: true },
+          setGameStatus({
+            ...gameStatus,
+            interestStatus: true,
           });
         }
       });
@@ -85,9 +69,9 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Interest deleted") {
-          setState({
-            ...state,
-            gameStatus: { ...gameStatus, interestStatus: false },
+          setGameStatus({
+            ...gameStatus,
+            interestStatus: false,
           });
         }
       });
@@ -104,9 +88,9 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "GamePlayed was made") {
-          setState({
-            ...state,
-            gameStatus: { ...gameStatus, playedStatus: true },
+          setGameStatus({
+            ...gameStatus,
+            playedStatus: true,
           });
         }
       });
@@ -121,9 +105,13 @@ function VideoGameDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Game played deleted") {
-          setState({
-            ...state,
-            gameStatus: { ...gameStatus, playedStatus: false },
+          // setState({
+          //   ...state,
+          //   gameStatus: { ...gameStatus, playedStatus: false },
+          // });
+          setGameStatus({
+            ...gameStatus,
+            playedStatus: false,
           });
         }
       });
@@ -166,7 +154,7 @@ function VideoGameDetails() {
                   >
                     Interest
                   </Button>
-                )}{" "}
+                )}
                 {gameStatus.playedStatus ? (
                   <Button
                     variant="secondary"
@@ -187,32 +175,7 @@ function VideoGameDetails() {
                   </Button>
                 )}
               </div>
-              <Form onSubmit={handleRating} className="rating-form">
-                <div className="detail-title">Rate this video game:</div>
-                <Form.Select
-                  className="rating-dropdown"
-                  size="sm"
-                  onChange={(e) =>
-                    setState({ ...state, score: e.target.value })
-                  }
-                  autosize="false"
-                >
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </Form.Select>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  type="submit"
-                  className="rating-button"
-                >
-                  Submit
-                </Button>
-              </Form>
+              <VideoGameOptions />
             </div>
           </Col>
         </Row>
