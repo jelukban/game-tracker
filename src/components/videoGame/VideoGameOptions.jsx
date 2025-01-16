@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import secureLocalStorage from "react-secure-storage";
-import {
-  setInterestStatus,
-  setPlayedStatus,
-} from "../../redux/slices/gameDetailsSlice";
+import useQueryGames from "../../hooks/useQueryGames";
+import useMutateAddInterest from "../../hooks/useMutateAddInterest";
+import useMutateDeleteInterest from "../../hooks/useMutateDeleteInterest";
+import useMutateAddPlayed from "../../hooks/useMutateAddPlayed";
+import useMutateDeletePlayed from "../../hooks/useMutateDeletePlayed";
 
 function VideoGameOptions() {
-  const gameStatus = useSelector((state) => state.gameDetails);
-  const dispatch = useDispatch();
+  const addInterest = useMutateAddInterest();
+  const deleteInterest = useMutateDeleteInterest();
+  const addPlayed = useMutateAddPlayed();
+  const deletePlayed = useMutateDeletePlayed();
 
   const [score, setScore] = useState(0);
 
@@ -21,9 +23,16 @@ function VideoGameOptions() {
     : undefined;
 
   const userGame = { game_id: game_id };
-  if (user) {
-    userGame["user_id"] = user.id;
-  }
+
+  userGame.user_id = user?.id;
+
+  const gameQuery = useQueryGames(`${game_id}`);
+  const game = gameQuery.isSuccess ? gameQuery?.data?.data?.data : {};
+
+  const gameStatus = {
+    interestStatus: game?.interest_status,
+    playedStatus: game?.game_played_status,
+  };
 
   const handleRating = (e) => {
     userGame["score"] = score;
@@ -36,63 +45,19 @@ function VideoGameOptions() {
   };
 
   const handleInterests = () => {
-    fetch(`/games/${game_id}/interest`, {
-      method: "POST",
-      headers: {
-        User: JSON.stringify(userGame),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Interest made") {
-          dispatch(setInterestStatus(true));
-        }
-      });
+    addInterest.mutate(game_id);
   };
 
   const deleteInterests = () => {
-    fetch(`/games/${game_id}/interest`, {
-      method: "DELETE",
-      body: JSON.stringify(userGame),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Interest deleted") {
-          dispatch(setInterestStatus(false));
-        }
-      });
+    deleteInterest.mutate(game_id);
   };
 
   const handlePlayed = () => {
-    fetch(`/games/${game_id}/played`, {
-      method: "POST",
-      headers: {
-        User: JSON.stringify(userGame),
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "GamePlayed was made") {
-          dispatch(setPlayedStatus(true));
-        }
-      });
+    addPlayed.mutate(game_id);
   };
 
-  const deletePlayed = () => {
-    fetch(`/games/${game_id}/played`, {
-      method: "DELETE",
-      body: JSON.stringify(userGame),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Game played deleted") {
-          dispatch(setPlayedStatus(false));
-        }
-      });
+  const deletePlayedGame = () => {
+    deletePlayed.mutate(game_id);
   };
 
   return (
@@ -122,7 +87,7 @@ function VideoGameOptions() {
           <Button
             variant="secondary"
             size="sm"
-            onClick={deletePlayed}
+            onClick={deletePlayedGame}
             className="form-button game-status"
           >
             Unplayed

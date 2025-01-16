@@ -14,14 +14,14 @@ const fetchGames = (gameId = "") => {
       }
     : null;
 
-  const data = axios.get(`/games${gameId}`, header);
+  const data = axios.get(`/games${gameId ? "/" : ""}${gameId}`, header);
 
   return data;
 };
 
 export default function useQueryGames(gameId) {
   return useQuery({
-    queryKey: ["exploredGames", gameId],
+    queryKey: ["exploredGames"],
     queryFn: () => fetchGames(gameId),
   });
 }
