@@ -7,12 +7,14 @@ import useMutateAddInterest from "../../hooks/useMutateAddInterest";
 import useMutateDeleteInterest from "../../hooks/useMutateDeleteInterest";
 import useMutateAddPlayed from "../../hooks/useMutateAddPlayed";
 import useMutateDeletePlayed from "../../hooks/useMutateDeletePlayed";
+import useMutateAddRating from "../../hooks/useMutateAddRating";
 
 function VideoGameOptions() {
   const addInterest = useMutateAddInterest();
   const deleteInterest = useMutateDeleteInterest();
   const addPlayed = useMutateAddPlayed();
   const deletePlayed = useMutateDeletePlayed();
+  const addRating = useMutateAddRating();
 
   const [score, setScore] = useState(0);
 
@@ -35,13 +37,15 @@ function VideoGameOptions() {
   };
 
   const handleRating = (e) => {
-    userGame["score"] = score;
+    e.preventDefault();
+    // userGame["score"] = score;
 
-    fetch(`/games/${game_id}/rating`, {
-      method: "POST",
-      body: JSON.stringify(userGame),
-      headers: { "Content-Type": "application/json" },
-    });
+    // fetch(`/games/${game_id}/rating`, {
+    //   method: "POST",
+    //   body: JSON.stringify(userGame),
+    //   headers: { "Content-Type": "application/json" },
+    // });
+    addRating.mutate(game_id, score);
   };
 
   const handleInterests = () => {

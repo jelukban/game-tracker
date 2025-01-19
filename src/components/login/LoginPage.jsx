@@ -1,9 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
-import Modal from "react-bootstrap/Modal";
+import { Button, Form, Alert, Modal } from "react-bootstrap";
 import secureLocalStorage from "react-secure-storage";
 
 function LoginPage() {

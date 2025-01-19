@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import secureLocalStorage from "react-secure-storage";
 import { setId } from "../../redux/slices/followSlice";
+import useQueryUserFollows from "../../hooks/useQueryUserFollows";
 
 function Follows() {
   const navigate = useNavigate();
@@ -38,6 +39,8 @@ function Follows() {
         }
       });
   }, []);
+
+  const followsQuery = useQueryUserFollows();
 
   useEffect(() => {
     setIsLoaded(true);

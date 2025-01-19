@@ -1,20 +1,27 @@
-import { React, useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import {
+  React,
+  // useState, useEffect
+} from "react";
+// import { useParams, useSearchParams } from "react-router-dom";
 import VideoGameContainer from "../common/videoGame/VideoGameContainer";
+import useQuerySearch from "../../hooks/useQuerySearch";
 
 function SearchResults() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const gameName = searchParams.get("gameName");
-  let url = `/search/games?gameName=${gameName}`;
-  const [games, setGames] = useState([]);
+  const searchQuery = useQuerySearch();
+  const games = searchQuery.isSuccess ? searchQuery?.data?.data : [];
 
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((result) => {
-        setGames(result.data);
-      });
-  }, [gameName]);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const gameName = searchParams.get("gameName");
+  // let url = `/search/games?gameName=${gameName}`;
+  // const [games, setGames] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       setGames(result.data);
+  //     });
+  // }, [gameName]);
 
   return (
     <div id="search-games-results">
