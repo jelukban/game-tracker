@@ -8,7 +8,6 @@ function SearchResults() {
   const searchQuery = useQuerySearchGames(searchParams.get("gameName"));
 
   const games = searchQuery.isSuccess ? searchQuery?.data?.data?.data : [];
-  console.log(games);
 
   return (
     <div id="search-games-results">
