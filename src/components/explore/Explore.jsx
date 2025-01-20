@@ -1,4 +1,4 @@
-import VideoGameContainer from "../common/videoGame/VideoGameContainer";
+import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 import useQueryGames from "../../hooks/useQueryGames";
 import LoadSpinner from "../common/spinner/LoadSpinner.jsx";
 

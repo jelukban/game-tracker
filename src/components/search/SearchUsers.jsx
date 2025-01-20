@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import UserInterests from "../common/user/UserInterests";
-import UserPlayedGames from "../common/user/UserPlayedGames";
+import UserInterests from "../profile/UserInterests";
+import UserPlayedGames from "../profile/UserPlayedGames";
 import { Button, Form, Alert, Modal, Container, Row } from "react-bootstrap";
 import secureLocalStorage from "react-secure-storage";
 import useQuerySearchUsers from "../../hooks/useQuerySearchUsers";
@@ -61,38 +61,11 @@ function SearchUsers() {
   };
 
   const searchQuery = useQuerySearchUsers(queryString);
-  const user = searchQuery.isSuccess ? searchQuery?.data?.data?.data : {};
-  const userFound = user?.status === "Account found!";
+  const user = searchQuery.isSuccess ? searchQuery?.data?.data?.data : null;
+  const userFound = queryString && user?.status === "Account found!";
 
-  console.log({ queryString, userFound, searchQuery });
-  const [showModal, setShowModal] = useState(false);
+  console.log({ searchQuery });
 
-  // useEffect(() => {
-  //   if (searchQuery.isSuccess && queryString) {
-  //     setShowModal(true);
-  //   }
-  // }, [searchQuery]);
-
-  // useEffect(() => {
-  //   if (searchQuery.isSuccess && accountFound !== "Account not found") {
-  //     setState({
-  //       ...state,
-  //       showModal: true,
-  //       userFollowStatus: user.follow_status === "true",
-  //     });
-  //   }
-  //   else if (searchQuery.isSuccess && accountFound === "Account not found") {
-  //     setState({
-  //       ...state,
-  //       showMessage: {
-  //         show: true,
-  //         message: "Email was not found",
-  //         type: "danger",
-  //       },
-  //     });
-  //   }
-  // }, [searchQuery, queryString]);
-  console.log({ userFound });
   const handleFollow = (e) => {
     e.preventDefault();
 
@@ -130,7 +103,7 @@ function SearchUsers() {
         }
       });
   };
-  console.log(showModal);
+
   return (
     <div className="search-users-input">
       <Container>
@@ -149,10 +122,8 @@ function SearchUsers() {
           </Form>
         </Row>
       </Container>
-      {showMessage.show ? (
-        <Alert variant={showMessage.type}> {showMessage.message}</Alert>
-      ) : (
-        ""
+      {!searchQuery.isSuccess && (
+        <Alert variant="danger">Email does not exist</Alert>
       )}
       <Modal
         show={userFound && queryString}
@@ -165,7 +136,7 @@ function SearchUsers() {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <h1>Welcome to {user.firstName}'s library!</h1>
+            <h1>Welcome to {user?.firstName}'s library!</h1>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

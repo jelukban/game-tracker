@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import VideoGameContainer from "../common/videoGame/VideoGameContainer";
+import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 import useQuerySearchGames from "../../hooks/useQuerySearchGames";
 
 function SearchResults() {

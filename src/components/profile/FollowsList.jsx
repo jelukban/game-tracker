@@ -8,7 +8,7 @@ import secureLocalStorage from "react-secure-storage";
 import { setId } from "../../redux/slices/followSlice";
 import useQueryUserFollows from "../../hooks/useQueryUserFollows";
 
-function Follows() {
+function FollowsList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -99,4 +99,4 @@ function Follows() {
   }
 }
 
-export default Follows;
+export default FollowsList;

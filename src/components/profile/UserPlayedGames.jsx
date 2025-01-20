@@ -1,6 +1,6 @@
 import { React } from "react";
-import useQueryUserGames from "../../../hooks/useQueryUserGames";
-import VideoGameContainer from "../videoGame/VideoGameContainer";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
+import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 
 function UserPlayedGames() {
   const gamesQuery = useQueryUserGames("played");

@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import UserInterests from "../common/user/UserInterests";
-import UserPlayedGames from "../common/user/UserPlayedGames";
 import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
+import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 import { selectId } from "../../redux/slices/followSlice";
 
 function FollowGames() {
@@ -97,8 +96,14 @@ function FollowGames() {
             </Button>
           )}
         </div>
-        <UserInterests user={followUser.data} />
-        <UserPlayedGames user={followUser.data} />
+        <div>
+          <h1>Interests</h1>
+          <VideoGameContainer user={followUser.data} />
+        </div>
+        <div>
+          <h1>Games Played</h1>
+          <VideoGameContainer user={followUser.data} />
+        </div>
       </div>
     );
   }

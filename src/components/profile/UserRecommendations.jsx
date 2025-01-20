@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import VideoGame from "../common/videoGame/VideoGameCard";
+import VideoGame from "../common/videoGameCard/VideoGameCard";
 import useQueryUserGames from "../../hooks/useQueryUserGames";
 import Carousel from "react-bootstrap/Carousel";
 
