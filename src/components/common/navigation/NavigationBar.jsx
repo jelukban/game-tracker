@@ -1,24 +1,18 @@
-import { React, useEffect, useState, Fragment } from "react";
+import React, { useState } from "react";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import {
-  Link,
-  useNavigate,
-  useParams,
-  createSearchParams,
-} from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Navbar from "react-bootstrap/Navbar";
+  Nav,
+  Form,
+  Button,
+  Navbar,
+  NavDropdown,
+  Container,
+} from "react-bootstrap";
 import { Controller } from "react-bootstrap-icons";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Container from "react-bootstrap/Container";
 import secureLocalStorage from "react-secure-storage";
 
 function NavigationBar() {
   const navigate = useNavigate();
-  const user = JSON.parse(secureLocalStorage.getItem("user"))
-    ? JSON.parse(secureLocalStorage.getItem("user"))
-    : undefined;
   const isLoggedIn = secureLocalStorage.getItem("authorized");
 
   const handleSignOut = () => {

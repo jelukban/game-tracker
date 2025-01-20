@@ -38,14 +38,7 @@ function VideoGameOptions() {
 
   const handleRating = (e) => {
     e.preventDefault();
-    // userGame["score"] = score;
-
-    // fetch(`/games/${game_id}/rating`, {
-    //   method: "POST",
-    //   body: JSON.stringify(userGame),
-    //   headers: { "Content-Type": "application/json" },
-    // });
-    addRating.mutate(game_id, score);
+    addRating.mutate({ gameId: game_id, score });
   };
 
   const handleInterests = () => {

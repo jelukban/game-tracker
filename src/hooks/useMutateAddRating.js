@@ -2,31 +2,30 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import secureLocalStorage from "react-secure-storage";
 
-const addRating = async (gameId, score) => {
+const addRating = async (ratingInfo) => {
+  const { gameId, score } = ratingInfo;
   const user = JSON.parse(secureLocalStorage.getItem("user"));
-  console.log(user);
-  console.log({ user_id: user.id, score: score });
-  //   const data = await axios.post(
-  //     `/games/${gameId}/rating`,
-  //     { user_id: user.id, score: score },
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
 
-  //   return data;
+  const data = await axios.post(
+    `/games/${gameId}/rating`,
+    { user_id: user.id, score: score },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return data;
 };
 
 export default function useMutateAddRating() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (gameId, score) => addRating(gameId, score),
+    mutationFn: (ratingInfo) => addRating(ratingInfo),
     onSuccess: () => {
-      //   queryClient.invalidateQueries({ queryKey: ["exploredGames"] });
-      console.log("Rating added");
+      queryClient.invalidateQueries({ queryKey: ["exploredGames"] });
     },
     onError: (error) => {
       console.log(error);

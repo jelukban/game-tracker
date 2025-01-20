@@ -1,34 +1,25 @@
-import {
-  React,
-  // useState, useEffect
-} from "react";
-// import { useParams, useSearchParams } from "react-router-dom";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
 import VideoGameContainer from "../common/videoGame/VideoGameContainer";
-import useQuerySearch from "../../hooks/useQuerySearch";
+import useQuerySearchGames from "../../hooks/useQuerySearchGames";
 
 function SearchResults() {
-  const searchQuery = useQuerySearch();
-  const games = searchQuery.isSuccess ? searchQuery?.data?.data : [];
+  const [searchParams] = useSearchParams();
+  const searchQuery = useQuerySearchGames(searchParams.get("gameName"));
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const gameName = searchParams.get("gameName");
-  // let url = `/search/games?gameName=${gameName}`;
-  // const [games, setGames] = useState([]);
-
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       setGames(result.data);
-  //     });
-  // }, [gameName]);
+  const games = searchQuery.isSuccess ? searchQuery?.data?.data?.data : [];
+  console.log(games);
 
   return (
     <div id="search-games-results">
-      <div id="search-results-count">
-        {games.length} search results were found.
-      </div>
-      <VideoGameContainer games={games} />
+      {searchQuery.isSuccess && (
+        <>
+          <div id="search-results-count">
+            {games.length} search results were found.
+          </div>
+          <VideoGameContainer games={games} />
+        </>
+      )}
     </div>
   );
 }
