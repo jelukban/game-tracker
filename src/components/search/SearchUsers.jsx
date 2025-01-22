@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import UserInterests from "../profile/UserInterests";
 import UserPlayedGames from "../profile/UserPlayedGames";
 import { Button, Form, Alert, Modal, Container, Row } from "react-bootstrap";
@@ -10,46 +11,14 @@ function SearchUsers() {
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
 
-  const [state, setState] = useState({
-    userEmail: "",
-    user: {},
-    userFound: false,
-    showMessage: {
-      show: false,
-      message: "",
-      type: "",
-    },
-    showModal: false,
-    showModalMessage: {
-      show: false,
-      message: "",
-      type: "",
-    },
-    userFollowStatus: false,
-  });
-
-  const {
-    // userEmail,
-    // user,
-    // userFound,
-    showMessage,
-    // showModal,
-    showModalMessage,
-    userFollowStatus,
-  } = state;
+  const [userFollowStatus, setUserFollowStatus] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [queryString, setQueryString] = useState("");
 
   const handleClose = () => {
-    setState({
-      ...state,
-      showModalMessage: { show: false, message: "", type: "" },
-      showModal: false,
-    });
-
-    // setShowModal(false);
+    setOpenModal(false);
     setQueryString("");
   };
-
-  const [queryString, setQueryString] = useState("");
 
   const handleSearchUser = (e) => {
     e.preventDefault();
@@ -62,9 +31,18 @@ function SearchUsers() {
 
   const searchQuery = useQuerySearchUsers(queryString);
   const user = searchQuery.isSuccess ? searchQuery?.data?.data?.data : null;
-  const userFound = queryString && user?.status === "Account found!";
 
-  console.log({ searchQuery });
+  console.log({ user, queryString });
+
+  useEffect(() => {
+    if (searchQuery?.error?.status === 404) {
+      toast.error("User not found");
+    } else if (user?.status === "Account found!") {
+      setOpenModal(true);
+    } else {
+      setOpenModal(false);
+    }
+  }, [searchQuery, user]);
 
   const handleFollow = (e) => {
     e.preventDefault();
@@ -80,7 +58,8 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow was made!") {
-          setState({ ...state, userFollowStatus: true });
+          // setState({ ...state, userFollowStatus: true });
+          setUserFollowStatus(true);
         }
       });
   };
@@ -99,7 +78,8 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow deleted") {
-          setState({ ...state, userFollowStatus: false });
+          // setState({ ...state, userFollowStatus: false });
+          setUserFollowStatus(false);
         }
       });
   };
@@ -122,11 +102,8 @@ function SearchUsers() {
           </Form>
         </Row>
       </Container>
-      {!searchQuery.isSuccess && (
-        <Alert variant="danger">Email does not exist</Alert>
-      )}
       <Modal
-        show={userFound && queryString}
+        show={openModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
@@ -159,13 +136,6 @@ function SearchUsers() {
               </Button>
             )}
           </div>
-          {showModalMessage.show ? (
-            <Alert variant={showModalMessage.type}>
-              {showModalMessage.message}
-            </Alert>
-          ) : (
-            ""
-          )}
           <UserInterests user={user} />
           <UserPlayedGames user={user} />
         </Modal.Body>
