@@ -1,48 +1,57 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 import UserInterests from "../profile/UserInterests";
 import UserPlayedGames from "../profile/UserPlayedGames";
-import { Button, Form, Alert, Modal, Container, Row } from "react-bootstrap";
+import { Button, Form, Modal, Container, Row } from "react-bootstrap";
 import secureLocalStorage from "react-secure-storage";
-import useQuerySearchUsers from "../../hooks/useQuerySearchUsers";
 
 function SearchUsers() {
+  const queryClient = useQueryClient();
+
   const followerUserInfo = JSON.parse(secureLocalStorage.getItem("user"))
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
 
   const [userFollowStatus, setUserFollowStatus] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [queryString, setQueryString] = useState("");
+  const [user, setUser] = useState(null);
 
   const handleClose = () => {
     setOpenModal(false);
-    setQueryString("");
   };
 
-  const handleSearchUser = (e) => {
+  const handleSearchUser = async (e) => {
     e.preventDefault();
-    setQueryString(
-      new URLSearchParams({
-        email: e.target[0].value,
-      }).toString()
-    );
-  };
 
-  const searchQuery = useQuerySearchUsers(queryString);
-  const user = searchQuery.isSuccess ? searchQuery?.data?.data?.data : null;
+    try {
+      const data = await queryClient.fetchQuery({
+        queryKey: ["user"],
+        queryFn: () => {
+          const data = axios.get(
+            `/search/user?${new URLSearchParams({
+              email: e.target[0].value,
+            }).toString()}`,
+            {
+              headers: {
+                User: followerUserInfo.id,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          return data;
+        },
+      });
 
-  console.log({ user, queryString });
-
-  useEffect(() => {
-    if (searchQuery?.error?.status === 404) {
-      toast.error("User not found");
-    } else if (user?.status === "Account found!") {
+      setUser(data?.data?.data);
       setOpenModal(true);
-    } else {
-      setOpenModal(false);
+    } catch (error) {
+      if (error?.status === 404) {
+        toast.error("User not found");
+      }
     }
-  }, [searchQuery, user]);
+  };
 
   const handleFollow = (e) => {
     e.preventDefault();
@@ -58,7 +67,6 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow was made!") {
-          // setState({ ...state, userFollowStatus: true });
           setUserFollowStatus(true);
         }
       });
@@ -78,7 +86,6 @@ function SearchUsers() {
       .then((response) => response.json())
       .then((result) => {
         if (result.message === "Follow deleted") {
-          // setState({ ...state, userFollowStatus: false });
           setUserFollowStatus(false);
         }
       });
