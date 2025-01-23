@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import secureLocalStorage from "react-secure-storage";
 
-const fetchUserGames = (type) => {
-  const user = JSON.parse(secureLocalStorage.getItem("user"));
-
+const fetchUserGames = (type, userId) => {
   const games = axios.get(`/user/${type}`, {
     headers: {
-      User: JSON.stringify(user),
+      User: JSON.stringify({ id: userId }),
       "Content-Type": "application/json",
     },
   });
@@ -15,9 +12,10 @@ const fetchUserGames = (type) => {
   return games;
 };
 
-export default function useQueryUserGames(type) {
+export default function useQueryUserGames(type, userId) {
   return useQuery({
-    queryKey: ["userGames", type],
-    queryFn: () => fetchUserGames(type),
+    queryKey: ["userGames", type, userId],
+    queryFn: () => fetchUserGames(type, userId),
+    enabled: userId !== "",
   });
 }

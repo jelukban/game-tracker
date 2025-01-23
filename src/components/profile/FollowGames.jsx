@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import secureLocalStorage from "react-secure-storage";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
 import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 import { selectId } from "../../redux/slices/followSlice";
 
@@ -18,6 +19,16 @@ function FollowGames() {
 
   const { followUser, followUserLoaded, userFollowStatus } = state;
 
+  const interestQuery = useQueryUserGames("interests", followUserId);
+  const playedQuery = useQueryUserGames("played", followUserId);
+
+  const interests = interestQuery?.isSuccess
+    ? interestQuery?.data?.data?.data
+    : [];
+
+  const played = playedQuery?.isSuccess ? playedQuery?.data?.data?.data : [];
+
+  console.log({ interestQuery, interests, playedQuery, played });
   useEffect(() => {
     let queryString = new URLSearchParams({
       id: followUserId,
@@ -96,14 +107,18 @@ function FollowGames() {
             </Button>
           )}
         </div>
-        <div>
-          <h1>Interests</h1>
-          <VideoGameContainer user={followUser.data} />
-        </div>
-        <div>
-          <h1>Games Played</h1>
-          <VideoGameContainer user={followUser.data} />
-        </div>
+        {interestQuery.isSuccess && (
+          <div>
+            <h1>Interests</h1>
+            <VideoGameContainer user={interests} />
+          </div>
+        )}
+        {playedQuery.isSuccess && (
+          <div>
+            <h1>Games Played</h1>
+            <VideoGameContainer user={played} />
+          </div>
+        )}
       </div>
     );
   }

@@ -1,9 +1,12 @@
 import { React } from "react";
 import useQueryUserGames from "../../hooks/useQueryUserGames";
 import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
+import secureLocalStorage from "react-secure-storage";
 
 function UserPlayedGames() {
-  const gamesQuery = useQueryUserGames("played");
+  const user = JSON.parse(secureLocalStorage.getItem("user"));
+
+  const gamesQuery = useQueryUserGames("played", user?.id);
   const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 
   return (

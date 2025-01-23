@@ -4,14 +4,14 @@ import Col from "react-bootstrap/Col";
 import VideoGameCard from "./VideoGameCard.jsx";
 
 function VideoGameContainer({ games }) {
-  const halfOfGames = Math.ceil(games.length / 2);
+  const halfOfGames = Math.ceil(games?.length / 2);
 
   return (
     <>
       <Container fluid className="grid game-container">
         <Row>
           <Col>
-            {games.slice(0, halfOfGames).map((game) => (
+            {games?.slice(0, halfOfGames).map((game) => (
               <div key={game.id} className="game">
                 <VideoGameCard
                   game_id={game.id}
@@ -25,7 +25,7 @@ function VideoGameContainer({ games }) {
             ))}
           </Col>
           <Col>
-            {games.slice(halfOfGames, games.length).map((game) => (
+            {games?.slice(halfOfGames, games.length).map((game) => (
               <div key={game.id} className="game">
                 <VideoGameCard
                   game_id={game.id}
