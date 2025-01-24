@@ -24,9 +24,9 @@ function FollowGames() {
 
   const interests = interestQuery?.isSuccess
     ? interestQuery?.data?.data?.data
-    : [];
+    : null;
 
-  const played = playedQuery?.isSuccess ? playedQuery?.data?.data?.data : [];
+  const played = playedQuery?.isSuccess ? playedQuery?.data?.data?.data : null;
 
   console.log({ interestQuery, interests, playedQuery, played });
   useEffect(() => {
@@ -110,13 +110,13 @@ function FollowGames() {
         {interestQuery.isSuccess && (
           <div>
             <h1>Interests</h1>
-            <VideoGameContainer user={interests} />
+            <VideoGameContainer games={interests} />
           </div>
         )}
-        {playedQuery.isSuccess && (
+        {playedQuery?.isSuccess && (
           <div>
             <h1>Games Played</h1>
-            <VideoGameContainer user={played} />
+            <VideoGameContainer games={played} />
           </div>
         )}
       </div>
