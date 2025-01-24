@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useQueryClient } from "@tanstack/react-query";
-import UserInterests from "../profile/UserInterests";
-import UserPlayedGames from "../profile/UserPlayedGames";
 import { Button, Form, Modal, Container, Row } from "react-bootstrap";
 import secureLocalStorage from "react-secure-storage";
+import { useQueryClient } from "@tanstack/react-query";
+import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
+import useQueryUserGames from "../../hooks/useQueryUserGames";
+import useMutateFollowUser from "../../hooks/useMutateFollowUser";
+import useMutateUnfollowUser from "../../hooks/useMutateUnfollowUser";
 
 function SearchUsers() {
   const queryClient = useQueryClient();
@@ -14,9 +16,20 @@ function SearchUsers() {
     ? JSON.parse(secureLocalStorage.getItem("user"))
     : undefined;
 
-  const [userFollowStatus, setUserFollowStatus] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [user, setUser] = useState(null);
+
+  const interestQuery = useQueryUserGames("interests", user?.id);
+  const playedQuery = useQueryUserGames("played", user?.id);
+
+  const interests = interestQuery?.isSuccess
+    ? interestQuery?.data?.data?.data
+    : null;
+
+  const played = playedQuery?.isSuccess ? playedQuery?.data?.data?.data : null;
+
+  const followUser = useMutateFollowUser();
+  const unfollowUser = useMutateUnfollowUser();
 
   const handleClose = () => {
     setOpenModal(false);
@@ -27,7 +40,7 @@ function SearchUsers() {
 
     try {
       const data = await queryClient.fetchQuery({
-        queryKey: ["user"],
+        queryKey: ["followUser"],
         queryFn: () => {
           const data = axios.get(
             `/search/user?${new URLSearchParams({
@@ -56,39 +69,42 @@ function SearchUsers() {
   const handleFollow = (e) => {
     e.preventDefault();
 
-    fetch("/follow", {
-      method: "PUT",
-      body: JSON.stringify({
-        followUserId: followerUserInfo.id,
-        followingUserId: user.id,
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Follow was made!") {
-          setUserFollowStatus(true);
-        }
-      });
+    followUser.mutate(user?.id);
+    // fetch("/follow", {
+    //   method: "PUT",
+    //   body: JSON.stringify({
+    //     followUserId: followerUserInfo.id,
+    //     followingUserId: user.id,
+    //   }),
+    //   headers: { "Content-Type": "application/json" },
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     if (result.message === "Follow was made!") {
+    //       setUserFollowStatus(true);
+    //     }
+    //   });
   };
 
   const handleUnfollow = (e) => {
     e.preventDefault();
 
-    fetch("/unfollow", {
-      method: "PUT",
-      body: JSON.stringify({
-        followUserId: followerUserInfo.id,
-        followingUserId: user.id,
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "Follow deleted") {
-          setUserFollowStatus(false);
-        }
-      });
+    unfollowUser.mutate(user?.id);
+
+    // fetch("/unfollow", {
+    //   method: "PUT",
+    //   body: JSON.stringify({
+    //     followUserId: followerUserInfo.id,
+    //     followingUserId: user.id,
+    //   }),
+    //   headers: { "Content-Type": "application/json" },
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     if (result.message === "Follow deleted") {
+    //       setUserFollowStatus(false);
+    //     }
+    //   });
   };
 
   return (
@@ -125,7 +141,7 @@ function SearchUsers() {
         </Modal.Header>
         <Modal.Body>
           <div className="follow-button">
-            {!userFollowStatus ? (
+            {user?.follow_status !== "true" ? (
               <Button
                 variant="secondary"
                 onClick={handleFollow}
@@ -143,8 +159,18 @@ function SearchUsers() {
               </Button>
             )}
           </div>
-          <UserInterests user={user} />
-          <UserPlayedGames user={user} />
+          {interestQuery.isSuccess && (
+            <div>
+              <h1>Interests</h1>
+              <VideoGameContainer games={interests} />
+            </div>
+          )}
+          {playedQuery?.isSuccess && (
+            <div>
+              <h1>Games Played</h1>
+              <VideoGameContainer games={played} />
+            </div>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

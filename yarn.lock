@@ -2497,6 +2497,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.64.2":
+  version: 5.64.2
+  resolution: "@tanstack/query-devtools@npm:5.64.2"
+  checksum: 76aa0dc176578f125282e26bfcde9eb4af8175942b98c56457537094f722ca9ccba5238be051221fc4c5b937adb30137093fd6f305340e9faee76575d7f3af70
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.64.2":
+  version: 5.64.2
+  resolution: "@tanstack/react-query-devtools@npm:5.64.2"
+  dependencies:
+    "@tanstack/query-devtools": 5.64.2
+  peerDependencies:
+    "@tanstack/react-query": ^5.64.2
+    react: ^18 || ^19
+  checksum: 718fbd760e277e602f9abde832d03240c8357b16084e0586dc68ea0582d020d998087bf31c9f90f50f1ad5eac65eb68150782f3086bd992113782685b63f6777
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.62.0":
   version: 5.62.0
   resolution: "@tanstack/react-query@npm:5.62.0"
@@ -6525,6 +6544,7 @@ __metadata:
   dependencies:
     "@reduxjs/toolkit": ^2.4.0
     "@tanstack/react-query": ^5.62.0
+    "@tanstack/react-query-devtools": ^5.64.2
     axios: ^1.7.7
     bootstrap: 5.3.0-alpha1
     classnames: ^2.3.2

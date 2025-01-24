@@ -28,7 +28,6 @@ function FollowGames() {
 
   const played = playedQuery?.isSuccess ? playedQuery?.data?.data?.data : null;
 
-  console.log({ interestQuery, interests, playedQuery, played });
   useEffect(() => {
     let queryString = new URLSearchParams({
       id: followUserId,
