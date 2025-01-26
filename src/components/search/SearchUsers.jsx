@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Button, Form, Modal, Container, Row } from "react-bootstrap";
@@ -18,6 +18,7 @@ function SearchUsers() {
 
   const [openModal, setOpenModal] = useState(false);
   const [user, setUser] = useState(null);
+  const [followStatus, setFollowStatus] = useState(null);
 
   const interestQuery = useQueryUserGames("interests", user?.id);
   const playedQuery = useQueryUserGames("played", user?.id);
@@ -59,6 +60,7 @@ function SearchUsers() {
 
       setUser(data?.data?.data);
       setOpenModal(true);
+      setFollowStatus(data?.data?.data?.follow_status === "true");
     } catch (error) {
       if (error?.status === 404) {
         toast.error("User not found");
@@ -70,41 +72,14 @@ function SearchUsers() {
     e.preventDefault();
 
     followUser.mutate(user?.id);
-    // fetch("/follow", {
-    //   method: "PUT",
-    //   body: JSON.stringify({
-    //     followUserId: followerUserInfo.id,
-    //     followingUserId: user.id,
-    //   }),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     if (result.message === "Follow was made!") {
-    //       setUserFollowStatus(true);
-    //     }
-    //   });
+    setFollowStatus(true);
   };
 
   const handleUnfollow = (e) => {
     e.preventDefault();
 
     unfollowUser.mutate(user?.id);
-
-    // fetch("/unfollow", {
-    //   method: "PUT",
-    //   body: JSON.stringify({
-    //     followUserId: followerUserInfo.id,
-    //     followingUserId: user.id,
-    //   }),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     if (result.message === "Follow deleted") {
-    //       setUserFollowStatus(false);
-    //     }
-    //   });
+    setFollowStatus(false);
   };
 
   return (
@@ -141,7 +116,7 @@ function SearchUsers() {
         </Modal.Header>
         <Modal.Body>
           <div className="follow-button">
-            {user?.follow_status !== "true" ? (
+            {!followStatus ? (
               <Button
                 variant="secondary"
                 onClick={handleFollow}

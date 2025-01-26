@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 import secureLocalStorage from "react-secure-storage";
 
 const unfollowUser = async (id) => {
@@ -24,8 +25,9 @@ export default function useMutateUnfollowUser() {
 
   return useMutation({
     mutationFn: (id) => unfollowUser(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["followUser"] });
+    onSuccess: (data, variables, context) => {
+      toast.success("User unfollowed");
+      queryClient.invalidateQueries({ queryKey: ["followUser", variables] });
     },
     onError: (error) => {
       console.log(error);
