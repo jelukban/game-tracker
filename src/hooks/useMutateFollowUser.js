@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import secureLocalStorage from "react-secure-storage";
@@ -21,10 +21,13 @@ const followUser = async (id) => {
 };
 
 export default function useMutateFollowUser() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (id) => followUser(id),
     onSuccess: () => {
       toast.success("User followed");
+      queryClient.refetchQueries({ queryKey: ["userFollows"] });
     },
     onError: () => {
       toast.error("Error when trying to follow user");

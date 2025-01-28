@@ -8,6 +8,7 @@ import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
 import useQueryUserGames from "../../hooks/useQueryUserGames";
 import useMutateFollowUser from "../../hooks/useMutateFollowUser";
 import useMutateUnfollowUser from "../../hooks/useMutateUnfollowUser";
+import useQueryUserFollows from "../../hooks/useQueryUserFollows";
 
 function SearchUsers() {
   const queryClient = useQueryClient();
@@ -18,7 +19,6 @@ function SearchUsers() {
 
   const [openModal, setOpenModal] = useState(false);
   const [user, setUser] = useState(null);
-  const [followStatus, setFollowStatus] = useState(null);
 
   const interestQuery = useQueryUserGames("interests", user?.id);
   const playedQuery = useQueryUserGames("played", user?.id);
@@ -31,6 +31,11 @@ function SearchUsers() {
 
   const followUser = useMutateFollowUser();
   const unfollowUser = useMutateUnfollowUser();
+
+  const followsQuery = useQueryUserFollows();
+  const follows = followsQuery.isSuccess ? followsQuery?.data?.data?.data : [];
+
+  const followButton = !!!follows?.filter((follow) => follow.id === user?.id);
 
   const handleClose = () => {
     setOpenModal(false);
@@ -60,7 +65,6 @@ function SearchUsers() {
 
       setUser(data?.data?.data);
       setOpenModal(true);
-      setFollowStatus(data?.data?.data?.follow_status === "true");
     } catch (error) {
       if (error?.status === 404) {
         toast.error("User not found");
@@ -72,14 +76,12 @@ function SearchUsers() {
     e.preventDefault();
 
     followUser.mutate(user?.id);
-    setFollowStatus(true);
   };
 
   const handleUnfollow = (e) => {
     e.preventDefault();
 
     unfollowUser.mutate(user?.id);
-    setFollowStatus(false);
   };
 
   return (
@@ -116,7 +118,7 @@ function SearchUsers() {
         </Modal.Header>
         <Modal.Body>
           <div className="follow-button">
-            {!followStatus ? (
+            {followButton ? (
               <Button
                 variant="secondary"
                 onClick={handleFollow}

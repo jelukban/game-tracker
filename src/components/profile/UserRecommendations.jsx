@@ -2,11 +2,13 @@ import { React, useState } from "react";
 import VideoGame from "../common/videoGameCard/VideoGameCard";
 import useQueryUserGames from "../../hooks/useQueryUserGames";
 import Carousel from "react-bootstrap/Carousel";
+import secureLocalStorage from "react-secure-storage";
 
 function UserRecommendations() {
+  const user = JSON.parse(secureLocalStorage.getItem("user"));
   const [index, setIndex] = useState(0);
 
-  const gamesQuery = useQueryUserGames("recommendations");
+  const gamesQuery = useQueryUserGames("recommendations", user?.id);
   const games = gamesQuery.isSuccess ? gamesQuery?.data?.data?.data : [];
 
   const handleSelect = (selectedIndex, e) => {

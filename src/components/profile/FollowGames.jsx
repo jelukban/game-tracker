@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import VideoGameContainer from "../common/videoGameCard/VideoGameContainer";
@@ -6,11 +6,12 @@ import useQueryUserInfo from "../../hooks/useQueryUserInfo";
 import useQueryUserGames from "../../hooks/useQueryUserGames";
 import useMutateFollowUser from "../../hooks/useMutateFollowUser";
 import useMutateUnfollowUser from "../../hooks/useMutateUnfollowUser";
+import useQueryUserFollows from "../../hooks/useQueryUserFollows";
 import { selectId } from "../../redux/slices/followSlice";
 
 function FollowGames() {
   const followUserId = useSelector(selectId);
-  const [followButton, setFollowButton] = useState(false);
+
   const interestQuery = useQueryUserGames("interests", followUserId);
   const playedQuery = useQueryUserGames("played", followUserId);
   const followUser = useMutateFollowUser();
@@ -28,18 +29,21 @@ function FollowGames() {
     ? followingUserQuery?.data?.data?.data
     : null;
 
+  const followsQuery = useQueryUserFollows();
+  const follows = followsQuery.isSuccess ? followsQuery?.data?.data?.data : [];
+
+  const followButton = !!!follows?.filter((user) => user.id === followUserId);
+
   const handleFollow = (e) => {
     e.preventDefault();
 
     followUser.mutate(followUserId);
-    setFollowButton(false);
   };
 
   const handleUnfollow = (e) => {
     e.preventDefault();
 
     unfollowUser.mutate(followUserId);
-    setFollowButton(true);
   };
 
   return (

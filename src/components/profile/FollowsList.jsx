@@ -36,7 +36,7 @@ function FollowsList() {
       </Modal.Header>
       <Modal.Body>
         <ListGroup>
-          {follows.map((follow, idx) => (
+          {follows?.map((follow, idx) => (
             <div key={idx}>
               <ListGroup.Item
                 action
