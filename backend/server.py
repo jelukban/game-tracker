@@ -257,7 +257,8 @@ def retrieve_user_follows():
     data = request.headers
     user = json.loads(data.get("User"))
     user_id = user.get("id")
-
+    print("-----------**************************---------------------")
+    print(data)
     followings = crud.retrieve_all_followings_for_user(follower_user_id=user_id)
 
     if len(followings) != 0:
