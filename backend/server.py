@@ -141,6 +141,9 @@ def create_interest_game_by_user(game_id):
     else:
         interest = crud.create_interest(game_id=int(game_id), user_id=int(user_id))
 
+        print("--------------***************------------------")
+        print(interest)
+
         if interest:
             db.session.add(interest)
             db.session.commit()
@@ -390,4 +393,4 @@ def delete_game_played_by_user(game_id):
 
 if __name__ == "__main__":
     connect_to_db(app)
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
